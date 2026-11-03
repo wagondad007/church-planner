@@ -1385,7 +1385,7 @@ body.in-setup { overflow-y: auto; }
 @keyframes sheet-up { from { transform: translateY(24px); opacity: 0; } to { transform: none; opacity: 1; } }
 
 /* quick setup */
-.org-pick.compact { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.org-pick.compact { grid-template-columns: repeat(5, minmax(0, 1fr)); }
 .org-pick.compact .org-opt { flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 8px; padding: 14px 8px; min-height: 84px; }
 .role-pick.chips { display: flex; flex-wrap: wrap; gap: 8px; grid-template-columns: none; }
 .role-pick.chips .role-opt { padding: 10px 14px; min-height: 44px; border-radius: 99px; width: auto; }
@@ -1396,6 +1396,7 @@ body.in-setup { overflow-y: auto; }
 .setup-foot .linkish { margin-left: 4px; }
 @media (max-width: 860px) {
   .org-pick.compact { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .org-pick.compact .org-opt:last-child:nth-child(odd) { grid-column: span 2; min-height: 64px; }
   .org-pick.compact .org-opt { flex-direction: column; flex-wrap: nowrap; }
   .setup-foot { flex-wrap: wrap; }
   .setup-foot .linkish { order: 3; flex-basis: 100%; justify-content: center; }
@@ -1834,6 +1835,128 @@ body.stand-open { overflow: hidden; }
 .w-plan-card .t { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 @media (max-width: 600px) { .topbar .actions [data-action="w-print"] { display: none; } }
 
+/* ---------- Family: home tiles, chores, meals, groceries, rides ---------- */
+.fam-tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 4px 0 22px; }
+.fam-tile { display: flex; flex-direction: column; gap: 2px; padding: 16px; background: var(--surface); border-radius: 18px; box-shadow: var(--shadow); color: inherit; text-decoration: none; min-height: 118px; position: relative; transition: transform .12s, box-shadow .12s; }
+.fam-tile:hover { transform: translateY(-1px); }
+.fam-tile-i { width: 34px; height: 34px; border-radius: 11px; display: grid; place-items: center; background: var(--accent-50); color: var(--accent); margin-bottom: 6px; }
+.fam-tile-i svg { width: 19px; height: 19px; }
+.fam-tile-l { font-size: 12.5px; color: var(--text-3); font-weight: 600; text-transform: uppercase; letter-spacing: .03em; }
+.fam-tile b { font-size: 18px; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.fam-tile small { color: var(--text-3); font-size: 13px; }
+.fam-tile.ok .fam-tile-i { background: rgba(63,191,127,.16); color: #5fd49a; }
+.fam-tile.warn .fam-tile-i { background: rgba(240,168,48,.16); color: #f3b955; }
+.fam-tile.bad .fam-tile-i { background: rgba(239,90,90,.16); color: #ff8a8a; }
+.fam-chips { display: flex; gap: 10px; overflow-x: auto; padding: 2px 2px 10px; margin-bottom: 14px; scrollbar-width: none; }
+.fam-chips::-webkit-scrollbar { display: none; }
+.fam-chip { display: flex; align-items: center; gap: 10px; padding: 10px 14px 10px 10px; background: var(--surface); border-radius: 99px; box-shadow: var(--shadow); color: inherit; text-decoration: none; flex: none; }
+.fam-chip span { display: flex; flex-direction: column; line-height: 1.2; }
+.fam-chip small { color: var(--text-3); font-size: 12.5px; }
+.fam-chip.all { box-shadow: inset 0 0 0 2px #3fbf7f; }
+.fam-tabs { margin-bottom: 16px; display: flex; width: 100%; max-width: 420px; }
+.fam-tabs button { flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 9px 12px; min-height: 40px; }
+.fam-tabs .count { background: var(--accent); color: var(--accent-ink); border-radius: 99px; padding: 0 7px; font-size: 12px; line-height: 18px; }
+.fam-board { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; margin-bottom: 14px; }
+.fam-score { display: flex; align-items: center; gap: 12px; padding: 14px 16px; }
+.fam-score .grow { min-width: 0; }
+.fam-score small { color: var(--text-3); font-size: 13px; }
+.fam-bar { height: 8px; background: var(--line-2); border-radius: 99px; overflow: hidden; margin: 6px 0 4px; }
+.fam-bar span { display: block; height: 100%; background: linear-gradient(90deg, #f6c445, #f08a5d); border-radius: 99px; }
+.fam-add { padding: 12px; margin-bottom: 18px; display: grid; gap: 10px; }
+.fam-add .input { min-height: 44px; }
+.fam-add-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.fam-add-row select { flex: 1 1 130px; min-width: 0; }
+.fam-add-row .btn { min-height: 44px; }
+.fam-pts-in { display: flex; align-items: center; gap: 4px; flex: 0 0 92px; position: relative; }
+.fam-pts-in svg { position: absolute; left: 10px; width: 16px; height: 16px; color: #f6c445; pointer-events: none; }
+.fam-pts-in input { padding-left: 32px; width: 100%; }
+.fam-add.groc { grid-template-columns: 1fr auto; }
+.fam-person { margin-bottom: 18px; }
+.fam-ph { display: flex; align-items: center; gap: 10px; margin: 0 2px 10px; flex-wrap: wrap; }
+.fam-ph b { font-size: 16px; }
+.fam-ph .muted { font-size: 13.5px; }
+.fam-yay { font-weight: 700; color: #5fd49a; font-size: 13.5px; }
+.fam-none { padding: 16px 20px; color: var(--text-3); }
+.fam-chart { padding: 14px 12px; margin-bottom: 14px; overflow-x: auto; }
+.fam-grid { display: grid; gap: 2px; min-width: 300px; }
+.fam-gr { display: grid; grid-template-columns: minmax(84px, 1fr) repeat(7, minmax(30px, 40px)); align-items: center; gap: 2px; padding: 4px 0; border-top: 1px solid var(--line, #eee); }
+.fam-gr.head { border-top: 0; font-size: 12px; font-weight: 700; color: var(--text-3); text-align: center; }
+.fam-gr.head .now { color: var(--accent-600); }
+.fam-gt { font-size: 14px; cursor: pointer; padding-right: 8px; }
+.fam-gt small { color: #f6c445; font-weight: 600; display: inline-flex; align-items: center; gap: 2px; }
+.fam-gt small svg { width: 12px; height: 12px; }
+.fam-gc { display: grid; place-items: center; }
+.fam-gc.off::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--line-2); }
+.fam-gc .tick { width: 28px; height: 28px; }
+.fam-weeknav { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+.fam-weeknav b { font-size: 16px; }
+.fam-weeknav .muted { font-size: 13.5px; flex: 1; }
+.fam-week { padding: 6px 0; }
+.fam-day { display: flex; align-items: flex-start; gap: 14px; padding: 12px 16px; border-top: 1px solid var(--line, #eee); }
+.fam-day:first-child { border-top: 0; }
+.fam-day.is-today { background: linear-gradient(90deg, var(--accent-50), transparent); }
+.fam-day .grow { flex: 1; display: grid; gap: 6px; min-width: 0; }
+.fam-meal { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; text-align: left; background: var(--surface-2); border: 0; border-radius: 12px; padding: 10px 12px; cursor: pointer; font: inherit; color: inherit; min-height: 44px; width: 100%; }
+.fam-meal b { font-size: 15px; }
+.fam-meal small { display: inline-flex; align-items: center; gap: 5px; color: var(--text-3); font-size: 12.5px; }
+.fam-meal.add { color: var(--text-2); border: 1.5px dashed var(--line-2, #ddd); background: transparent; align-items: center; font-weight: 600; }
+.fam-meal.add svg { width: 16px; height: 16px; }
+.fam-meal.none { background: transparent; cursor: default; font-size: 14px; }
+.fam-slot { font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--text-3); flex-basis: 100%; }
+.fam-ideas { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.fam-ideas .chip { border: 1px solid var(--line-2); background: var(--surface-2); color: var(--text); border-radius: 99px; padding: 6px 12px; font: inherit; font-size: 13px; cursor: pointer; min-height: 34px; }
+.fam-tip { margin-top: 10px; }
+.fam-glist { padding: 4px 0; margin-bottom: 16px; }
+.fam-g { display: flex; align-items: center; gap: 12px; padding: 10px 12px 10px 16px; border-top: 1px solid var(--line, #eee); min-height: 56px; }
+.fam-g:first-child { border-top: 0; }
+.fam-g .tick { width: 28px; height: 28px; }
+.fam-g .grow { flex: 1; display: flex; flex-direction: column; min-width: 0; cursor: pointer; }
+.fam-g b { font-weight: 600; font-size: 15.5px; }
+.fam-g small { color: var(--text-3); font-size: 12.5px; }
+.fam-g.is-done b { text-decoration: line-through; color: var(--text-3); font-weight: 500; }
+.linkish.more, button.more.linkish { margin-left: auto; background: none; border: 0; color: var(--text-2); font: inherit; font-size: 13.5px; cursor: pointer; text-decoration: underline; }
+.fam-trip { padding: 14px 16px; margin-bottom: 10px; }
+.fam-trip.open { box-shadow: inset 4px 0 0 #f0a830, var(--shadow); }
+.fam-trip-h { display: flex; gap: 12px; align-items: flex-start; }
+.fam-trip-h .t { font-weight: 650; font-size: 16px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.fam-trip-h .s { color: var(--text-3); font-size: 13.5px; display: flex; align-items: center; gap: 4px; flex-wrap: wrap; margin-top: 2px; }
+.fam-trip-h .s svg { width: 14px; height: 14px; }
+.fam-kids { display: flex; }
+.fam-kids .avatar + .avatar { margin-left: -6px; box-shadow: 0 0 0 2px var(--surface); }
+.fam-legs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+.fam-leg { display: flex; flex-direction: column; gap: 6px; }
+.fam-leg-l { font-size: 12px; font-weight: 700; color: var(--text-3); text-transform: uppercase; letter-spacing: .04em; }
+.fam-driver { min-height: 44px; }
+.fam-driver.open { border-color: #f0a830; background: rgba(240,168,48,.08); }
+.fam-who { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; min-height: 36px; }
+.fam-points { display: flex; align-items: center; gap: 14px; padding: 14px 18px; margin-bottom: 14px; color: inherit; text-decoration: none; }
+.fam-points .grow { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.fam-points b { font-size: 17px; }
+.fam-points small { color: var(--text-3); }
+.fam-points > svg, .fam-dinner > svg:last-child { width: 18px; height: 18px; flex: none; color: var(--text-3); }
+.fam-star { flex: none; }
+.fam-star { width: 40px; height: 40px; border-radius: 12px; background: rgba(246,196,69,.16); color: #f6c445; display: grid; place-items: center; }
+.fam-star svg { width: 22px; height: 22px; }
+.fam-mini:empty { display: none; }
+.fam-dinner { display: flex; align-items: center; gap: 12px; padding: 14px 18px; margin-bottom: 14px; color: inherit; text-decoration: none; }
+.fam-dinner svg { width: 22px; height: 22px; color: var(--accent-600); }
+.fam-dinner span { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.fam-dinner small { color: var(--text-3); font-size: 12.5px; }
+.fam-ev { margin-top: 16px; }
+.fam-ev .chip-checks { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.fam-ev .check svg { width: 16px; height: 16px; vertical-align: -3px; }
+.lvl-pill.lvl-kid { background: rgba(91,141,239,.18); color: #9bbcff; }
+@media (max-width: 860px) {
+  .fam-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .fam-tile { min-height: 108px; padding: 14px; }
+  .fam-tile b { font-size: 16.5px; }
+  .fam-day { padding: 12px; gap: 10px; }
+  .fam-tabs { max-width: none; }
+}
+@media (max-width: 420px) {
+  .fam-legs { grid-template-columns: 1fr; }
+}
+
 </style>
 </head>
 <body>
@@ -2164,9 +2287,31 @@ window.ChurchPM = window.ChurchPM || {};
         eventWord: 'Appointment', eventsWord: 'Appointments', eventDefault: 'appointment',
       },
     },
+    family: {
+      label: 'Family', icon: 'home', blurb: 'Your household: chores, meals, rides and everyone’s calendar.',
+      namePlaceholder: 'e.g. The Cole Family', fallbackName: 'Our Family', youPlaceholder: 'e.g. Sam Cole',
+      labels: { org: 'family', ministry: 'Area', ministries: 'Areas', allChurch: 'Whole family', manager: 'Parent', staff: 'Family member' },
+      staffTypes: { hourly: ['Teen', 0], salaried: ['Adult', 0], volunteer: ['Kid', 0] },
+      groups: [['Home', '#3fb68b'], ['School', '#5b8def'], ['Activities', '#f07c3c'], ['Appointments', '#ef6f8e'], ['Meals', '#e3af4a']],
+      logos: ['home', 'family', 'heart', 'sun', 'star'], accent: '#f08a5d',
+      // Simple by default: no hours or workload, no projects or meeting recordings. Family tools on.
+      features: { verse: false, worship: false, workload: false, projects: false, meetings: false, family: true },
+      copy: {
+        teamHint: 'Everyone in your household.', eventStep: 'Add something to the family calendar', eventHint: 'School, practices, appointments, birthdays…',
+        sample: 'family', sampleName: 'The Cole Family', thanks: 'Thanks for helping out!', taskPh: 'e.g. Take out the trash', eventPh: 'e.g. Soccer practice',
+        locPh: 'e.g. Riverside Park', titlePh: 'e.g. Mom, Big sister', notesPh: 'Allergies, sizes, school, favorite things…', exemptHint: '',
+        volHint: '', bannerName: 'This week', bannerFeature: 'An optional Bible verse or encouraging message at the top of Home.',
+        eventsFeature: 'School, practices and appointments; “Coming up” on Home.', typeHelp: { hourly: 'A teenager', salaried: 'A grown-up', volunteer: 'A younger kid' },
+        previewTask: 'Unload the dishwasher', newGroup: 'New area', allItems: 'Whole-family items',
+        eventWord: 'Event', eventsWord: 'Events', eventDefault: 'event',
+        quickTaskPh: 'e.g. Noah feed the dog daily 2 pts', quickEventPh: 'e.g. Emma volleyball Thu 5-6:30pm at the Rec Center',
+      },
+    },
   };
 
   const t = (title, hours, day, recurring) => ({ title, hours, day, recurring: recurring || 'weekly' });
+  /** A family chore: points instead of hours. day = 0 Monday … 6 Sunday (ignored for 'daily'). */
+  const c = (title, points, day, recurring) => ({ title, hours: 0, day, recurring: recurring || 'weekly', points, chore: points > 0 });
   const ROLE_LIBRARY = {
     church: [
       { id: 'senior-pastor', label: 'Senior Pastor', title: 'Senior Pastor', group: 'Pastoral Care', emphasis: 'team', starterTasks: [t('Sermon preparation', 8, 3), t('Staff meeting', 1, 1), t('Pastoral calls & visits', 3, 2), t('Plan the week ahead', 1, 0)] },
@@ -2200,6 +2345,14 @@ window.ChurchPM = window.ChurchPM || {};
       { id: 'counselor', label: 'Counselor', title: 'Licensed Counselor', group: 'Sessions', emphasis: 'events', starterTasks: [t('Session notes caught up', 2, 4), t('Review caseload & treatment plans', 1, 0), t('Clinical supervision', 1, 2)] },
       { id: 'scheduler', label: 'Scheduler / Admin', title: 'Scheduler', group: 'Admin', emphasis: 'events', starterTasks: [t('Confirm next week’s appointments', 2, 3), t('Return voicemails & intake inquiries', 2, 0), t('Send appointment reminders', 1, 1), t('Insurance & billing follow-ups', 1, 4), t('Monthly billing report', 1, 4, 'monthly')] },
       { id: 'intern', label: 'Intern', title: 'Counseling Intern', group: 'Sessions', emphasis: 'tasks', starterTasks: [t('Supervision prep', 1, 1), t('Log practicum hours', 0.5, 4), t('Shadow intake call', 1, 2)] },
+    ],
+    // Family roles also suggest a permission level (applied when you add or invite them).
+    family: [
+      { id: 'parent', label: 'Parent / Guardian', title: 'Parent', group: 'Home', emphasis: 'team', level: 'admin', starterTasks: [c('Plan next week’s meals', 0, 6), c('Grocery run', 0, 5), t('Pay the bills', 0, 0, 'monthly'), c('Check the family calendar', 0, 6)] },
+      { id: 'teen', label: 'Teen', title: 'Teen', group: 'Home', emphasis: 'tasks', level: 'member', starterTasks: [c('Load the dishwasher', 2, 0, 'daily'), c('Take out the trash', 3, 0), c('Clean your room', 5, 5), c('Mow the lawn', 10, 5)] },
+      { id: 'kid', label: 'Kid', title: 'Kid', group: 'Home', emphasis: 'tasks', level: 'kid', starterTasks: [c('Make your bed', 1, 0, 'daily'), c('Feed the pet', 2, 0, 'daily'), c('Pick up toys', 1, 0, 'daily'), c('Help set the table', 1, 0, 'daily')] },
+      { id: 'grandparent', label: 'Grandparent', title: 'Grandparent', group: 'Home', emphasis: 'events', level: 'manager', starterTasks: [c('School pickup', 0, 2), c('Story time with the kids', 0, 4)] },
+      { id: 'caregiver', label: 'Caregiver / Babysitter', title: 'Caregiver', group: 'Home', emphasis: 'tasks', level: 'manager', starterTasks: [c('After-school snack & homework check', 0, 0, 'daily'), c('Tidy up before parents get home', 0, 0, 'daily')] },
     ],
   };
   NS.ORG_TYPES = ORG_TYPES;
@@ -3308,6 +3461,11 @@ Even [C]so, it is [G7]well with my [C]soul.` },
     if (rm) { out.recurring = 'monthly'; cut(rm[0]); }
     const every = /\severy\s+(mon|tue|tues|wed|weds|thu|thur|thurs|fri|sat|sun|monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b/i.exec(s);
     if (every) { out.recurring = 'weekly'; s = s.replace(every[0], ` ${every[1]}`); }
+    const rd = /\s(?:every day|each day|daily|every night|each night|nightly)(?=[\s,.]|$)/i.exec(s);
+    if (rd) { out.recurring = 'daily'; cut(rd[0]); }
+    // points (family chores): 2 pts, 1 point, 5 points
+    const pt = /\s(\d{1,3})\s*(?:pts?|points?)\b\.?/i.exec(s);
+    if (pt) { out.points = Number(pt[1]); cut(pt[0]); }
     // hours: 2h, 1.5 hrs, 30m, 90 min, half an hour
     const hr = /\s(?:for\s+)?(\d+(?:\.\d+)?|½|half an?)\s*(h|hr|hrs|hour|hours)\b\.?/i.exec(s) || /\s(?:for\s+)?(\d+)\s*(m|min|mins|minutes)\b\.?/i.exec(s);
     if (hr) { const n = /half/i.test(hr[1]) || hr[1] === '½' ? 0.5 : Number(hr[1]); out.hours = /^m/i.test(hr[2]) ? Math.round((n / 60) * 4) / 4 || 0.25 : n; cut(hr[0]); }
@@ -3909,6 +4067,114 @@ Even [C]so, it is [G7]well with my [C]soul.` },
     }]);
     return data;
   };
+
+  /* ---------- Sample family: the Coles — chores with points, the week's dinners, groceries and rides ---------- */
+  NS.sampleFamily = function sampleFamily() {
+    const weekStart = 1;
+    const w0 = U.startOfWeek(U.today(), weekStart);
+    const d = (n) => U.toISO(U.addDays(w0, n));
+    const today = U.todayISO(), ti = U.daysBetween(d(0), today);
+    const ministries = [
+      { id: 'm_home', name: 'Home', color: '#3fb68b' },
+      { id: 'm_school', name: 'School', color: '#5b8def' },
+      { id: 'm_act', name: 'Activities', color: '#f07c3c' },
+      { id: 'm_appt', name: 'Appointments', color: '#ef6f8e' },
+      { id: 'm_meals', name: 'Meals', color: '#e3af4a' },
+    ];
+    const P = (id, name, title, type, roleId, access, extra) => Object.assign({
+      id, name, title, ministryId: 'm_home', type, weeklyHours: 0, roleId, access, hourlyRate: null, exempt: false,
+      email: '', phone: '', notes: '', startDate: '',
+    }, extra || {});
+    const people = [
+      P('p_hayden', 'Hayden Cole', 'Dad', 'salaried', 'parent', A('owner', { userId: 'u_me', joinedAt: '2026-01-05' }), { phone: '(555) 201-1000' }),
+      P('p_sarah', 'Sarah Cole', 'Mom', 'salaried', 'parent', A('admin', { userId: 'u_sarah' }), { phone: '(555) 201-1001' }),
+      P('p_emma', 'Emma Cole', 'Big sister · 14', 'hourly', 'teen', A('member', { userId: 'u_emma' }), { notes: 'Volleyball Tue & Thu. Has a learner’s permit.' }),
+      P('p_noah', 'Noah Cole', '10', 'volunteer', 'kid', A('kid', { userId: 'u_noah' }), { notes: 'Soccer Saturdays, piano Wednesdays. Peanut allergy.' }),
+      P('p_lily', 'Lily Cole', '7', 'volunteer', 'kid', A('kid', { userId: 'u_lily' }), { notes: 'Loves helping in the kitchen.' }),
+      P('p_ruth', 'Grandma Ruth', 'Grandma', 'salaried', 'grandparent', A('manager', { userId: 'u_ruth' }), { phone: '(555) 201-1050', notes: 'Does Wednesday school pickup.' }),
+      P('p_megan', 'Megan Price', 'Babysitter', 'hourly', 'caregiver', A('manager', { status: 'pending', joinedAt: '', invite: { code: 'FAM-MEGN', to: 'megan.price@example.com', sentAt: new Date(Date.now() - 864e5).toISOString(), by: 'p_hayden', resends: 0 } }), { phone: '(555) 201-1077' }),
+    ];
+    // Done on most earlier days (the odd one missed), so the week's points tally has something in it.
+    const past = (skip) => { const o = []; for (let i = 1; i <= 10; i += 1) if (!(skip || []).includes(i)) o.push(U.addISO(today, -i)); return o; };
+    let tn = 0;
+    const T = (title, ministryId, assigneeId, day, recurring, points, extra) => Object.assign({
+      id: `t_${++tn}`, title, ministryId, assigneeId, estHours: 0, dueDate: recurring === 'daily' ? d(-14) : recurring === 'weekly' ? d(day - 7) : d(day),
+      priority: 'medium', status: 'todo', recurring: recurring || 'none', repeatUntil: '', doneDates: [], description: '', createdAt: d(-14), help: null,
+      chore: points != null, points: points || 0,
+    }, extra || {});
+    const wk = (day) => (d(day) < today ? [d(day - 7), d(day)] : [d(day - 7)]);
+    const tasks = [
+      // Emma (teen)
+      T('Load the dishwasher', 'm_home', 'p_emma', 0, 'daily', 2, { doneDates: past([2]) }),
+      T('Take out the trash', 'm_home', 'p_emma', 0, 'weekly', 3, { doneDates: wk(0) }),
+      T('Clean your room', 'm_home', 'p_emma', 5, 'weekly', 5, { doneDates: wk(5) }),
+      T('Mow the lawn', 'm_home', 'p_emma', 5, 'weekly', 10, { doneDates: wk(5) }),
+      // Noah (10)
+      T('Make your bed', 'm_home', 'p_noah', 0, 'daily', 1, { doneDates: past([1, 4]).concat([today]) }),
+      T('Feed Biscuit (the dog)', 'm_home', 'p_noah', 0, 'daily', 2, { doneDates: past() }),
+      T('Clean your room', 'm_home', 'p_noah', 5, 'weekly', 5, { doneDates: wk(5) }),
+      T('Practice piano 20 min', 'm_act', 'p_noah', 0, 'daily', 1, { doneDates: past([1, 2, 5]) }),
+      // Lily (7)
+      T('Make your bed', 'm_home', 'p_lily', 0, 'daily', 1, { doneDates: past([3]).concat([today]) }),
+      T('Help set the table', 'm_home', 'p_lily', 0, 'daily', 1, { doneDates: past() }),
+      T('Pick up toys', 'm_home', 'p_lily', 0, 'daily', 1, { doneDates: past([1]) }),
+      // Grown-ups: everyday to-dos (no points)
+      T('Plan next week’s meals', 'm_meals', 'p_sarah', 6, 'weekly', undefined, { doneDates: [d(-1)] }),
+      T('Grocery run', 'm_meals', 'p_hayden', 5, 'weekly'),
+      T('Sign Emma’s field trip form', 'm_school', 'p_sarah', ti, 'none', undefined, { priority: 'high', description: 'Due back to Mrs. Patel by Friday. $12 in the envelope.' }),
+      T('Renew Noah’s passport', 'm_appt', 'p_hayden', 3, 'none', undefined, { description: 'Photo is in the desk drawer. Post office closes at 5.' }),
+      T('Pay the bills', 'm_home', 'p_hayden', 0, 'monthly', undefined, { dueDate: d(4) }),
+      T('Schedule furnace tune-up', 'm_home', 'p_hayden', 8, 'none'),
+      T('Buy a birthday gift for Ava’s party', 'm_act', 'p_sarah', 4, 'none', undefined, { description: 'Lily’s friend — she likes unicorns and art kits.' }),
+    ];
+    let en = 0;
+    const E = (title, ministryId, type, day, start, end, location, leadId, recurring, extra) => Object.assign({
+      id: `e_${++en}`, title, ministryId, type, date: recurring === 'weekly' ? d(day - 7) : d(day), start, end, location, leadId: leadId || '',
+      recurring: recurring || 'none', repeatUntil: '', description: '', kidIds: [], needsRide: false, rides: {},
+    }, extra || {});
+    const events = [
+      E('Volleyball practice', 'm_act', 'activity', 1, '17:00', '18:30', 'Rec Center', 'p_emma', 'weekly', { kidIds: ['p_emma'], needsRide: true, rides: { [d(1)]: { drop: 'p_sarah', pick: '' } } }),
+      E('Volleyball practice', 'm_act', 'activity', 3, '17:00', '18:30', 'Rec Center', 'p_emma', 'weekly', { kidIds: ['p_emma'], needsRide: true, rides: { [d(3)]: { drop: 'p_hayden', pick: 'p_ruth' } } }),
+      E('Piano lesson', 'm_act', 'activity', 2, '16:00', '16:45', 'Ms. Lee’s studio', 'p_noah', 'weekly', { kidIds: ['p_noah'], needsRide: true, rides: { [d(2)]: { drop: 'p_ruth', pick: 'p_ruth' } } }),
+      E('Soccer game vs. the Hawks', 'm_act', 'activity', 5, '09:00', '10:15', 'Riverside Park, Field 3', 'p_noah', 'none', { kidIds: ['p_noah'], needsRide: true, rides: { [d(5)]: { drop: 'p_hayden', pick: '' } }, description: 'Snack duty: orange slices for 12.' }),
+      E('Dentist — Lily', 'm_appt', 'appointment', 3, '15:30', '16:15', 'Smile Dental', 'p_sarah', 'none', { kidIds: ['p_lily'], needsRide: true, rides: { [d(3)]: { drop: 'p_sarah', pick: 'p_sarah' } } }),
+      E('School picture day', 'm_school', 'school', 2, '', '', 'Lincoln Elementary', '', 'none', { kidIds: ['p_noah', 'p_lily'], description: 'Blue shirts! Order forms went home Monday.' }),
+      E('No school — teacher workday', 'm_school', 'school', 4, '', '', '', '', 'none', { kidIds: ['p_emma', 'p_noah', 'p_lily'] }),
+      E('Family movie night', 'm_home', 'event', 4, '19:00', '21:00', 'Living room', 'p_lily', 'none', { description: 'Lily picks the movie this week.' }),
+      E('Church', '', 'event', 6, '10:00', '11:30', 'Grace Community Church', 'p_hayden', 'weekly'),
+      E('Science fair', 'm_school', 'school', 9, '18:00', '19:30', 'Lincoln Middle School gym', 'p_emma', 'none', { kidIds: ['p_emma'], needsRide: true }),
+      E('Ava’s birthday party', 'm_act', 'activity', 6, '14:00', '16:00', 'Jump Zone', 'p_lily', 'none', { kidIds: ['p_lily'], needsRide: true, rides: { [d(6)]: { drop: 'p_sarah', pick: '' } } }),
+    ];
+    let mn = 0;
+    const M = (day, title, cookId, ingredients, slot, notes) => ({ id: `meal_${++mn}`, date: d(day), slot: slot || 'dinner', title, cookId: cookId || '', ingredients: ingredients || '', notes: notes || '' });
+    const meals = [
+      M(0, 'Taco night', 'p_sarah', 'Taco shells, Ground beef, Shredded cheese, Salsa, Lettuce'),
+      M(1, 'Spaghetti & meatballs', 'p_hayden', 'Spaghetti, Pasta sauce, Frozen meatballs, Garlic bread'),
+      M(2, 'Crockpot chili', 'p_ruth', 'Ground turkey, Kidney beans, Diced tomatoes, Cornbread mix', 'dinner', 'Grandma’s recipe — start it by noon.'),
+      M(3, 'Leftovers', '', ''),
+      M(4, 'Pizza & movie night', 'p_hayden', 'Frozen pizzas, Popcorn'),
+      M(5, 'Pancakes', 'p_emma', 'Pancake mix, Syrup, Berries', 'breakfast'),
+      M(5, 'Grilled burgers', 'p_hayden', 'Ground beef, Burger buns, Cheese slices, Corn on the cob'),
+      M(6, 'Roast chicken & veggies', 'p_sarah', 'Whole chicken, Potatoes, Carrots'),
+    ];
+    let gn = 0;
+    const at = (h) => new Date(Date.now() - h * 36e5).toISOString();
+    const G = (text, by, done, mealId) => ({ id: `g_${++gn}`, text, by, done: !!done, at: at(gn * 3), mealId: mealId || '' });
+    const groceries = [
+      G('Milk', 'p_sarah'), G('Eggs', 'p_sarah'), G('Bread', 'p_hayden'), G('Bananas', 'p_lily'), G('Dog food', 'p_noah'),
+      G('Burger buns', 'p_hayden', false, 'meal_7'), G('Corn on the cob', 'p_hayden', false, 'meal_7'), G('Popcorn', 'p_emma', false, 'meal_5'),
+      G('Paper towels', 'p_sarah'), G('Orange slices (soccer snack)', 'p_hayden'), G('Popsicles', 'p_lily'),
+      G('Taco shells', 'p_sarah', true, 'meal_1'), G('Ground beef', 'p_sarah', true, 'meal_1'), G('Shredded cheese', 'p_sarah', true, 'meal_1'),
+    ];
+    const payouts = [{ id: 'po_1', personId: 'p_emma', points: 20, amount: 5, at: `${d(-1)}T18:00:00`, by: 'p_hayden', note: 'Allowance' }];
+    return {
+      version: 1,
+      settings: { churchName: 'The Cole Family', weekStart, nearThreshold: 0.85, leaderId: 'p_hayden' },
+      ministries, people, tasks, events, projects: [], meetings: [], meals, groceries, payouts,
+      verses: (NS.DEFAULT_VERSES || []).map((v) => Object.assign({}, v)),
+      configPatch: { features: { verse: true }, family: { points: true, pointValue: 0.25, banner: 'verse' } },
+    };
+  };
 })(window.ChurchPM);
 
 </script>
@@ -3929,7 +4195,9 @@ Even [C]so, it is [G7]well with my [C]soul.` },
   };
   const STATUSES = { todo: 'To Do', inprogress: 'In Progress', done: 'Done' };
   const PRIORITIES = { high: 'High', medium: 'Medium', low: 'Low' };
-  const EVENT_TYPES = { service: 'Service', meeting: 'Meeting', event: 'Event', class: 'Class', note: 'Calendar note', appointment: 'Appointment', out: 'Out of office' };
+  const EVENT_TYPES = { service: 'Service', meeting: 'Meeting', event: 'Event', class: 'Class', note: 'Calendar note', appointment: 'Appointment', out: 'Out of office', school: 'School', activity: 'Practice / activity' };
+  /** Calendar types that only make sense in a family workspace. */
+  const FAMILY_EVENT_TYPES = ['school', 'activity'];
   const OVERTIME_LIMIT = 40; // FLSA weekly overtime threshold for non-exempt staff
   const ALL_CHURCH = { id: '', name: 'All Church', color: '#8a6d3b' };
 
@@ -3969,6 +4237,12 @@ Even [C]so, it is [G7]well with my [C]soul.` },
       talk: true,                     // "Talk it out": anyone can speak or type a brain-dump and file it
       projects: true,                 // Projects: optional groupings of tasks with their own members and progress
       worship: false,                 // Worship planning (church only): service orders, band/tech scheduling, songs + Music Stand
+      family: false,                  // Family tools (family only): chores & points, meal plan, grocery list, rides
+    },
+    family: {                         // family workspaces: chore points and what a point is worth
+      points: true,                   // show points on chores and a weekly tally
+      pointValue: 0,                  // dollars per point for an allowance (0 = just points)
+      banner: 'message',              // weekly banner when it's on: 'verse' (Bible verse) or 'message'
     },
     roles: null,                      // role templates (starter tasks etc.); null = the preset list for orgType
   };
@@ -3993,7 +4267,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
     const out = presetConfig(x.orgType || 'church');
     out.setupDone = !!x.setupDone;
     if (!x.orgType) { out.branding = clone(DEFAULT_CONFIG.branding); }
-    ['branding', 'labels', 'features'].forEach((k) => Object.assign(out[k], x[k] || {}));
+    ['branding', 'labels', 'features', 'family'].forEach((k) => Object.assign(out[k], x[k] || {}));
     Object.keys(out.staffTypes).forEach((k) => Object.assign(out.staffTypes[k], (x.staffTypes || {})[k] || {}));
     if (!Object.values(out.staffTypes).some((t) => t.enabled)) out.staffTypes.hourly.enabled = true;
     if (Array.isArray(x.roles)) out.roles = clone(x.roles);
@@ -4006,7 +4280,8 @@ Even [C]so, it is [G7]well with my [C]soul.` },
     ALL_CHURCH.name = c.labels.allChurch || 'All Church';
   }
   const config = () => state.config;
-  const feature = (k) => !!(state && state.config.features[k] && (k !== 'worship' || state.config.orgType === 'church'));
+  const feature = (k) => !!(state && state.config.features[k] && (k !== 'worship' || state.config.orgType === 'church') && (k !== 'family' || state.config.orgType === 'family'));
+  const isFamily = () => !!(state && state.config.orgType === 'family');
   const label = (k) => (state && state.config.labels[k]) || DEFAULT_CONFIG.labels[k] || k;
   /** The organization's name, or the neutral product name until one is set. */
   const churchName = () => (state && state.config.branding.churchName) || 'Planner';
@@ -4035,9 +4310,9 @@ Even [C]so, it is [G7]well with my [C]soul.` },
   function starterTasksFor(p, r, picks) {
     const list = (r && r.starterTasks) || [];
     return list.filter((x, i) => !picks || picks[i]).map((x) => ({
-      id: U.uid('t'), title: x.title, ministryId: groupForRole(r) || p.ministryId || '', assigneeId: p.id, estHours: Number(x.hours) || 1,
-      dueDate: starterDate(x.day), priority: 'medium', status: 'todo', recurring: x.recurring || 'weekly', repeatUntil: '', doneDates: [],
-      description: `Starter task for ${r.label}.`, createdAt: U.todayISO(), help: null, starter: r.id,
+      id: U.uid('t'), title: x.title, ministryId: groupForRole(r) || p.ministryId || '', assigneeId: p.id, estHours: x.hours != null && x.hours !== '' ? Number(x.hours) || 0 : 1,
+      dueDate: x.recurring === 'daily' ? U.todayISO() : starterDate(x.day), priority: 'medium', status: 'todo', recurring: x.recurring || 'weekly', repeatUntil: '', doneDates: [],
+      description: x.chore ? '' : `Starter task for ${r.label}.`, createdAt: U.todayISO(), help: null, starter: r.id, chore: !!x.chore, points: Number(x.points) || 0,
     }));
   }
   function addStarterTasks(personId, roleId, picks) {
@@ -4063,9 +4338,11 @@ Even [C]so, it is [G7]well with my [C]soul.` },
     const base = { version: 1, settings: { churchName: 'Our Church', weekStart: 1, nearThreshold: 0.85 }, ministries: [], people: [], tasks: [], events: [] };
     const out = Object.assign(base, s || {});
     out.settings = Object.assign({}, base.settings, out.settings || {});
-    ['ministries', 'people', 'tasks', 'events', 'meetings', 'projects', 'activity', 'positions', 'songs', 'plans', 'planTemplates', 'blockouts'].forEach((k) => { if (!Array.isArray(out[k])) out[k] = []; });
-    out.tasks.forEach((t) => { t.doneDates = Array.isArray(t.doneDates) ? t.doneDates : []; t.recurring = t.recurring || 'none'; t.checklist = Array.isArray(t.checklist) ? t.checklist : []; t.comments = Array.isArray(t.comments) ? t.comments : []; t.estHours = Number(t.estHours) || 0; t.help = t.help || null; t.projectId = t.projectId || ''; });
-    out.events.forEach((e) => { e.recurring = e.recurring || 'none'; });
+    ['ministries', 'people', 'tasks', 'events', 'meetings', 'projects', 'activity', 'positions', 'songs', 'plans', 'planTemplates', 'blockouts', 'meals', 'groceries', 'payouts'].forEach((k) => { if (!Array.isArray(out[k])) out[k] = []; });
+    out.tasks.forEach((t) => { t.doneDates = Array.isArray(t.doneDates) ? t.doneDates : []; t.recurring = t.recurring || 'none'; t.checklist = Array.isArray(t.checklist) ? t.checklist : []; t.comments = Array.isArray(t.comments) ? t.comments : []; t.estHours = Number(t.estHours) || 0; t.help = t.help || null; t.projectId = t.projectId || ''; t.chore = !!t.chore; t.points = Math.max(0, Number(t.points) || 0); });
+    out.events.forEach((e) => { e.recurring = e.recurring || 'none'; e.rides = e.rides && typeof e.rides === 'object' ? e.rides : {}; e.kidIds = Array.isArray(e.kidIds) ? e.kidIds : []; e.needsRide = !!e.needsRide; });
+    out.meals.forEach((m) => { m.slot = ['breakfast', 'lunch', 'dinner'].includes(m.slot) ? m.slot : 'dinner'; m.title = m.title || ''; m.cookId = m.cookId || ''; m.ingredients = m.ingredients || ''; });
+    out.groceries.forEach((g) => { g.text = String(g.text || ''); g.done = !!g.done; });
     out.projects.forEach(normProject);
     // Saves from before members/permissions: the leader becomes the owner, everyone else an active member.
     // Imported files may carry values this version doesn't know: fall back to safe defaults instead of breaking a screen.
@@ -4119,8 +4396,9 @@ Even [C]so, it is [G7]well with my [C]soul.` },
       const k = wantsSample();
       if (k) {
         id = D().create(sampleState(k));
-        // The demo user also belongs to a second organization, to show switching workspaces.
-        D().create(sampleState(k === 'counseling' ? 'church' : 'counseling'), false);
+        // The demo user also belongs to other organizations — and their own family — to show switching workspaces.
+        D().create(sampleState(k === 'counseling' || k === 'family' ? 'church' : 'counseling'), false);
+        if (k !== 'family') D().create(sampleState('family'), false);
       } else id = D().create(freshState());
     }
     open(id);
@@ -4152,14 +4430,15 @@ Even [C]so, it is [G7]well with my [C]soul.` },
     notify();
   }
   /** Opening the page with ?sample (or ?sample=business / counseling) loads demos on first visit. */
-  const wantsSample = () => { try { const m = /[?&]sample(?:=(\w+))?/.exec(location.search); return m ? (['business', 'counseling'].includes(m[1]) ? m[1] : 'church') : ''; } catch (e) { return ''; } };
+  const wantsSample = () => { try { const m = /[?&]sample(?:=(\w+))?/.exec(location.search); return m ? (['business', 'counseling', 'family'].includes(m[1]) ? m[1] : 'church') : ''; } catch (e) { return ''; } };
   /** Demo data: 'church' (Grace Community Church), 'business' (Brightline Home Services) or 'counseling' (Clearwater Counseling). */
   function sampleState(kind) {
-    const type = kind === 'business' || kind === 'nonprofit' ? 'business' : kind === 'counseling' ? 'counseling' : 'church';
-    const d = type === 'business' ? NS.sampleBusiness() : type === 'counseling' ? NS.sampleCounseling() : NS.sampleData();
+    const type = kind === 'business' || kind === 'nonprofit' ? 'business' : kind === 'counseling' ? 'counseling' : kind === 'family' ? 'family' : 'church';
+    const d = type === 'business' ? NS.sampleBusiness() : type === 'counseling' ? NS.sampleCounseling() : type === 'family' ? NS.sampleFamily() : NS.sampleData();
     const name = d.settings.churchName;
     d.config = Object.assign(presetConfig(type), { setupDone: true });
     d.config.branding.churchName = name;
+    if (d.configPatch) { Object.keys(d.configPatch).forEach((k) => Object.assign(d.config[k], d.configPatch[k])); delete d.configPatch; }
     return normalize(d);
   }
   /** A brand-new, empty organization: default groups, no people/tasks/events, setup wizard pending. */
@@ -4271,7 +4550,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
   function subscribe(fn) { listeners.add(fn); return () => listeners.delete(fn); }
 
   /* ---------- generic CRUD ---------- */
-  const PREFIX = { people: 'p', tasks: 't', events: 'e', ministries: 'm', verses: 'v', meetings: 'mt', projects: 'pr', positions: 'pos', songs: 'sg', plans: 'pl', planTemplates: 'tpl', blockouts: 'bo' };
+  const PREFIX = { people: 'p', tasks: 't', events: 'e', ministries: 'm', verses: 'v', meetings: 'mt', projects: 'pr', positions: 'pos', songs: 'sg', plans: 'pl', planTemplates: 'tpl', blockouts: 'bo', meals: 'meal', groceries: 'g', payouts: 'po' };
   function upsert(col, item) {
     const list = state[col];
     if (!item.id) item.id = U.uid(PREFIX[col]);
@@ -4289,6 +4568,8 @@ Even [C]so, it is [G7]well with my [C]soul.` },
       state.tasks.forEach((t) => { if (t.assigneeId === id) t.assigneeId = ''; });
       state.events.forEach((e) => { if (e.leadId === id) e.leadId = ''; });
       state.projects.forEach((x) => { x.memberIds = x.memberIds.filter((m) => m !== id); if (x.ownerId === id) x.ownerId = ''; });
+      state.meals.forEach((m) => { if (m.cookId === id) m.cookId = ''; });
+      state.events.forEach((e) => { e.kidIds = (e.kidIds || []).filter((k) => k !== id); Object.values(e.rides || {}).forEach((r) => { if (r.drop === id) r.drop = ''; if (r.pick === id) r.pick = ''; }); });
     }
     if (col === 'projects') state.tasks.forEach((t) => { if (t.projectId === id) t.projectId = ''; });
     if (col === 'ministries') {
@@ -4315,10 +4596,10 @@ Even [C]so, it is [G7]well with my [C]soul.` },
   // Returns ISO dates on which an item (task via dueDate, event via date) occurs within [from, to].
   // Repeats: 'none' | 'weekly' | 'monthly'. Repeating items are never copied: every week/month is
   // worked out on the fly from the first date, and each one is checked off on its own (doneDates).
-  const REPEATS = { none: 'Never', weekly: 'Every week', monthly: 'Every month' };
-  const repeats = (x) => !!x && (x.recurring === 'weekly' || x.recurring === 'monthly');
-  /** "Weekly" / "Monthly" / '' — the short label rows show. */
-  const repeatLabel = (x) => (!x ? '' : x.recurring === 'weekly' ? 'Weekly' : x.recurring === 'monthly' ? 'Monthly' : '');
+  const REPEATS = { none: 'Never', daily: 'Every day', weekly: 'Every week', monthly: 'Every month' };
+  const repeats = (x) => !!x && (x.recurring === 'daily' || x.recurring === 'weekly' || x.recurring === 'monthly');
+  /** "Daily" / "Weekly" / "Monthly" / '' — the short label rows show. */
+  const repeatLabel = (x) => (!x ? '' : x.recurring === 'daily' ? 'Daily' : x.recurring === 'weekly' ? 'Weekly' : x.recurring === 'monthly' ? 'Monthly' : '');
   /** Same day of the month `n` months after `iso` (31st → last day of shorter months). */
   function addMonthsISO(iso, n) {
     const y = Number(iso.slice(0, 4)), m = Number(iso.slice(5, 7)) - 1 + n, d = Number(iso.slice(8, 10));
@@ -4335,6 +4616,11 @@ Even [C]so, it is [G7]well with my [C]soul.` },
       let n = 0;
       if (start < from) n = Math.max(0, (Number(from.slice(0, 4)) - Number(start.slice(0, 4))) * 12 + Number(from.slice(5, 7)) - Number(start.slice(5, 7)) - 1);
       for (let cur = addMonthsISO(start, n); cur <= until && n < 1200; n += 1, cur = addMonthsISO(start, n)) if (cur >= from) out.push(cur);
+      return out;
+    }
+    if (item.recurring === 'daily') {
+      const out = [], until = item.repeatUntil && item.repeatUntil < to ? item.repeatUntil : to;
+      for (let cur = start < from ? from : start; cur <= until && out.length < 800; cur = U.addISO(cur, 1)) out.push(cur);
       return out;
     }
     if (item.recurring !== 'weekly') {
@@ -4600,15 +4886,17 @@ Even [C]so, it is [G7]well with my [C]soul.` },
     ['edit_settings', 'Edit settings', 'Name, look, groups, features, export and reset'],
     ['private_notes', 'See private notes', 'Private notes on people’s profiles'],
     ['schedule_worship', 'Schedule worship team', 'Plan services, edit songs and schedule the band and tech team (church workspaces)'],
+    ['manage_home', 'Run the household', 'Meal plan, grocery list, rides and paying out chore points (family workspaces)'],
   ];
   /** The permissions that apply to this workspace (worship scheduling only where Worship planning is on). */
-  const permList = () => PERMS.filter((x) => x[0] !== 'schedule_worship' || feature('worship'));
+  const permList = () => PERMS.filter((x) => (x[0] !== 'schedule_worship' || feature('worship')) && (x[0] !== 'manage_home' || feature('family')));
   const PERM_KEYS = PERMS.map((x) => x[0]);
   const LEVELS = {
     owner: { label: 'Owner', say: 'Can do everything (owner)', desc: 'Everything, including other owners and deleting the workspace.', perms: PERM_KEYS },
     admin: { label: 'Admin', say: 'Can manage everything', desc: 'Everything except changing owners.', perms: PERM_KEYS },
-    manager: { label: 'Manager', say: 'Can manage their team', desc: 'Hands out tasks, adds people and edits the calendar for their team.', perms: ['manage_people', 'invite', 'assign_others', 'edit_calendar', 'see_workload', 'record_meetings', 'schedule_worship'] },
+    manager: { label: 'Manager', say: 'Can manage their team', desc: 'Hands out tasks, adds people and edits the calendar for their team.', perms: ['manage_people', 'invite', 'assign_others', 'edit_calendar', 'see_workload', 'record_meetings', 'schedule_worship', 'manage_home'] },
     member: { label: 'Member', say: 'Can do their own tasks', desc: 'Sees and checks off their own tasks; can view the calendar.', perms: [] },
+    kid: { label: 'Kid', say: 'Kid: checks off their own chores', desc: 'Sees their own chores and the family calendar, checks chores off and adds to the grocery list. Can’t change or delete anything.', perms: [], familyOnly: true },
     viewer: { label: 'Viewer', say: 'Can only view', desc: 'Read-only: the calendar and their projects.', perms: [] },
     custom: { label: 'Custom', say: 'Custom…', desc: 'You pick exactly what they can do under Advanced.', perms: null },
   };
@@ -4697,9 +4985,20 @@ Even [C]so, it is [G7]well with my [C]soul.` },
       case 'song:edit': return has.has('schedule_worship');
       case 'plan:respond': return !!target && ((target.personId === p.id && has.has('own_tasks')) || has.has('schedule_worship'));
       case 'blockout:edit': return !!target && ((target.id === p.id && has.has('own_tasks')) || scoped('schedule_worship') || scoped('manage_people'));
+      // Family: everyone sees meals, rides and the list; kids add and check groceries but never change or delete anything else.
+      case 'family:view': return has.has('view_calendar');
+      case 'home:manage': return has.has('manage_home');
+      case 'meal:edit': return has.has('manage_home');
+      case 'grocery:add': case 'grocery:check': return has.has('own_tasks');
+      case 'grocery:delete': return has.has('manage_home') || (!!target && target.by === p.id && lvl !== 'kid' && has.has('own_tasks'));
+      case 'ride:claim': return has.has('own_tasks') && lvl !== 'kid';
+      case 'ride:edit': return has.has('manage_home') || has.has('edit_calendar');
+      case 'points:payout': return has.has('manage_home');
       default: return scoped(action);
     }
   }
+  /** Permission levels that apply to this workspace (Kid is family-only). */
+  const levelsHere = () => Object.keys(LEVELS).filter((k) => !LEVELS[k].familyOnly || isFamily());
   /** Why `editor` may not give `target` the access `next` ('' = allowed). Nobody can grant more than they have. */
   function accessError(editor, target, next) {
     const e = asPerson(editor);
@@ -4819,7 +5118,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
     flagHelp, resolveHelp, helpRequests, addChecklistItem, toggleChecklistItem, removeChecklistItem, addComment, logActivity, activityFor, tasksOf, bestAssignee, rebalanceSuggestions, reassign, postpone, verseOfWeek, restoreDefaultVerses,
     exportJSON, importJSON, resetToSample, resetToTemplate, clearAll, updateSettings,
     DEFAULT_CONFIG, DEFAULT_MINISTRIES, LABEL_PRESETS, config, feature, label, churchName, enabledTypes, updateConfig, completeSetup, isEmpty, freshState,
-    presetConfig, mergeConfig, orgType, org, isChurch, copy, roles, role, groupForRole, starterTasksFor, addStarterTasks, starterDate,
+    presetConfig, mergeConfig, orgType, org, isChurch, isFamily, levelsHere, FAMILY_EVENT_TYPES, copy, roles, role, groupForRole, starterTasksFor, addStarterTasks, starterDate,
   };
 })(window.ChurchPM);
 
@@ -5088,6 +5387,148 @@ Even [C]so, it is [G7]well with my [C]soul.` },
 
 </script>
   <script>
+/* Planner — Family data (family workspaces, Settings → Features → Family tools).
+ *
+ *   Chores    tasks with chore: true and points (repeat daily / weekly / once). Each day is checked off on its own.
+ *   Points    earned = points × days done; balance = earned − paid out (state.payouts). Optional $ per point.
+ *   Meals     state.meals    [{ id, date, slot: breakfast|lunch|dinner, title, cookId, ingredients, notes }]
+ *   Groceries state.groceries [{ id, text, done, by, at, mealId }]
+ *   Rides     events with needsRide: e.rides[date] = { drop, pick } (person ids), kidIds = who's going.
+ *
+ * No DOM. Who may do what is Store.can: home:manage, meal:edit, grocery:add/check/delete, ride:claim/edit, points:payout. */
+(function (NS) {
+  'use strict';
+  const U = NS.U, S = NS.Store;
+  const st = () => S.state;
+  const SLOTS = { breakfast: 'Breakfast', lunch: 'Lunch', dinner: 'Dinner' };
+  const SLOT_ORDER = { breakfast: 0, lunch: 1, dinner: 2 };
+  const ROLE_ORDER = { parent: 0, grandparent: 1, caregiver: 2, teen: 3, kid: 4 };
+
+  /* ---------- people ---------- */
+  /** Family members, grown-ups first then kids (oldest-listed first). */
+  const members = () => st().people.slice().sort((a, b) => (ROLE_ORDER[a.roleId] ?? 2.5) - (ROLE_ORDER[b.roleId] ?? 2.5));
+  const isKid = (p) => !!p && (p.access.level === 'kid' || p.roleId === 'kid' || p.roleId === 'teen');
+  const kids = () => members().filter(isKid);
+  /** Grown-ups who can drive (everyone who isn't a kid or teen). */
+  const drivers = () => members().filter((p) => !isKid(p));
+
+  /* ---------- chores & points ---------- */
+  const weekStart = () => (st().settings.weekStart ?? 1);
+  const thisWeek = (iso) => { const s = U.toISO(U.startOfWeek(U.parse(iso || U.todayISO()), weekStart())); return { start: s, end: U.addISO(s, 6) }; };
+  const chores = () => st().tasks.filter((t) => t.chore);
+  const choreOccs = (from, to, pid) => S.taskOccurrences(from, to, (t) => t.chore && (!pid || t.assigneeId === pid));
+  /** Points earned for one chore between two dates (inclusive). */
+  function earnedFor(t, from, to) {
+    const pts = Number(t.points) || 0; if (!pts) return 0;
+    if (S.repeats(t)) return t.doneDates.filter((x) => x >= from && x <= to && x >= (t.dueDate || '')).length * pts;
+    return t.status === 'done' && t.dueDate >= from && t.dueDate <= to ? pts : 0;
+  }
+  const pointsFor = (pid, from, to) => chores().filter((t) => t.assigneeId === pid).reduce((n, t) => n + earnedFor(t, from || '0000-01-01', to || '9999-12-31'), 0);
+  const paidFor = (pid) => st().payouts.filter((x) => x.personId === pid).reduce((n, x) => n + (Number(x.points) || 0), 0);
+  const balance = (pid) => Math.max(0, pointsFor(pid, '0000-01-01', U.todayISO()) - paidFor(pid));
+  const pointValue = () => Math.max(0, Number(S.config().family.pointValue) || 0);
+  const money = (pts) => `$${(pts * pointValue()).toFixed(2).replace(/\.00$/, '')}`;
+  /** Everyone who has chores: this week's points, what was possible, today's progress and their balance. */
+  function scoreboard(iso) {
+    const today = iso || U.todayISO(), wk = thisWeek(today);
+    return members().map((p) => {
+      const mine = chores().filter((t) => t.assigneeId === p.id);
+      if (!mine.length) return null;
+      const wkOcc = choreOccs(wk.start, wk.end, p.id), td = wkOcc.filter((o) => o.date === today);
+      return {
+        person: p,
+        week: pointsFor(p.id, wk.start, wk.end),
+        possible: wkOcc.reduce((n, o) => n + (Number(o.task.points) || 0), 0),
+        todayDone: td.filter((o) => o.status === 'done').length, todayTotal: td.length,
+        balance: balance(p.id), hasPoints: mine.some((t) => t.points > 0),
+      };
+    }).filter(Boolean);
+  }
+  /** Record paying out someone's whole balance (allowance given). */
+  function payOut(pid, by) {
+    const pts = balance(pid); if (!pts) return null;
+    const x = { id: U.uid('po'), personId: pid, points: pts, amount: Math.round(pts * pointValue() * 100) / 100, at: new Date().toISOString(), by: by || '' };
+    st().payouts.push(x); S.save();
+    return x;
+  }
+  const undoPayout = (id) => { st().payouts = st().payouts.filter((x) => x.id !== id); S.save(); };
+
+  /* ---------- meals ---------- */
+  const mealsOn = (iso) => st().meals.filter((m) => m.date === iso).sort((a, b) => SLOT_ORDER[a.slot] - SLOT_ORDER[b.slot]);
+  const dinner = (iso) => st().meals.find((m) => m.date === iso && m.slot === 'dinner') || null;
+  const meal = (id) => st().meals.find((m) => m.id === id) || null;
+  function saveMeal(m) { return S.upsert('meals', Object.assign({ slot: 'dinner', title: '', cookId: '', ingredients: '', notes: '' }, m)); }
+  const removeMeal = (id) => S.remove('meals', id);
+  /** Planned meals this week / total days. */
+  function weekMeals(startIso) {
+    const out = []; for (let i = 0; i < 7; i += 1) { const d = U.addISO(startIso, i); out.push({ date: d, meals: mealsOn(d) }); }
+    return out;
+  }
+
+  /* ---------- groceries ---------- */
+  const splitItems = (text) => String(text || '').split(/[,\n;]+/).map((x) => x.replace(/\s+/g, ' ').trim().slice(0, 80)).filter(Boolean);
+  const groceries = () => st().groceries;
+  const openItems = () => groceries().filter((g) => !g.done);
+  const doneItems = () => groceries().filter((g) => g.done);
+  /** Add one or more items ("milk, eggs, bread"). Items already on the list are skipped. Returns what was added. */
+  function addGroceries(text, by, mealId) {
+    const have = new Set(openItems().map((g) => g.text.toLowerCase()));
+    const added = [];
+    splitItems(text).forEach((t) => {
+      if (have.has(t.toLowerCase())) return;
+      have.add(t.toLowerCase());
+      const done = groceries().find((g) => g.done && g.text.toLowerCase() === t.toLowerCase());
+      if (done) { done.done = false; done.at = new Date().toISOString(); done.by = by || done.by; added.push(done); return; }
+      const g = { id: U.uid('g'), text: t.charAt(0).toUpperCase() + t.slice(1), by: by || '', done: false, at: new Date().toISOString(), mealId: mealId || '' };
+      groceries().push(g); added.push(g);
+    });
+    if (added.length) S.save();
+    return added;
+  }
+  function toggleGrocery(id) { const g = groceries().find((x) => x.id === id); if (!g) return null; g.done = !g.done; S.save(); return g; }
+  const removeGrocery = (id) => S.remove('groceries', id);
+  /** Remove everything checked off. Returns the removed items (for undo). */
+  function clearDone() { const gone = doneItems(); st().groceries = openItems(); S.save(); return gone; }
+  function restoreGroceries(list) { const ids = new Set(groceries().map((g) => g.id)); list.forEach((g) => { if (!ids.has(g.id)) groceries().push(g); }); S.save(); }
+
+  /* ---------- weekly banner: off, a Bible verse or an encouraging message ---------- */
+  function setBanner(kind) {
+    if (kind === 'off') { S.updateConfig({ features: { verse: false } }); return; }
+    const k = kind === 'verse' ? 'verse' : 'message', was = S.config().family.banner === 'verse' ? 'verse' : 'message';
+    if (k !== was || !(st().verses || []).length) st().verses = (k === 'verse' ? NS.DEFAULT_VERSES : NS.DEFAULT_MESSAGES).map((v) => Object.assign({}, v));
+    S.updateConfig({ features: { verse: true }, family: { banner: k } });
+  }
+
+  /* ---------- rides ---------- */
+  const rideFor = (ev, date) => Object.assign({ drop: '', pick: '' }, (ev.rides || {})[date] || {});
+  function setRide(evId, date, leg, pid) {
+    const ev = S.get('events', evId); if (!ev || !['drop', 'pick'].includes(leg)) return null;
+    ev.rides = ev.rides || {};
+    ev.rides[date] = Object.assign(rideFor(ev, date), { [leg]: pid || '' });
+    S.save();
+    return ev.rides[date];
+  }
+  /** Who's going: the kids picked on the event, else its point person. */
+  const riders = (ev) => ((ev.kidIds || []).length ? ev.kidIds : ev.leadId ? [ev.leadId] : []).map((id) => S.person(id)).filter(Boolean);
+  /** Every trip that needs a driver between two dates: [{ event, date, ride, open: number of legs without a driver }]. */
+  function trips(from, to) {
+    return S.eventOccurrences(from, to, (e) => e.needsRide).map((o) => {
+      const ride = rideFor(o.event, o.date);
+      return { event: o.event, date: o.date, ride, open: (ride.drop ? 0 : 1) + (ride.pick ? 0 : 1) };
+    });
+  }
+  const openTrips = (from, to) => trips(from, to).filter((x) => x.open);
+  const myDrives = (pid, from, to) => trips(from, to).filter((x) => x.ride.drop === pid || x.ride.pick === pid);
+
+  NS.Family = {
+    SLOTS, members, kids, drivers, isKid, thisWeek, chores, choreOccs, earnedFor, pointsFor, paidFor, balance, pointValue, money, scoreboard, payOut, undoPayout,
+    mealsOn, dinner, meal, saveMeal, removeMeal, weekMeals, splitItems, groceries, openItems, doneItems, addGroceries, toggleGrocery, removeGrocery, clearDone, restoreGroceries,
+    rideFor, setRide, riders, trips, openTrips, myDrives, setBanner,
+  };
+})(window.ChurchPM);
+
+</script>
+  <script>
 /* Planner — who is signed in to the open workspace ("Signed in as").
  * Each workspace remembers its own signed-in member (NS.Data.signedIn). There are no passwords
  * in this local demo: by default you are the member whose access.userId matches this device's
@@ -5213,12 +5654,17 @@ Even [C]so, it is [G7]well with my [C]soul.` },
     store: p('<path d="M3 9 4.5 4h15L21 9"/><path d="M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"/><path d="M5 11.5V20h14v-8.5M10 20v-5h4v5"/>'),
     wrench: p('<path d="M14.7 6.3a4 4 0 0 0 5 5L21 13l-8 8-3-3 8-8-.7-.7a4 4 0 0 1-5-5L14 2.7z"/><path d="M3 21l6-6"/>'),
     rocket: p('<path d="M5 15c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.1 2.1 0 0 0-2.9-.1z"/><path d="M12 15l-3-3a22 22 0 0 1 2-4A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22 22 0 0 1-4 2z"/><path d="M9 12H4s.6-3 2-4c1.6-1.1 5 0 5 0M12 15v5s3-.6 4-2c1.1-1.6 0-5 0-5"/>'),
+    car: p('<path d="M5 17h14v-4.5l-1.8-4.6A2 2 0 0 0 15.3 6.6H8.7a2 2 0 0 0-1.9 1.3L5 12.5z"/><path d="M5 12.5h14"/><circle cx="8" cy="17" r="1.8"/><circle cx="16" cy="17" r="1.8"/>'),
+    cart: p('<circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2.5 3.5h2.6l2.4 11.2a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.2L21 7.5H6"/>'),
+    meal: p('<path d="M6 3v7a2 2 0 0 0 2 2v9"/><path d="M10 3v7a2 2 0 0 1-2 2"/><path d="M8 3v6"/><path d="M17 21V3c-2 1.2-3 3.6-3 7v3h3"/>'),
+    broom: p('<path d="M20 4 12.5 11.5"/><path d="M9.5 10.5 13.5 14.5 11 20c-2.5-.2-5.4-1.7-7-3.6L4 16l3.2-.8L4.6 13c1.4-1.4 3.3-2.4 4.9-2.5z"/>'),
+    family: p('<circle cx="8" cy="6" r="2.3"/><circle cx="16.5" cy="7.5" r="1.8"/><path d="M4 20v-5.5A3.5 3.5 0 0 1 7.5 11h1A3.5 3.5 0 0 1 12 14.5V20"/><path d="M14 20v-4a2.6 2.6 0 0 1 2.5-2.7A2.6 2.6 0 0 1 19 16v4"/>'),
     leaf: p('<path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10z"/><path d="M2 21c0-3 1.9-5.4 5.1-6"/>'),
     talk: p('<path d="M21 12a8 8 0 0 1-11.8 7L4 20.5l1.5-4.6A8 8 0 1 1 21 12z"/><path d="M9 10.5v3M12 9v6M15 10.5v3"/>'),
     toggle: p('<rect x="2" y="6" width="20" height="12" rx="6"/><circle cx="16" cy="12" r="3"/>'),
   };
   const icon = (n) => ICONS[n] || '';
-  const LOGO_ICONS = ['church', 'cross', 'bible', 'heart', 'flame', 'briefcase', 'building', 'store', 'wrench', 'rocket', 'leaf', 'star'];
+  const LOGO_ICONS = ['church', 'cross', 'bible', 'heart', 'flame', 'briefcase', 'building', 'store', 'wrench', 'rocket', 'leaf', 'star', 'home', 'family', 'sun'];
   /** Logo choices offered for the current org type (org-presets.js). */
   const logoChoices = (type) => ((NS.ORG_TYPES[type || S.orgType()] || NS.ORG_TYPES.church).logos);
   /** The organization's logo mark: an uploaded image or one of the built-in icons. */
@@ -5321,9 +5767,17 @@ Even [C]so, it is [G7]well with my [C]soul.` },
   }
 
   /** Small extras on a task row: repeats, checklist progress (2/5), number of comments. */
+  /** Hours only mean something when Workload is on (off for families). */
+  const hoursOn = () => S.feature('workload');
+  /** "2h" when hours are tracked, else ''. */
+  const hrsOf = (t) => (hoursOn() ? U.hrs(t.estHours) : '');
+  /** Chore points are shown in family workspaces that use them. */
+  const pointsOn = () => S.feature('family') && S.config().family.points !== false;
+  const ptsTxt = (n) => `${n} pt${Number(n) === 1 ? '' : 's'}`;
   function taskBits(t, sep) {
     sep = sep || '';
     const out = [];
+    if (t.points && pointsOn()) out.push(`<span class="rec pts" title="Chore points">${icon('star')}${ptsTxt(t.points)}</span>`);
     const rl = S.repeatLabel(t);
     if (rl) out.push(`<span class="rec">${icon('repeat')}${rl}</span>`);
     const cl = t.checklist || [];
@@ -5343,7 +5797,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
       <div class="main-txt"><div class="t">${t.priority === 'high' && !done ? '<span class="prio-dot" title="High priority"></span>' : ''}${esc(t.title)}</div>
         <div class="m"><span class="${isOver ? 'due-over' : ''}">${isOver ? 'Overdue · ' : ''}${esc(U.relDay(o.date))}</span>
           ${taskBits(t)}${t.help ? '<span class="pill warn">Needs help</span>' : ''}</div></div>
-      <div class="right"><span class="hours">${U.hrs(t.estHours)}</span>${opts.hideWho ? '' : `<span title="${esc(who ? who.name : 'Unassigned')}">${avatar(who, 'sm')}</span>`}</div>
+      <div class="right">${hoursOn() ? `<span class="hours">${U.hrs(t.estHours)}</span>` : ''}${opts.hideWho ? '' : `<span title="${esc(who ? who.name : 'Unassigned')}">${avatar(who, 'sm')}</span>`}</div>
     </div>`;
   }
 
@@ -5442,7 +5896,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
     setTimeout(() => el.remove(), undoFn ? 6000 : 3200);
   }
 
-  NS.UI = { icon, logo, LOGO_ICONS, logoChoices, themeVars, applyTheme, contrast, hexRgb, avatar, firstName, ring, verseBanner, photoCard, levelText, ministryChip, typeBadge, prioBadge, statusBadge, levelBadge, LEVEL_TEXT, capBar, taskRow, taskBits, openModal, closeTopModal, closeAllModals, confirmDialog, toast, openPopover, closePopover };
+  NS.UI = { hoursOn, hrsOf, pointsOn, ptsTxt, icon, logo, LOGO_ICONS, logoChoices, themeVars, applyTheme, contrast, hexRgb, avatar, firstName, ring, verseBanner, photoCard, levelText, ministryChip, typeBadge, prioBadge, statusBadge, levelBadge, LEVEL_TEXT, capBar, taskRow, taskBits, openModal, closeTopModal, closeAllModals, confirmDialog, toast, openPopover, closePopover };
 })(window.ChurchPM);
 
 </script>
@@ -5492,6 +5946,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
   /** "Every Tuesday" · "Every month on the 15th" · "Just once". */
   function repeatText(kind, iso) {
     if (!iso || kind === 'none' || !kind) return 'Just once';
+    if (kind === 'daily') return 'Every day';
     if (kind === 'weekly') return `Every ${U.fmtDate(iso, { weekday: 'long' })}`;
     const d = Number(iso.slice(8, 10));
     return d >= 29 ? `Every month on the ${ORD(d)} (or the last day)` : `Every month on the ${ORD(d)}`;
@@ -5608,22 +6063,26 @@ Even [C]so, it is [G7]well with my [C]soul.` },
   /* ---------------- TASK ---------------- */
   function taskForm(task, defaults, occDate) {
     const isNew = !task;
-    const t = Object.assign({ title: '', description: '', ministryId: '', assigneeId: '', estHours: 2, dueDate: U.todayISO(), priority: 'medium', status: 'todo', recurring: 'none', repeatUntil: '', projectId: '' }, task || defaults || {});
+    const fam = S.feature('family');
+    const t = Object.assign({ title: '', description: '', ministryId: '', assigneeId: '', estHours: S.feature('workload') ? 2 : 0, dueDate: U.todayISO(), priority: 'medium', status: 'todo', recurring: 'none', repeatUntil: '', projectId: '', chore: false, points: 0 }, task || defaults || {});
+    const noun = fam && t.chore ? 'chore' : fam ? 'to-do' : 'task';
     const projects = S.feature('projects') ? S.projectsFor(NS.Session.me()).filter((x) => x.status !== 'done' || x.id === t.projectId) : [];
     if (isNew && t.assigneeId && !t.ministryId) { const pp = S.person(t.assigneeId); if (pp) t.ministryId = pp.ministryId; }
     const date = occDate || t.dueDate;
     const curStatus = task ? S.occStatus(task, date) : t.status;
-    const recurNote = task && S.repeats(task) ? `<div class="hint">Status applies to ${esc(U.fmtDay(date))}. Each ${task.recurring === 'monthly' ? 'month' : 'week'} is checked off separately.</div>` : '';
+    const recurNote = task && S.repeats(task) ? `<div class="hint">Status applies to ${esc(U.fmtDay(date))}. Each ${task.recurring === 'monthly' ? 'month' : task.recurring === 'daily' ? 'day' : 'week'} is checked off separately.</div>` : '';
     const draftList = isNew ? ((defaults && defaults.checklist) || []).map((x) => Object.assign({}, x)) : null;
     UI.openModal({
-      title: isNew ? 'New task' : 'Edit task',
+      title: isNew ? `New ${noun}` : `Edit ${noun}`,
       body: `${fromMeeting(task)}<div class="form-grid">
-        <div class="field full"><label for="f-title">Task</label><input class="input" id="f-title" name="title" value="${esc(t.title)}" placeholder="${esc(S.copy('taskPh'))}" autofocus maxlength="140"></div>
+        <div class="field full"><label for="f-title">${fam ? (t.chore ? 'Chore' : 'To-do') : 'Task'}</label><input class="input" id="f-title" name="title" value="${esc(t.title)}" placeholder="${esc(S.copy('taskPh'))}" autofocus maxlength="140"></div>
         <div class="field full"><label for="f-who">Who</label><select class="input" id="f-who" name="assigneeId">${peopleOptions(t.assigneeId, '', assignable)}</select></div>
         ${projects.length ? `<div class="field full"><label for="f-proj">Project <span class="muted">(optional)</span></label><select class="input" id="f-proj" name="projectId">${opt('', 'No project', t.projectId)}${projects.map((x) => opt(x.id, x.name, t.projectId)).join('')}</select></div>` : ''}
         <div class="field"><label for="f-due">${task && S.repeats(task) ? 'First due' : 'Due'}</label><input class="input" id="f-due" name="dueDate" type="date" value="${esc(t.dueDate)}"></div>
-        <div class="field"><label for="f-hrs">Hours</label><input class="input" id="f-hrs" name="estHours" type="number" min="0" max="200" step="0.25" value="${esc(t.estHours)}"></div>
+        <div class="field" ${UI.hoursOn() ? '' : 'hidden'}><label for="f-hrs">Hours</label><input class="input" id="f-hrs" name="estHours" type="number" min="0" max="200" step="0.25" value="${esc(t.estHours)}"></div>
+        ${fam && UI.pointsOn() ? `<div class="field" data-pts ${t.chore ? '' : 'hidden'}><label for="f-pts">Points</label><input class="input" id="f-pts" name="points" type="number" min="0" max="100" step="1" value="${esc(t.points || 0)}"></div>` : ''}
         ${repeatFields(t, 'f')}
+        ${fam ? `<div class="field full"><label class="check"><input type="checkbox" name="chore" ${t.chore ? 'checked' : ''}> This is a chore <span class="muted">(shows on Chores${UI.pointsOn() ? ' and earns points' : ''})</span></label></div>` : ''}
         <div class="field full"><div id="cap-preview" aria-live="polite"></div></div>
       </div>
       ${collabSection(task, draftList)}
@@ -5657,6 +6116,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
         mountCollab(f, task, draftList);
         f.addEventListener('change', (e) => {
           if (e.target.name === 'assigneeId' && !val(f, 'ministryId')) { const pp = S.person(e.target.value); if (pp) f.elements.ministryId.value = pp.ministryId; }
+          if (e.target.name === 'chore') { const b = f.querySelector('[data-pts]'); if (b) b.hidden = !e.target.checked; }
           preview();
         });
         preview();
@@ -5664,11 +6124,11 @@ Even [C]so, it is [G7]well with my [C]soul.` },
         if (del) del.onclick = () => {
           const copy = JSON.parse(JSON.stringify(task));
           api.close(); S.remove('tasks', task.id);
-          UI.toast(task.recurring === 'monthly' ? 'Monthly task deleted (every month)' : task.recurring === 'weekly' ? 'Weekly task deleted (every week)' : 'Task deleted', () => S.upsert('tasks', copy));
+          UI.toast(`${task.recurring === 'monthly' ? 'Monthly ' : task.recurring === 'weekly' ? 'Weekly ' : task.recurring === 'daily' ? 'Daily ' : ''}${noun} deleted${task.recurring === 'monthly' ? ' (every month)' : task.recurring === 'weekly' ? ' (every week)' : task.recurring === 'daily' ? ' (every day)' : ''}`.replace(/^./, (c) => c.toUpperCase()), () => S.upsert('tasks', copy));
         };
       },
       onSubmit(f, api) {
-        if (!val(f, 'title')) return invalid(f, 'title', 'Give the task a name.');
+        if (!val(f, 'title')) return invalid(f, 'title', `Give the ${noun} a name.`);
         const hrs = Number(val(f, 'estHours'));
         if (!(hrs >= 0)) return invalid(f, 'estHours', 'Enter hours as a number (0 or more).');
         if (!val(f, 'dueDate')) return invalid(f, 'dueDate', 'Pick a due date.');
@@ -5680,6 +6140,8 @@ Even [C]so, it is [G7]well with my [C]soul.` },
           title: val(f, 'title'), description: val(f, 'description'), ministryId: val(f, 'ministryId'), assigneeId: val(f, 'assigneeId'),
           estHours: hrs, dueDate: val(f, 'dueDate'), priority: val(f, 'priority'), recurring, repeatUntil: recurring !== 'none' ? val(f, 'repeatUntil') : '',
           projectId: f.elements.projectId ? val(f, 'projectId') : (t.projectId || ''),
+          chore: f.elements.chore ? f.elements.chore.checked : !!t.chore,
+          points: f.elements.points ? Math.max(0, Math.min(100, Math.round(Number(val(f, 'points')) || 0))) : (Number(t.points) || 0),
         });
         if (!can('task:edit', item)) return invalid(f, 'assigneeId', `That’s outside the ${S.label('ministries').toLowerCase()} and projects you manage — pick someone on your team or one of your projects.`);
         item.doneDates = (item.doneDates || []).slice();
@@ -5691,7 +6153,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
         } else item.status = status;
         api.close();
         S.upsert('tasks', item);
-        UI.toast(isNew ? 'Task added' : 'Task saved');
+        UI.toast(`${noun.charAt(0).toUpperCase() + noun.slice(1)} ${isNew ? 'added' : 'saved'}`);
       },
     });
   }
@@ -5699,7 +6161,9 @@ Even [C]so, it is [G7]well with my [C]soul.` },
   /* ---------------- EVENT ---------------- */
   function eventForm(ev, defaults) {
     const isNew = !ev;
-    const e = Object.assign({ title: '', date: U.todayISO(), start: '10:00', end: '11:00', location: '', ministryId: '', leadId: '', type: S.copy('eventDefault') || 'event', recurring: 'none', repeatUntil: '', description: '' }, ev || defaults || {});
+    const e = Object.assign({ title: '', date: U.todayISO(), start: '10:00', end: '11:00', location: '', ministryId: '', leadId: '', type: S.copy('eventDefault') || 'event', recurring: 'none', repeatUntil: '', description: '', kidIds: [], needsRide: false }, ev || defaults || {});
+    const fam = S.feature('family') && !!NS.Family;
+    const types = Object.fromEntries(Object.entries(S.EVENT_TYPES).filter(([k]) => S.isFamily() || !S.FAMILY_EVENT_TYPES.includes(k) || k === e.type));
     const W = evWord();
     UI.openModal({
       title: isNew ? `New ${W.toLowerCase()}` : `Edit ${W.toLowerCase()}`,
@@ -5711,10 +6175,12 @@ Even [C]so, it is [G7]well with my [C]soul.` },
         <div class="field"><label for="e-end">Ends</label><input class="input" id="e-end" name="end" type="time" value="${esc(e.end)}"></div>
       </div>
       <div class="form-grid" style="margin-top:14px">${repeatFields(e, 'e')}</div>
+      ${fam ? `<div class="fam-ev"><span class="label">Who’s going? <span class="muted">(optional)</span></span><div class="chip-checks">${NS.Family.members().map((p) => `<label class="chip-check"><input type="checkbox" name="kidIds" value="${esc(p.id)}" ${(e.kidIds || []).includes(p.id) ? 'checked' : ''}><span>${esc(UI.firstName(p))}</span></label>`).join('')}</div>
+        <label class="check" style="margin-top:12px"><input type="checkbox" name="needsRide" ${e.needsRide ? 'checked' : ''}> ${icon('car')} Needs a ride <span class="muted">(plan who drives on Rides)</span></label></div>` : ''}
       <details class="more-opts" ${e.endDate || (ev && e.description) ? 'open' : ''}><summary>More options</summary><div class="form-grid">
         <div class="field"><label for="e-lead">Point person</label><select class="input" id="e-lead" name="leadId">${peopleOptions(e.leadId, 'No one assigned')}</select></div>
         <div class="field"><label for="e-min">${esc(S.label('ministry'))}</label><select class="input" id="e-min" name="ministryId">${ministryOptions(e.ministryId, S.label('allChurch'))}</select></div>
-        <div class="field"><label for="e-type">Type</label><select class="input" id="e-type" name="type">${mapOpts(S.EVENT_TYPES, e.type)}</select></div>
+        <div class="field"><label for="e-type">Type</label><select class="input" id="e-type" name="type">${mapOpts(types, e.type)}</select></div>
         <div class="field"><label for="e-until">Through (multi-day)</label><input class="input" id="e-until" name="endDate" type="date" value="${esc(e.endDate || '')}"></div>
         <div class="field full"><label for="e-desc">Notes</label><textarea class="input" id="e-desc" name="description">${esc(e.description)}</textarea></div>
       </div></details>`,
@@ -5734,6 +6200,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
           title: val(f, 'title'), type: val(f, 'type'), ministryId: val(f, 'ministryId'), date: val(f, 'date'), location: val(f, 'location'),
           start: val(f, 'start'), end: val(f, 'end'), endDate: val(f, 'endDate') > val(f, 'date') ? val(f, 'endDate') : '', leadId: val(f, 'leadId'), recurring: repeatValue(f), repeatUntil: repeatValue(f) !== 'none' ? val(f, 'repeatUntil') : '', description: val(f, 'description'),
         });
+        if (fam) { item.kidIds = [...f.querySelectorAll('input[name="kidIds"]:checked')].map((x) => x.value); item.needsRide = f.elements.needsRide.checked; item.rides = item.rides || {}; }
         if (!can('event:edit', item)) return invalid(f, 'ministryId', `You can only add ${W.toLowerCase()}s for the ${S.label('ministries').toLowerCase()} you manage.`);
         api.close(); S.upsert('events', item); UI.toast(isNew ? `${W} added` : `${W} saved`);
       },
@@ -5745,15 +6212,16 @@ Even [C]so, it is [G7]well with my [C]soul.` },
     const isNew = !person;
     const types = S.enabledTypes(), t0 = (defaults && defaults.type) || types[0] || 'hourly';
     const x = Object.assign({ name: '', title: '', ministryId: (S.state.ministries[0] || {}).id || '', type: t0, weeklyHours: S.config().staffTypes[t0].defaultHours, hourlyRate: '', exempt: false, email: '', phone: '', startDate: '', notes: '' }, person || defaults || {});
+    const fam = S.isFamily();
     const typeCard = (k, desc) => `<label><input type="radio" name="type" value="${k}" ${x.type === k ? 'checked' : ''}><b>${S.PERSON_TYPES[k].label}</b><small>${desc}</small></label>`;
     UI.openModal({
-      title: isNew ? 'Add person' : 'Edit profile',
+      title: isNew ? (fam ? 'Add family member' : 'Add person') : 'Edit profile',
       body: `<div class="form-grid">
         <div class="field"><label for="p-name">Name</label><input class="input" id="p-name" name="name" value="${esc(x.name)}" placeholder="e.g. Rachel Kim" maxlength="80"></div>
         <div class="field"><label for="p-role">Role <span class="muted">(optional)</span></label><select class="input" id="p-role" name="roleId">${opt('', 'No preset role', x.roleId || '')}${S.roles().map((r) => opt(r.id, r.label, x.roleId || '')).join('')}</select><div class="hint">Fills in their title, ${esc(S.label('ministry').toLowerCase())} and usual weekly tasks.</div></div>
-        <div class="field full"><span class="label" id="p-type-l">How are they paid?</span><div class="type-pick" role="radiogroup" aria-labelledby="p-type-l">
+        <div class="field full" ${fam ? 'hidden' : ''}><span class="label" id="p-type-l">How are they paid?</span><div class="type-pick" role="radiogroup" aria-labelledby="p-type-l">
           ${[['hourly', 'By the hour'], ['salaried', 'Salary'], ['volunteer', S.isChurch() ? 'Unpaid' : (S.copy('typeHelp') || {}).volunteer || 'Unpaid']].filter(([k]) => types.includes(k) || x.type === k).map(([k, d]) => typeCard(k, d)).join('')}</div></div>
-        <div class="field"><label for="p-hrs" data-cap-label>${esc(S.PERSON_TYPES[x.type].capLabel)}</label><input class="input" id="p-hrs" name="weeklyHours" type="number" min="0" max="100" step="0.5" value="${esc(x.weeklyHours)}"><div class="hint" data-cap-hint></div></div>
+        <div class="field" ${fam ? 'hidden' : ''}><label for="p-hrs" data-cap-label>${esc(S.PERSON_TYPES[x.type].capLabel)}</label><input class="input" id="p-hrs" name="weeklyHours" type="number" min="0" max="100" step="0.5" value="${esc(x.weeklyHours)}"><div class="hint" data-cap-hint></div></div>
       </div>
       <details class="more-opts" ${!isNew ? 'open' : ''}><summary>More details: title, ${esc(S.label('ministry').toLowerCase())}, contact${can('notes:private', person || x) ? ', notes' : ''}</summary><div class="form-grid">
         <div class="field"><label for="p-title">Title</label><input class="input" id="p-title" name="title" value="${esc(x.title)}" placeholder="${esc(S.copy('titlePh'))}" maxlength="80"></div>
@@ -5762,7 +6230,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
         <div class="field" data-for="salaried" style="justify-content:flex-end"><label class="check"><input type="checkbox" name="exempt" ${x.exempt ? 'checked' : ''}> Exempt from overtime (FLSA)</label><div class="hint">${esc(S.copy('exemptHint'))}</div></div>
         <div class="field"><label for="p-email">Email</label><input class="input" id="p-email" name="email" type="email" value="${esc(x.email)}"></div>
         <div class="field"><label for="p-phone">Phone</label><input class="input" id="p-phone" name="phone" type="tel" value="${esc(x.phone)}"></div>
-        <div class="field"><label for="p-start">Start date</label><input class="input" id="p-start" name="startDate" type="date" value="${esc(x.startDate)}"></div>
+        <div class="field" ${fam ? 'hidden' : ''}><label for="p-start">Start date</label><input class="input" id="p-start" name="startDate" type="date" value="${esc(x.startDate)}"></div>
         ${can('notes:private', person || x) ? `<div class="field full"><label for="p-notes">Private notes <span class="muted">(only people who can see private notes)</span></label><textarea class="input" id="p-notes" name="notes" placeholder="${esc(S.copy('notesPh'))}">${esc(x.notes)}</textarea></div>` : ''}
       </div></details>`,
       footer: `${isNew ? '' : `<button type="button" class="btn btn-danger left" data-del>${icon('trash')}Delete</button>`}<button type="button" class="btn ${isNew ? 'left' : ''}" data-m="close">Cancel</button><button type="submit" class="btn btn-primary">${isNew ? 'Add person' : 'Save profile'}</button>`,
@@ -5782,7 +6250,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
         const sync = () => {
           const t = f.querySelector('input[name=type]:checked').value;
           if (!hrsTouched) f.elements.weeklyHours.value = S.config().staffTypes[t].defaultHours;
-          f.querySelectorAll('[data-for]').forEach((el) => { el.hidden = el.dataset.for !== t; });
+          f.querySelectorAll('[data-for]').forEach((el) => { el.hidden = fam || el.dataset.for !== t; });
           f.querySelector('[data-cap-label]').textContent = S.PERSON_TYPES[t].capLabel;
           f.querySelector('[data-cap-hint]').textContent = HINT[t];
         };
@@ -5807,7 +6275,15 @@ Even [C]so, it is [G7]well with my [C]soul.` },
         });
         if (!can('person:edit', item)) return invalid(f, 'ministryId', `Pick one of the ${S.label('ministries').toLowerCase()} you manage.`);
         const roleChanged = item.roleId && item.roleId !== ((person && person.roleId) || '');
-        api.close(); const saved = S.upsert('people', item); UI.toast(isNew ? `${item.name} added` : 'Profile saved');
+        if (fam) {
+          // No pay or hours at home: the role decides the type and (until they're invited) what they'll be able to do.
+          const r = S.role(item.roleId), lvl = r && r.level;
+          item.type = lvl === 'kid' ? 'volunteer' : item.roleId === 'teen' ? 'hourly' : 'salaried';
+          if (!S.enabledTypes().includes(item.type)) item.type = S.enabledTypes()[0] || item.type;
+          item.weeklyHours = 0; item.hourlyRate = null; item.exempt = false;
+          if (lvl && S.LEVELS[lvl] && (!item.access || item.access.status === '')) item.access = Object.assign({}, item.access || {}, { level: lvl });
+        }
+        api.close(); const saved = S.upsert('people', item); UI.toast(isNew ? `${item.name} added${fam ? ' — invite them (Family → Members & access) so they can sign in' : ''}` : 'Profile saved');
         if (roleChanged) { const r = S.role(item.roleId); if (r && (r.starterTasks || []).length) setTimeout(() => starterDialog(saved.id, r.id), 120); }
       },
     });
@@ -5819,16 +6295,16 @@ Even [C]so, it is [G7]well with my [C]soul.` },
     const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
     const list = r.starterTasks || [];
     UI.openModal({
-      title: `Starter tasks for ${esc(UI.firstName(pp))}`, size: 'sm',
-      body: `<p class="hint" style="margin-top:0">Repeating tasks a ${esc(r.label)} usually has. Keep the ones that fit — you can edit them any time.</p>
-        <div class="starter">${list.map((t, i) => `<label class="starter-row"><input type="checkbox" name="st${i}" data-st="${i}" checked><span class="grow">${esc(t.title)}</span><span class="hint">${esc(DAYS[t.day] || '')} · ${esc(U.hrs(t.hours))} · ${esc((S.repeatLabel(t) || 'Once').toLowerCase())}</span></label>`).join('')}</div>`,
-      footer: `<button type="button" class="btn left" data-m="close">Skip</button><button type="submit" class="btn btn-primary">${icon('check')}Add tasks</button>`,
+      title: `Starter ${S.isFamily() ? 'chores' : 'tasks'} for ${esc(UI.firstName(pp))}`, size: 'sm',
+      body: `<p class="hint" style="margin-top:0">Repeating ${S.isFamily() ? 'chores' : 'tasks'} a ${esc(r.label)} usually has. Keep the ones that fit — you can edit them any time.</p>
+        <div class="starter">${list.map((t, i) => `<label class="starter-row"><input type="checkbox" name="st${i}" data-st="${i}" checked><span class="grow">${esc(t.title)}</span><span class="hint">${esc([t.recurring === 'daily' ? '' : DAYS[t.day] || '', UI.hoursOn() ? U.hrs(t.hours) : '', t.points && UI.pointsOn() ? UI.ptsTxt(t.points) : '', (S.repeatLabel(t) || 'Once').toLowerCase()].filter(Boolean).join(' · '))}</span></label>`).join('')}</div>`,
+      footer: `<button type="button" class="btn left" data-m="close">Skip</button><button type="submit" class="btn btn-primary">${icon('check')}Add ${S.isFamily() ? 'chores' : 'tasks'}</button>`,
       onSubmit(f, api) {
         const picks = [...f.querySelectorAll('[data-st]')].filter((c) => c.checked).map((c) => Number(c.dataset.st));
         api.close();
         if (!picks.length) return;
         const n = S.addStarterTasks(personId, roleId, picks);
-        UI.toast(`Added ${n} repeating task${n === 1 ? '' : 's'} for ${UI.firstName(pp)}`);
+        UI.toast(`Added ${n} repeating ${S.isFamily() ? 'chore' : 'task'}${n === 1 ? '' : 's'} for ${UI.firstName(pp)}`);
       },
     });
   }
@@ -5915,7 +6391,8 @@ Even [C]so, it is [G7]well with my [C]soul.` },
     const t = task, st = S.occStatus(t, date), mine = NS.Session.can('task:help', t), toggle = can('task:toggle', t);
     const kv = [
       ['Due', esc(U.fmtDate(date, { weekday: 'long', month: 'long', day: 'numeric' }))],
-      ['Time', esc(U.hrs(t.estHours))],
+      ...(UI.hoursOn() ? [['Time', esc(U.hrs(t.estHours))]] : []),
+      ...(t.points && UI.pointsOn() ? [['Points', esc(UI.ptsTxt(t.points))]] : []),
       [S.label('ministry'), esc(S.ministry(t.ministryId).name)],
     ];
     const who = S.person(t.assigneeId), pr = S.project(t.projectId);
@@ -5952,7 +6429,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
   function helpDialog(task, date) {
     UI.openModal({
       title: 'Ask for help', size: 'sm',
-      body: `<p style="margin:0 0 16px;color:var(--text-2)"><b>${esc(task.title)}</b> · ${esc(U.hrs(task.estHours))} · ${esc(U.relDay(date))}</p>
+      body: `<p style="margin:0 0 16px;color:var(--text-2)"><b>${esc(task.title)}</b>${UI.hoursOn() ? ` · ${esc(U.hrs(task.estHours))}` : ''} · ${esc(U.relDay(date))}</p>
         <div class="choice" role="radiogroup" aria-label="What's going on?">
           <label><input type="radio" name="reason" value="cant-fit" checked> I can't fit this in this week</label>
           <label><input type="radio" name="reason" value="need-help"> I need help or more info</label>
@@ -6088,7 +6565,8 @@ Even [C]so, it is [G7]well with my [C]soul.` },
     else if (a.groups.length + a.projects.length > 0) where = 'some';
     else if (scoped) { const g = (target && target.ministryId && groups.some((m) => m.id === target.ministryId)) ? target.ministryId : (groups[0] || {}).id; where = g ? `g:${g}` : 'some'; }
     const T = S.label('ministry').toLowerCase();
-    const lvls = Object.entries(S.LEVELS).filter(([k]) => levelOk(k) || a.level === k);
+    const here = S.levelsHere();
+    const lvls = Object.entries(S.LEVELS).filter(([k]) => (here.includes(k) && levelOk(k)) || a.level === k);
     return `<div class="acc">
       <div class="form-grid">
         <div class="field"><label for="acc-level">What can they do?</label><select class="input" id="acc-level" name="level">${lvls.map(([k, x]) => `<option value="${k}" ${a.level === k ? 'selected' : ''} ${levelOk(k) ? '' : 'disabled'}>${esc(x.say)}</option>`).join('')}</select><div class="hint" id="acc-desc"></div></div>
@@ -6125,7 +6603,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
         const o = lvlEl.querySelector(`option[value=${target}]`); if (o && !o.disabled) lvlEl.value = target;
       }
       const cur = lvlEl.value;
-      f.querySelector('[data-where]').hidden = ['owner', 'admin'].includes(cur);
+      f.querySelector('[data-where]').hidden = ['owner', 'admin'].includes(cur) || S.isFamily();
       f.querySelector('#acc-desc').textContent = S.LEVELS[cur].desc;
       const some = whereEl.value === 'some';
       f.querySelector('[data-picks]').hidden = !some || ['owner', 'admin'].includes(cur);
@@ -6196,7 +6674,12 @@ Even [C]so, it is [G7]well with my [C]soul.` },
       onMount(f) {
         wireAccess(f);
         const role = f.elements.roleId;
-        if (role) role.addEventListener('change', () => { const r = S.role(role.value); const g = r && S.groupForRole(r, myGroups); if (g) f.elements.ministryId.value = g; });
+        if (role) role.addEventListener('change', () => {
+          const r = S.role(role.value); const g = r && S.groupForRole(r, myGroups); if (g) f.elements.ministryId.value = g;
+          // Family roles come with a sensible level (Kid → checks off their own chores).
+          const lv = f.elements.level, o = r && r.level && lv ? lv.querySelector(`option[value="${r.level}"]`) : null;
+          if (o && !o.disabled) { lv.value = r.level; lv.dispatchEvent(new Event('change', { bubbles: true })); }
+        });
         f.addEventListener('input', (e) => e.target.classList.remove('invalid'));
       },
       onSubmit(f, api) {
@@ -6314,9 +6797,12 @@ Even [C]so, it is [G7]well with my [C]soul.` },
   function newChoices() {
     const ev = S.feature('calendar') && can('event:create');
     return [
-      can('task:create') && { action: 'new-task', ico: 'tasks', t: 'Task', s: 'Something to do' },
+      S.feature('family') && can('task:create') && { action: 'new-chore', ico: 'broom', t: 'Chore', s: 'Repeats, earns points' },
+      S.feature('family') && can('meal:edit') && { action: 'new-meal', ico: 'meal', t: 'Meal', s: 'Plan a dinner' },
+      S.feature('family') && can('grocery:add') && { action: 'new-grocery', ico: 'cart', t: 'Groceries', s: 'Add to the list' },
+      can('task:create') && { action: 'new-task', ico: 'tasks', t: S.isFamily() ? 'To-do' : 'Task', s: 'Something to do' },
       ev && { action: 'new-event', ico: 'calendar', t: evWord(), s: 'On the calendar' },
-      can('person:create') && { action: 'new-person', ico: 'people', t: 'Person', s: 'Track their hours & tasks' },
+      can('person:create') && { action: 'new-person', ico: 'people', t: S.isFamily() ? 'Family member' : 'Person', s: S.isFamily() ? 'A parent, kid or sitter' : 'Track their hours & tasks' },
       can('invite') && { action: 'invite-member', ico: 'send', t: 'Invite', s: 'Let someone sign in' },
       S.feature('projects') && can('project:create') && { action: 'new-project', ico: 'folder', t: 'Project', s: 'Group related work' },
       S.feature('talk') && can('talk') && { action: 'talk-new', ico: 'mic', t: 'Talk it out', s: 'Say it, get tasks' },
@@ -6335,7 +6821,8 @@ Even [C]so, it is [G7]well with my [C]soul.` },
     }
     const who = q.personId || d.assigneeId || (me && S.state.people.some((x) => x.id === me.id) ? me.id : '');
     const pp = S.person(who);
-    return { title: q.title, description: '', assigneeId: who, ministryId: q.ministryId || d.ministryId || (pp ? pp.ministryId : ''), estHours: q.hours != null ? q.hours : 1, dueDate: q.date || U.todayISO(), priority: q.priority || 'medium', status: 'todo', recurring: q.recurring || 'none', repeatUntil: '', projectId: d.projectId || '', doneDates: [], createdAt: U.todayISO() };
+    return { title: q.title, description: '', assigneeId: who, ministryId: q.ministryId || d.ministryId || (pp ? pp.ministryId : ''), estHours: q.hours != null ? q.hours : S.feature('workload') ? 1 : 0, dueDate: q.date || U.todayISO(), priority: q.priority || 'medium', status: 'todo', recurring: q.recurring || 'none', repeatUntil: '', projectId: d.projectId || '', doneDates: [], createdAt: U.todayISO(),
+      ...(S.feature('family') ? { chore: d.chore != null ? !!d.chore : (q.points != null || q.recurring === 'daily'), points: q.points != null ? q.points : (Number(d.points) || 0) } : {}) };
   }
   /** The little "this is what I understood" chips under the quick-add box. */
   function quickChips(kind, q, defaults) {
@@ -6347,8 +6834,9 @@ Even [C]so, it is [G7]well with my [C]soul.` },
     else if (q.personId) out.push(chip('people', S.person(q.personId).name));
     out.push(chip('calendar', U.relDay(kind === 'task' ? it.dueDate : it.date), !q.date));
     if (kind === 'event' && it.start) out.push(chip('clock', `${fmtTime(it.start)}${it.end ? `–${fmtTime(it.end)}` : ''}`));
-    if (kind === 'task') out.push(chip('clock', U.hrs(it.estHours), q.hours == null));
-    if (q.recurring) out.push(chip('repeat', q.recurring === 'monthly' ? 'Monthly' : 'Weekly'));
+    if (kind === 'task' && UI.hoursOn()) out.push(chip('clock', U.hrs(it.estHours), q.hours == null));
+    if (kind === 'task' && it.points && UI.pointsOn()) out.push(chip('star', UI.ptsTxt(it.points)));
+    if (q.recurring) out.push(chip('repeat', q.recurring === 'monthly' ? 'Monthly' : q.recurring === 'daily' ? 'Every day' : 'Weekly'));
     if (q.priority === 'high') out.push(chip('alert', 'Urgent'));
     if (q.ministryId) out.push(chip('tag', S.ministry(q.ministryId).name));
     if (q.location) out.push(chip('pin', q.location));
@@ -6363,11 +6851,11 @@ Even [C]so, it is [G7]well with my [C]soul.` },
     const ph = { task: S.copy('quickTaskPh') || 'e.g. Brad fix projector Tue 2h', event: S.copy('quickEventPh') || 'e.g. Youth night Fri 7-9pm in the gym' };
     const el = UI.openPopover(anchor, `${canQuick() ? `<div class="qa">
         ${taskOk && evOk ? `<div class="qa-kinds" role="group" aria-label="Add a">
-          <button type="button" data-qk="task" aria-pressed="${kind === 'task'}">${icon('tasks')}Task</button><button type="button" data-qk="event" aria-pressed="${kind === 'event'}">${icon('calendar')}${esc(evWord())}</button></div>` : ''}
+          <button type="button" data-qk="task" aria-pressed="${kind === 'task'}">${icon('tasks')}${S.isFamily() ? 'To-do' : 'Task'}</button><button type="button" data-qk="event" aria-pressed="${kind === 'event'}">${icon('calendar')}${esc(evWord())}</button></div>` : ''}
         <label class="sr-only" for="qa-input">Quick add</label>
         <input class="input" id="qa-input" autocomplete="off" enterkeyhint="done" placeholder="${esc(ph[kind])}">
         <div class="qa-chips" id="qa-chips" aria-live="polite"></div>
-        <div class="qa-row"><button type="button" class="btn btn-ghost btn-sm" data-qa="more">More details…</button><button type="button" class="btn btn-primary btn-sm" data-qa="add">${icon('plus')}<span data-qa-l>Add ${kind === 'task' ? 'task' : esc(evWord().toLowerCase())}</span></button></div>
+        <div class="qa-row"><button type="button" class="btn btn-ghost btn-sm" data-qa="more">More details…</button><button type="button" class="btn btn-primary btn-sm" data-qa="add">${icon('plus')}<span data-qa-l>Add ${kind === 'task' ? (S.isFamily() ? 'to-do' : 'task') : esc(evWord().toLowerCase())}</span></button></div>
       </div><div class="pop-sep"></div>` : ''}
       <div class="new-grid">${items.map((x) => `<button type="button" class="new-item" role="menuitem" data-action="${x.action}">${icon(x.ico)}<span><b>${esc(x.t)}</b><small>${esc(x.s)}</small></span></button>`).join('')}</div>`, 'new-pop');
     const input = el.querySelector('#qa-input');
@@ -6377,7 +6865,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
     const setKind = (k) => {
       kind = k; input.placeholder = ph[k];
       el.querySelectorAll('[data-qk]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.qk === k)));
-      el.querySelector('[data-qa-l]').textContent = `Add ${k === 'task' ? 'task' : evWord().toLowerCase()}`;
+      el.querySelector('[data-qa-l]').textContent = `Add ${k === 'task' ? (S.isFamily() ? 'to-do' : 'task') : evWord().toLowerCase()}`;
       refresh(); input.focus();
     };
     const add = () => {
@@ -6510,7 +6998,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
     S.taskOccurrences(today, U.addISO(today, 13), (t) => !t.assigneeId && can('task:edit', t)).filter((o) => o.status !== 'done' && !seen.has(o.task.id) && seen.add(o.task.id)).forEach((o) => {
       const best = S.bestAssignee(o.task, o.date);
       out.push({ kind: 'unassigned', html: `<div class="nrow" data-action="edit-task" data-id="${esc(o.task.id)}" data-date="${esc(o.date)}" tabindex="0"><span class="n-ico tone">${icon('tasks')}</span>
-        <div class="grow"><div class="t">“${esc(o.task.title)}” needs an owner</div><div class="s">${esc(U.relDay(o.date))} · ${U.hrs(o.task.estHours)}</div></div>
+        <div class="grow"><div class="t">“${esc(o.task.title)}” needs an owner</div><div class="s">${esc(U.relDay(o.date))}${UI.hoursOn() ? ` · ${U.hrs(o.task.estHours)}` : ''}</div></div>
         <div class="acts">${best ? `<button class="btn btn-primary btn-sm" data-action="apply-reassign" data-id="${esc(o.task.id)}" data-to="${esc(best.person.id)}">Give to ${esc(first(best.person))}</button>` : '<span class="btn btn-sm">Choose</span>'}</div></div>` });
     });
     S.overdue().filter((o) => V.inMyScope(o.task)).forEach((o) => {
@@ -6535,10 +7023,12 @@ Even [C]so, it is [G7]well with my [C]soul.` },
     return `<section class="get-started"><div class="sec-title">Get started<span class="more">${steps.filter((x) => x.done).length} of ${steps.length - 1} done</span></div>
       <div class="card nlist">${steps.map((x) => `<div class="nrow ${x.done ? 'is-done' : ''}"><span class="n-ico ${x.done ? 'ok' : 'tone'}">${icon(x.done ? 'check' : x.ico)}</span><div class="grow"><div class="t">${x.t}</div><div class="s">${x.s}</div></div><div class="acts">${x.done ? '<span class="pill">Done</span>' : x.btn}</div></div>`).join('')}</div></section>`;
   }
-  const sampleCta = () => { const k = S.copy('sample'); return `<div class="card sample-cta">${icon(k === 'church' ? 'church' : k === 'counseling' ? 'leaf' : 'briefcase')}<div class="grow"><b>Just looking around?</b><p>Load a sample ${esc(k)} with a realistic team, tasks and events. You can reset to a fresh template any time in Settings.</p></div><button class="btn" data-action="load-sample">Load sample ${esc(k)}</button></div>`; };
+  const sampleCta = () => { const k = S.copy('sample'); return `<div class="card sample-cta">${icon(k === 'church' ? 'church' : k === 'counseling' ? 'leaf' : k === 'family' ? 'home' : 'briefcase')}<div class="grow"><b>Just looking around?</b><p>Load a sample ${esc(k)} with a realistic team, tasks and events. You can reset to a fresh template any time in Settings.</p></div><button class="btn" data-action="load-sample">Load sample ${esc(k)}</button></div>`; };
+  V.sampleCta = () => sampleCta();
   V.isStarting = () => !S.state.tasks.length || S.state.people.length <= (S.leader() ? 1 : 0);
 
   V.home = (ui) => {
+    if (S.feature('family') && NS.FamilyUI) return NS.FamilyUI.home(ui);
     const today = U.todayISO(), wk = S.weekRange(today);
     const team = S.teamWorkload(today, V.inMyScope);
     const assigned = team.reduce((s, w) => s + w.assigned, 0), cap = team.reduce((s, w) => s + w.capacity, 0);
@@ -6595,7 +7085,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
     return `<div class="mcard ${done ? 'is-done' : ''}" ${can('task:toggle', t) ? 'data-swipe="1"' : ''} data-action="view-task" data-id="${esc(t.id)}" data-date="${esc(o.date)}" tabindex="0">
       ${tick}
       <div class="grow"><div class="t">${esc(t.title)}</div>
-        <div class="s">${showDay && !late ? `<span>${esc(U.relDay(o.date))} ·</span>` : ''}<span>${U.hrs(t.estHours)}</span>${late ? `<span class="due-over">· Was due ${esc(U.relDay(o.date))}</span>` : ''}${UI.taskBits(t)}${pr ? `<span class="rec">${icon('folder')}${esc(pr.name)}</span>` : ''}${t.help ? '<span class="pill warn">Help requested</span>' : ''}</div></div>
+        <div class="s">${showDay && !late ? `<span>${esc(U.relDay(o.date))} ·</span>` : ''}${UI.hoursOn() ? `<span>${U.hrs(t.estHours)}</span>` : ''}${late ? `<span class="due-over">· Was due ${esc(U.relDay(o.date))}</span>` : ''}${UI.taskBits(t)}${pr ? `<span class="rec">${icon('folder')}${esc(pr.name)}</span>` : ''}${t.help ? '<span class="pill warn">Help requested</span>' : ''}</div></div>
       ${icon('right')}
     </div>`;
   }
@@ -6605,8 +7095,9 @@ Even [C]so, it is [G7]well with my [C]soul.` },
     const today = U.todayISO(), w = S.workload(p, today);
     const items = w.items.slice().sort((a, b) => a.date.localeCompare(b.date));
     const late = S.overdue().filter((o) => o.task.assigneeId === p.id && o.date < w.start);
-    const now = [...late, ...items.filter((o) => o.status !== 'done' && o.date <= today)];
-    const later = items.filter((o) => o.status !== 'done' && o.date > today);
+    // Missed days of an everyday chore don't pile up: only today's counts.
+    const now = [...late, ...items.filter((o) => o.status !== 'done' && o.date <= today && !(o.task.recurring === 'daily' && o.date < today))];
+    const later = items.filter((o) => o.status !== 'done' && o.date > today && !(o.task.chore && o.task.recurring === 'daily'));
     const done = items.filter((o) => o.status === 'done');
     const byDay = {};
     later.forEach((o) => (byDay[o.date] = byDay[o.date] || []).push(o));
@@ -6630,6 +7121,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
           ${w.done ? `<p class="note muted">${U.hrs(w.done)} done so far</p>` : ''}</div></div>` : ''}
         ${can('talk') ? V.talkCard(p.id) : ''}
         ${NS.WorshipUI ? NS.WorshipUI.upcomingFor(p) : ''}
+        ${NS.FamilyUI ? NS.FamilyUI.myExtras(p) : ''}
         ${NS.Pwa.card()}
         ${viewer ? `<div class="card note-card">${icon('eye')}<span>You have <b>view-only</b> access to ${esc(S.churchName())}. Ask an owner or admin if you need to check off tasks.</span></div>` : ''}
         ${projHtml}
@@ -6649,7 +7141,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
   const TASK_FILTERS = ['ministry', 'person', 'taskStatus', 'taskPrio'];
   const TASK_PAGE = 150;
   V.taskList = (ui) => {
-    const today = U.todayISO(), f0 = V.taskFilter(ui), f = (t) => V.inMyScope(t) && f0(t);
+    const today = U.todayISO(), f0 = V.taskFilter(ui), fam = S.isFamily(), f = (t) => V.inMyScope(t) && f0(t) && !(fam && t.chore);
     const range = RANGES[ui.taskRange] ? ui.taskRange : 'week';
     let list;
     if (range === 'overdue') list = S.overdue().filter((o) => f(o.task));
@@ -6670,7 +7162,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
         <td><div class="ttl">${t.priority === 'high' && !done ? '<span class="prio-dot" title="High priority"></span>' : ''}${esc(t.title)}<small><span class="dot" style="background:${esc(S.ministry(t.ministryId).color)};width:6px;height:6px"></span>${esc(S.ministry(t.ministryId).name)}${UI.taskBits(t, ' · ')}${S.project(t.projectId) ? ` · <span class="rec">${icon('folder')}${esc(S.project(t.projectId).name)}</span>` : ''}${t.help ? ' · <span class="pill warn">Needs help</span>' : ''}</small></div></td>
         <td class="hide-sm"><div class="who">${UI.avatar(who, 'sm')}<span>${esc(who ? who.name : 'Unassigned')}</span></div></td>
         <td style="white-space:nowrap" class="${late ? 'due-over' : 'muted'}">${esc(U.relDay(o.date))}</td>
-        <td style="text-align:right"><span class="hours">${U.hrs(t.estHours)}</span></td></tr>`;
+        <td style="text-align:right">${UI.hoursOn() ? `<span class="hours">${U.hrs(t.estHours)}</span>` : ''}</td></tr>`;
     };
     // Big teams: draw the first page of rows only (fast on phones), then "Show more".
     const sig = [range, ui.search, ui.ministry, ui.person, ui.taskStatus, ui.taskPrio, ui.taskLayout].join('|');
@@ -6686,12 +7178,12 @@ Even [C]so, it is [G7]well with my [C]soul.` },
         const items = list.filter((o) => o.status === k);
         return `<div class="col" data-drop="${k}" aria-label="${label} column"><div class="col-h">${esc(label)}<span class="n">${items.length}</span></div>
           ${cap(items).map((o) => { const t = o.task, who = S.person(t.assigneeId); return `<div class="kcard" draggable="true" data-drag="${esc(t.id)}" data-date="${esc(o.date)}" data-action="edit-task" data-id="${esc(t.id)}" tabindex="0">
-            <div class="t">${t.priority === 'high' && k !== 'done' ? '<span class="prio-dot"></span>' : ''}${esc(t.title)}</div><div class="m"><span>${esc(U.relDay(o.date))}</span><span>· ${U.hrs(t.estHours)}</span><span class="who" title="${esc(who ? who.name : 'Unassigned')}">${UI.avatar(who, 'xs')}</span></div></div>`; }).join('')}</div>`;
+            <div class="t">${t.priority === 'high' && k !== 'done' ? '<span class="prio-dot"></span>' : ''}${esc(t.title)}</div><div class="m"><span>${esc(U.relDay(o.date))}</span>${UI.hoursOn() ? `<span>· ${U.hrs(t.estHours)}</span>` : ''}<span class="who" title="${esc(who ? who.name : 'Unassigned')}">${UI.avatar(who, 'xs')}</span></div></div>`; }).join('')}</div>`;
       }).join('')}</div>${more}<p class="hint" style="margin-top:12px">Drag cards between columns to change status.</p>`;
     } else body = `<div class="card" style="overflow:auto;padding:4px 12px"><table class="tasks"><thead><tr><th><span class="sr-only">Done</span></th><th>Task</th><th class="hide-sm">Owner</th><th>Due</th><th style="text-align:right">Time</th></tr></thead><tbody>${cap(list).map(tableRow).join('')}</tbody></table></div>${more}`;
 
     return {
-      title: 'Tasks', sub: `${plural(list.length, 'task')} · ${U.hrs(hrs)}${S.isScoped(me()) ? ` · ${S.scopeLabel(me())}` : ''}`,
+      title: S.isFamily() ? 'To-dos' : 'Tasks', sub: `${plural(list.length, S.isFamily() ? 'to-do' : 'task')}${UI.hoursOn() ? ` · ${U.hrs(hrs)}` : ''}${S.isScoped(me()) ? ` · ${S.scopeLabel(me())}` : ''}`,
       html: `<div class="toolbar"><div class="seg" role="group" aria-label="Show">${Object.entries(RANGES).map(([k, l]) => `<button type="button" data-action="set" data-key="taskRange" data-val="${k}" aria-pressed="${range === k}">${l}</button>`).join('')}</div>
         ${searchBox(ui, 'Search tasks or people…')}${filterToggle(ui, TASK_FILTERS)}${clearBtn(ui, TASK_FILTERS)}
         <span class="spacer"></span><div class="seg" role="group" aria-label="Layout"><button type="button" data-action="set" data-key="taskLayout" data-val="list" aria-pressed="${ui.taskLayout !== 'board'}" title="List" aria-label="List">${icon('list')}</button><button type="button" data-action="set" data-key="taskLayout" data-val="board" aria-pressed="${ui.taskLayout === 'board'}" title="Board" aria-label="Board">${icon('board')}</button></div></div>
@@ -6726,7 +7218,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
     const filtered = !me && !staff;
     const showE = filtered ? ui.calShowEvents : true, showT = filtered ? ui.calShowTasks : true;
     const evs = showE ? S.eventOccurrences(start, end, ef) : [];
-    const tks = showT ? S.taskOccurrences(start, end, tf) : [];
+    const tks = showT ? S.taskOccurrences(start, end, (t) => (!tf || tf(t)) && !(t.chore && S.isFamily())) : [];
     const byDay = {};
     evs.forEach((o) => (byDay[o.date] = byDay[o.date] || { e: [], t: [] }).e.push(o));
     tks.forEach((o) => (byDay[o.date] = byDay[o.date] || { e: [], t: [] }).t.push(o));
@@ -6775,7 +7267,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
       <button type="button" role="tab" data-action="team-tab" data-val="access" aria-selected="${tab === 'access'}" aria-pressed="${tab === 'access'}">${icon('shield')}Members & access${(() => { const n = S.state.people.filter((x) => x.access.status === 'pending' && V.inMyScope(x)).length; return n ? ` <span class="count">${n}</span>` : ''; })()}</button></div>` : '';
     const actions = `${can('invite') ? `<button class="btn ${can('person:create') ? '' : 'btn-primary'}" data-action="invite-member">${icon('send')}<span class="lbl">Invite member</span></button>` : ''}${can('person:create') ? `<button class="btn btn-primary" data-action="new-person">${icon('plus')}<span class="lbl">Add person</span></button>` : ''}`;
     const v = tab === 'access' ? V.access(ui) : V.people(ui);
-    return { title: 'Team', sub: v.sub, actions, html: tabs + v.html };
+    return { title: S.isFamily() ? 'Family' : 'Team', sub: v.sub, actions, html: tabs + v.html };
   };
 
   /** Members & access: who can sign in, at what level and where; invite / resend / revoke. */
@@ -6835,7 +7327,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
       if (ui.wlSort === 'ministry' && lastMin !== x.ministryId) { lastMin = x.ministryId; const m = S.ministry(x.ministryId); grp = `<div class="wl-group"><span class="dot" style="background:${esc(m.color)}"></span>${esc(m.name)}</div>`; }
       const status = w.flags.length ? `<span class="txt-bad">${esc(w.flags[0].text)}</span>` : w.level === 'near' ? '<span class="txt-warn">Almost full</span>' : `<span class="muted">${U.hrs(Math.max(0, w.remaining))} free</span>`;
       const badge = x.access.status === 'pending' ? ' <span class="status-pill st-pending sm">Invited</span>' : x.access.status === '' ? '' : x.access.level !== 'member' ? ` <span class="lvl-pill sm lvl-${esc(x.access.level)}">${esc(S.levelLabel(x))}</span>` : '';
-      const cell = `<div class="person-cell" data-action="open-profile" data-id="${esc(x.id)}" tabindex="0">${UI.avatar(x)}<div style="min-width:0"><div class="n">${esc(x.name)}${badge}</div><div class="s">${esc(S.PERSON_TYPES[x.type].label)} · ${esc(x.title)}</div></div></div>`;
+      const cell = `<div class="person-cell" data-action="open-profile" data-id="${esc(x.id)}" tabindex="0">${UI.avatar(x)}<div style="min-width:0"><div class="n">${esc(x.name)}${badge}</div><div class="s">${esc(S.isFamily() ? ((S.role(x.roleId) || {}).label || 'Family member') : S.PERSON_TYPES[x.type].label)}${x.title && !(S.isFamily() && x.title === (S.role(x.roleId) || {}).label) ? ` · ${esc(x.title)}` : ''}</div></div></div>`;
       if (!wl) return `${grp}<div class="wl-row simple">${cell}
         <div class="wl-num">${UI.ministryChip(x.ministryId)}</div>${assign ? `<button class="btn btn-ghost btn-sm" data-action="assign-to" data-id="${esc(x.id)}" data-date="${esc(r.start)}">${icon('plus')}Task</button>` : '<span></span>'}</div>`;
       return `${grp}<div class="wl-row">
@@ -6845,7 +7337,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
         <button class="btn btn-ghost icon-btn" data-action="toggle-expand" data-id="${esc(x.id)}" aria-expanded="${!!open}" aria-label="${open ? 'Hide' : 'Show'} ${esc(x.name)}'s tasks">${icon(open ? 'up' : 'down')}</button>
         ${open ? `<div class="wl-detail">${w.items.length ? w.items.map((o) => `<div class="row ${o.status === 'done' ? 'is-done' : ''}">
             ${can('task:toggle', o.task) ? `<button class="tick ${o.status === 'done' ? 'on' : o.status === 'inprogress' ? 'partial' : ''}" data-action="toggle-task" data-id="${esc(o.task.id)}" data-date="${esc(o.date)}" aria-label="Toggle done: ${esc(o.task.title)}">${icon('check')}</button>` : `<span class="tick ro ${o.status === 'done' ? 'on' : ''}" aria-hidden="true">${icon('check')}</span>`}
-            <div class="main-txt" data-action="edit-task" data-id="${esc(o.task.id)}" data-date="${esc(o.date)}" style="cursor:pointer"><div class="t">${esc(o.task.title)}</div><div class="m">${esc(U.fmtDay(o.date))} · ${U.hrs(o.task.estHours)}</div></div>
+            <div class="main-txt" data-action="edit-task" data-id="${esc(o.task.id)}" data-date="${esc(o.date)}" style="cursor:pointer"><div class="t">${esc(o.task.title)}</div><div class="m">${esc(U.fmtDay(o.date))}${UI.hoursOn() ? ` · ${U.hrs(o.task.estHours)}` : ''}</div></div>
             <div class="right">${can('task:edit', o.task) ? `<label class="sr-only" for="ra-${esc(o.task.id)}">Reassign ${esc(o.task.title)}</label><select class="input" id="ra-${esc(o.task.id)}" data-change="reassign" data-id="${esc(o.task.id)}" title="Reassign">${F.peopleOptions(o.task.assigneeId, '', (pp) => can('task:edit', { assigneeId: pp.id }))}</select>` : ''}</div></div>`).join('') : '<div class="empty">No tasks this week.</div>'}
           ${assign ? `<div style="padding:8px 0"><button class="btn btn-sm" data-action="assign-to" data-id="${esc(x.id)}" data-date="${esc(r.start)}">${icon('plus')}Assign a task</button></div>` : ''}</div>` : ''}
       </div>`;
@@ -6902,7 +7394,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
       const t = o.task, who = S.person(t.assigneeId), isDone = o.status === 'done', late = !isDone && o.date < today;
       const tick = can('task:toggle', t) ? `<button class="tick ${isDone ? 'on' : o.status === 'inprogress' ? 'partial' : ''}" data-action="toggle-task" data-id="${esc(t.id)}" data-date="${esc(o.date)}" aria-label="${isDone ? 'Mark not done' : 'Mark done'}: ${esc(t.title)}">${icon('check')}</button>` : `<span class="tick ro ${isDone ? 'on' : ''}" aria-hidden="true">${icon('check')}</span>`;
       return `<div class="prow ${isDone ? 'is-done' : ''}" data-action="edit-task" data-id="${esc(t.id)}" data-date="${esc(o.date)}" tabindex="0">${tick}
-        <div class="grow"><div class="t">${t.priority === 'high' && !isDone ? '<span class="prio-dot"></span>' : ''}${esc(t.title)}</div><div class="s"><span class="${late ? 'due-over' : ''}">${esc(U.relDay(o.date))}</span> · ${U.hrs(t.estHours)}${UI.taskBits(t, ' · ')}${t.help ? ' · <span class="pill warn">Needs help</span>' : ''}</div></div>
+        <div class="grow"><div class="t">${t.priority === 'high' && !isDone ? '<span class="prio-dot"></span>' : ''}${esc(t.title)}</div><div class="s"><span class="${late ? 'due-over' : ''}">${esc(U.relDay(o.date))}</span>${UI.hoursOn() ? ` · ${U.hrs(t.estHours)}` : ''}${UI.taskBits(t, ' · ')}${t.help ? ' · <span class="pill warn">Needs help</span>' : ''}</div></div>
         <div class="who">${UI.avatar(who, 'sm')}<span class="hide-sm">${esc(who ? first(who) : 'Unassigned')}</span></div></div>`;
     };
     const members = x.memberIds.map((id) => S.person(id)).filter(Boolean);
@@ -6912,7 +7404,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
       actions: `${edit ? `<button class="btn" data-action="edit-project" data-id="${esc(x.id)}">${icon('edit')}<span class="lbl">Edit project</span></button>` : ''}${edit || (can('task:create') && can('task:edit', { projectId: x.id, ministryId: x.ministryId })) ? `<button class="btn btn-primary" data-action="project-add-task" data-id="${esc(x.id)}">${icon('plus')}<span class="lbl">Add task</span></button>` : ''}`,
       html: `<div class="project-view" style="--pc:${esc(x.color)}">
         <section class="card card-pad proj-hero"><div class="ph-main">${x.description ? `<p class="ph-desc">${esc(x.description)}</p>` : ''}
-          <div class="ph-stats"><div><b>${st.pct}%</b><small>done</small></div><div><b>${st.open}</b><small>open</small></div><div><b>${U.hrs(st.hoursLeft)}</b><small>left</small></div>${st.overdue ? `<div class="bad"><b>${st.overdue}</b><small>overdue</small></div>` : ''}${x.dueDate ? `<div><b>${esc(U.fmtDate(x.dueDate, { month: 'short', day: 'numeric' }))}</b><small>${esc(U.relDay(x.dueDate))}</small></div>` : ''}</div>
+          <div class="ph-stats"><div><b>${st.pct}%</b><small>done</small></div><div><b>${st.open}</b><small>open</small></div>${UI.hoursOn() ? `<div><b>${U.hrs(st.hoursLeft)}</b><small>left</small></div>` : ''}${st.overdue ? `<div class="bad"><b>${st.overdue}</b><small>overdue</small></div>` : ''}${x.dueDate ? `<div><b>${esc(U.fmtDate(x.dueDate, { month: 'short', day: 'numeric' }))}</b><small>${esc(U.relDay(x.dueDate))}</small></div>` : ''}</div>
           ${progress(st, x.color)}<div class="hint">${st.done} of ${plural(st.total, 'task')} done${lead ? ` · Lead: ${esc(lead.name)}` : ''}</div></div></section>
         <div class="proj-cols"><section><div class="sec-title">Tasks · ${open.length} open</div>
           <div class="card plist">${open.length ? open.map(row).join('') : `<div class="all-good">${icon('check')}<span>${st.total ? 'Everything’s done!' : 'No tasks yet.'}</span></div>`}</div>
@@ -6963,6 +7455,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
         <div class="card card-pad data-actions ws-card"><h2>Workspace</h2><div class="items">
           <div class="item"><div class="grow"><b>${esc(S.churchName())}</b><p>${esc(S.org().label)} · ${plural(S.members().length, 'member')} · you’re ${esc(S.levelLabel(me()) || 'the owner')}</p></div><button class="btn" data-action="ws-create">${icon('plus')}New workspace</button></div>
           ${can('workspace:delete') && S.workspaces().length > 1 ? `<div class="item"><div class="grow"><b>Delete this workspace</b><p>Removes its people, tasks and calendar from this browser. Other workspaces aren’t touched.</p></div><button class="btn btn-danger" data-action="ws-delete">${icon('trash')}Delete</button></div>` : ''}</div></div>
+        ${NS.FamilyUI ? NS.FamilyUI.settingsCard() : ''}
         <div class="card card-pad" id="customize-features"><h2>Features</h2><p class="hint" style="margin:-8px 0 12px">Turned-off features disappear from the menus. Your data is kept.</p>${C.features(cfg.features, 'cfg')}</div>
         <div class="card card-pad setup-cta">${UI.logo()}<div class="grow"><b>Customize this template</b><p>Walk through the setup steps again: name, look, ${esc(S.label('ministries').toLowerCase())}, people and features.</p></div><button class="btn btn-primary" data-action="rerun-setup">Run setup again</button></div>
       </div></div>
@@ -6979,7 +7472,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
         <div class="card card-pad data-actions"><h2>Your data</h2><div class="items">
           <div class="item"><div class="grow"><b>Export backup</b><p>Download everything as a file.</p></div><button class="btn" data-action="export">${icon('download')}Export</button></div>
           <div class="item"><div class="grow"><b>Import backup</b><p>Replace current data with a backup file.</p></div><label class="btn" for="import-file" tabindex="0">${icon('upload')}Import<input type="file" id="import-file" accept="application/json,.json" hidden data-change="import"></label></div>
-          <div class="item"><div class="grow"><b>Load sample ${esc(S.copy('sample'))}</b><p>Explore with the ${esc(S.copy('sampleName'))} demo data.</p></div><button class="btn" data-action="reset">${icon(S.copy('sample') === 'church' ? 'church' : 'briefcase')}Load sample</button></div>
+          <div class="item"><div class="grow"><b>Load sample ${esc(S.copy('sample'))}</b><p>Explore with the ${esc(S.copy('sampleName'))} demo data.</p></div><button class="btn" data-action="reset">${icon(S.copy('sample') === 'church' ? 'church' : S.copy('sample') === 'family' ? 'home' : 'briefcase')}Load sample</button></div>
           <div class="item"><div class="grow"><b>Clear people, tasks & events</b><p>Keeps your name, look, ${esc(S.label('ministries').toLowerCase())} and features.</p></div><button class="btn" data-action="clear">${icon('trash')}Clear data</button></div>
           <div class="item"><div class="grow"><b>Reset to fresh template</b><p>Erase everything, including customization, and run setup again.</p></div><button class="btn btn-danger" data-action="reset-template">${icon('refresh')}Reset all</button></div></div>
 </div>
@@ -6996,6 +7489,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
     };
   };
 
+  V.myCard = myCard;
   NS.Views = V;
 })(window.ChurchPM);
 
@@ -7765,6 +8259,395 @@ Even [C]so, it is [G7]well with my [C]soul.` },
 
 </script>
   <script>
+/* Planner — Family screens (family workspaces, Settings → Features → Family tools).
+ *
+ *   Home    → today at a glance: dinner, chores, rides, the grocery list, then your to-dos
+ *   Chores  → #/chores   today per person (tap to check off) · a week chart · points & allowance
+ *   Meals   → #/meals    this week's meal plan · the grocery list (quick add, check off)
+ *   Rides   → #/rides    activities coming up and who drives each way
+ *
+ * Data lives in family-store.js (NS.Family). Who may do what is Store.can: home:manage, meal:edit,
+ * grocery:add / grocery:check / grocery:delete, ride:claim / ride:edit, points:payout. Kids see and
+ * check off their own chores, add to the grocery list, and can't change or delete anything else. */
+(function (NS) {
+  'use strict';
+  const U = NS.U, S = NS.Store, UI = NS.UI, F = NS.Forms, V = NS.Views, FM = NS.Family, icon = UI.icon, esc = U.esc;
+  const Session = NS.Session;
+  const can = (a, t) => Session.can(a, t);
+  const me = () => Session.me();
+  const first = (p) => (p ? UI.firstName(p) : '');
+  const plural = (n, w) => `${n} ${w}${n === 1 ? '' : 's'}`;
+  const on = () => S.feature('family');
+  const pts = (n) => UI.ptsTxt(n);
+  const lead = () => Session.isManager();
+  const empty = (title, msg, btn) => `<div class="empty"><strong>${esc(title)}</strong>${msg ? `<p>${msg}</p>` : ''}${btn ? `<div style="margin-top:14px">${btn}</div>` : ''}</div>`;
+  const dayBox = (iso) => `<div class="w-date ${iso === U.todayISO() ? 'today' : ''}"><small>${esc(U.fmtDate(iso, { weekday: 'short' }))}</small><b>${esc(U.fmtDate(iso, { day: 'numeric' }))}</b><small>${esc(U.fmtDate(iso, { month: 'short' }))}</small></div>`;
+  const dayName = (iso) => { const r = U.relDay(iso); return r === 'Today' || r === 'Tomorrow' ? r : U.fmtDate(iso, { weekday: 'long', month: 'short', day: 'numeric' }); };
+  const timeRange = (e) => (e.start ? `${U.fmtTime(e.start)}${e.end ? `–${U.fmtTime(e.end)}` : ''}` : 'All day');
+  const greeting = () => { const h = new Date().getHours(); return h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening'; };
+  const go = (hash) => { if (location.hash === hash) NS.App.render(); else location.hash = hash; };
+  const cookTxt = (m) => { const c = S.person(m.cookId); return c ? `${me() && c.id === me().id ? 'You' : first(c)} cooking` : ''; };
+
+  /* ================= Home (family) ================= */
+  function tile(href, ico, label, big, small, tone) {
+    return `<a class="fam-tile ${tone || ''}" href="${href}"><span class="fam-tile-i">${icon(ico)}</span><span class="fam-tile-l">${esc(label)}</span><b>${big}</b><small>${small}</small></a>`;
+  }
+  function getStarted() {
+    const others = S.state.people.length - 1;
+    const steps = [
+      { done: others > 0, ico: 'family', t: 'Add your family', s: 'Parents, kids, grandparents or a babysitter. Kids can sign in to see and check off their own chores.', btn: `<button class="btn btn-primary btn-sm" data-action="new-person">${icon('plus')}Add someone</button>` },
+      { done: FM.chores().length > 0, ico: 'broom', t: 'Add a chore', s: 'Make it repeat every day or every week, and give it points if you like.', btn: '<a class="btn btn-sm" href="#/chores">Chores</a>' },
+      { done: S.state.meals.length > 0, ico: 'meal', t: 'Plan a dinner', s: 'Fill in the week and send the ingredients to the grocery list.', btn: '<a class="btn btn-sm" href="#/meals">Meal plan</a>' },
+      { done: S.state.events.length > 0, ico: 'calendar', t: 'Add to the family calendar', s: esc(S.copy('eventHint')), btn: `<button class="btn btn-sm" data-action="new-event">${icon('plus')}Add event</button>` },
+    ];
+    return `<section class="get-started"><div class="sec-title">Get started<span class="more">${steps.filter((x) => x.done).length} of ${steps.length} done</span></div>
+      <div class="card nlist">${steps.map((x) => `<div class="nrow ${x.done ? 'is-done' : ''}"><span class="n-ico ${x.done ? 'ok' : 'tone'}">${icon(x.done ? 'check' : x.ico)}</span><div class="grow"><div class="t">${x.t}</div><div class="s">${x.s}</div></div><div class="acts">${x.done ? '<span class="pill">Done</span>' : x.btn}</div></div>`).join('')}</div></section>`;
+  }
+  /** Rides in the next few days that still need a driver: a row with "I'll drive" right there. */
+  function rideNeeds(days) {
+    const today = U.todayISO();
+    return FM.openTrips(today, U.addISO(today, days || 2)).map((x) => {
+      const legs = [!x.ride.drop && 'drop', !x.ride.pick && 'pick'].filter(Boolean);
+      const kids = FM.riders(x.event).map(first).join(' & ');
+      return `<div class="nrow"><span class="n-ico warn">${icon('car')}</span><div class="grow"><div class="t">${esc(kids || 'Someone')} needs a ${legs.length === 2 ? 'ride both ways' : legs[0] === 'drop' ? 'drop-off' : 'pick-up'}</div><div class="s">${esc(x.event.title)} · ${esc(U.relDay(x.date))} · ${esc(timeRange(x.event))}${x.event.location ? ` · ${esc(x.event.location)}` : ''}</div></div>
+        <div class="acts">${can('ride:claim') ? `<button class="btn btn-sm btn-primary" data-action="fam-drive" data-id="${esc(x.event.id)}" data-date="${esc(x.date)}" data-leg="${legs[0]}">${icon('car')}I’ll drive</button>` : '<a class="btn btn-sm" href="#/rides">See</a>'}</div></div>`;
+    });
+  }
+  function home(ui) {
+    const today = U.todayISO(), p = me() || S.leader();
+    const starting = !S.state.tasks.length && S.state.people.length <= 1;
+    const dn = FM.dinner(today), groc = FM.openItems().length;
+    const occ = FM.choreOccs(today, today), doneN = occ.filter((o) => o.status === 'done').length;
+    const trips = FM.trips(today, today), openN = FM.openTrips(today, U.addISO(today, 2)).length;
+    const tiles = `<div class="fam-tiles">
+      ${tile('#/meals', 'meal', 'Dinner tonight', dn ? esc(dn.title) : 'Not planned', dn ? esc(cookTxt(dn) || 'Tap to see the week') : (can('meal:edit') ? 'Tap to plan it' : 'Ask a grown-up'), dn ? '' : 'warn')}
+      ${tile('#/chores', 'broom', 'Chores today', occ.length ? `${doneN} of ${occ.length}` : 'None', occ.length ? (doneN === occ.length ? 'All done! 🎉' : `${occ.length - doneN} to go`) : 'Add some on Chores', occ.length && doneN === occ.length ? 'ok' : '')}
+      ${tile('#/rides', 'car', 'Rides', trips.length ? plural(trips.length, 'trip') + ' today' : 'None today', openN ? `<span class="txt-bad">${plural(openN, 'trip')} ${openN === 1 ? 'needs' : 'need'} a driver</span>` : 'Everyone’s covered', openN ? 'bad' : '')}
+      ${tile('#/meals?tab=list', 'cart', 'Grocery list', groc ? plural(groc, 'item') : 'Empty', groc ? 'Tap to shop or add' : 'Tap to add', '')}
+    </div>`;
+    const needs = [...rideNeeds(2), ...V.needsYou(today).map((x) => x.html)];
+    const needsHtml = needs.length ? `<section class="needs"><div class="sec-title">Needs you · ${needs.length}</div><div class="card nlist">${needs.slice(0, ui.homeAll === '1' ? 50 : 5).join('')}</div>${needs.length > 5 && ui.homeAll !== '1' ? `<button class="see-all" data-action="set" data-key="homeAll" data-val="1">See all ${needs.length}</button>` : ''}</section>` : '';
+    const board = FM.scoreboard(today).filter((b) => b.todayTotal || (b.hasPoints && FM.isKid(b.person))).sort((a, b) => Number(FM.isKid(b.person)) - Number(FM.isKid(a.person)));
+    const boardHtml = board.length ? `<section><div class="sec-title">Chores today<a class="more" href="#/chores">Chores →</a></div><div class="fam-chips">${board.map((b) => `<a class="fam-chip ${b.todayTotal && b.todayDone === b.todayTotal ? 'all' : ''}" href="#/chores">${UI.avatar(b.person, 'sm')}<span><b>${esc(first(b.person))}</b><small>${b.todayTotal ? `${b.todayDone}/${b.todayTotal} done` : 'Nothing today'}${UI.pointsOn() && b.hasPoints ? ` · ${pts(b.week)} this week` : ''}</small></span></a>`).join('')}</div></section>` : '';
+    const wk = S.weekRange(today);
+    const mine = p && S.state.people.some((x) => x.id === p.id) ? [...S.overdue().filter((o) => o.task.assigneeId === p.id && o.date < wk.start), ...S.workload(p, today).items.filter((o) => o.status !== 'done' && !(o.task.recurring === 'daily' && o.date !== today))].sort((a, b) => a.date.localeCompare(b.date)) : [];
+    const mineHtml = mine.length ? `<section class="your-week"><div class="sec-title">Your to-dos · ${mine.length}<a class="more" href="#/tasks">All →</a></div>${mine.slice(0, 4).map((o) => V.myCard(o, true)).join('')}</section>` : '';
+    const events = S.eventOccurrences(today, U.addISO(today, 13)).slice(0, 8);
+    const comingHtml = !S.feature('calendar') || !events.length ? '' : `<section class="coming"><div class="sec-title">Coming up<a class="more" href="#/calendar">Calendar →</a></div><div class="photo-row">${events.map((o, i) => UI.photoCard(o, can('event:edit', o.event) ? 'edit-event' : 'view-event', i)).join('')}</div></section>`;
+    return {
+      title: 'Home', hideTitle: true,
+      html: `${starting ? '' : UI.verseBanner(ui.verseOffset)}
+        <div class="hello"><h2>${greeting()}${p ? `, ${esc(first(p))}` : ''}</h2><span class="stat-line">${esc(U.fmtDate(today, { weekday: 'long', month: 'long', day: 'numeric' }))}</span></div>
+        ${starting && can('settings') ? getStarted() + V.sampleCta() : tiles}
+        ${starting ? '' : NS.Pwa.card()}
+        ${needsHtml}${boardHtml}${mineHtml}
+        ${V.talkCard(p ? p.id : '')}
+        ${comingHtml}`,
+    };
+  }
+  /** Extra cards on a kid's (or anyone's) "My week": points, tonight's dinner, their rides. */
+  function myExtras(p) {
+    if (!on() || !p) return '';
+    const today = U.todayISO(), wk = FM.thisWeek(today);
+    const mineChores = FM.chores().some((t) => t.assigneeId === p.id && t.points > 0);
+    const dn = FM.dinner(today);
+    const rides = FM.trips(today, U.addISO(today, 1)).filter((x) => FM.riders(x.event).some((r) => r.id === p.id) || x.ride.drop === p.id || x.ride.pick === p.id);
+    const ptsCard = UI.pointsOn() && mineChores ? (() => { const n = FM.pointsFor(p.id, wk.start, wk.end), bal = FM.balance(p.id); return `<a class="card fam-points" href="#/chores"><span class="fam-star">${icon('star')}</span><div class="grow"><b>${pts(n)} this week</b><small>${FM.pointValue() ? `${esc(FM.money(bal))} saved up · ${pts(bal)}` : `${pts(bal)} saved up`}</small></div>${icon('right')}</a>`; })() : '';
+    const rideRow = (x) => { const drv = (id) => S.person(id); const kids = FM.riders(x.event).map(first).join(' & '); const iDrive = x.ride.drop === p.id || x.ride.pick === p.id;
+      return `<div class="nrow"><span class="n-ico tone">${icon('car')}</span><div class="grow"><div class="t">${esc(x.event.title)} · ${esc(U.relDay(x.date))} ${esc(timeRange(x.event))}</div><div class="s">${iDrive ? `You’re driving ${esc(kids)}` : `Drop-off: ${esc(first(drv(x.ride.drop)) || 'no one yet')} · Pick-up: ${esc(first(drv(x.ride.pick)) || 'no one yet')}`}</div></div></div>`; };
+    return `${ptsCard}
+      <div class="fam-mini">${dn ? `<a class="card fam-dinner" href="#/meals">${icon('meal')}<span><small>Dinner tonight</small><b>${esc(dn.title)}</b></span></a>` : ''}</div>
+      ${rides.length ? `<div class="sec-title">Rides<a class="more" href="#/rides">All →</a></div><div class="card nlist">${rides.map(rideRow).join('')}</div>` : ''}`;
+  }
+
+  /* ================= Chores ================= */
+  const TABS = [['today', 'sun', 'Today'], ['week', 'calendar', 'Week chart']];
+  const DAYS = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+  V.chores = (ui) => {
+    const p = me(), boss = can('task:create'), today = U.todayISO(), wk = FM.thisWeek(today);
+    const tab = TABS.some((t) => t[0] === ui.choreTab) ? ui.choreTab : 'today';
+    // Kids and teens see their own chores; grown-ups who hand out chores see everyone's.
+    const people = boss ? FM.members().slice().sort((a, b) => Number(FM.isKid(b)) - Number(FM.isKid(a))) : (p ? [p] : []);
+    const board = FM.scoreboard(today).filter((b) => boss || (p && b.person.id === p.id));
+    const showPts = UI.pointsOn();
+    const tabs = `<div class="seg fam-tabs" role="tablist" aria-label="Chores">${TABS.map(([k, ic, l]) => `<button type="button" role="tab" data-action="set" data-key="choreTab" data-val="${k}" aria-selected="${tab === k}" aria-pressed="${tab === k}">${icon(ic)}<span>${l}</span></button>`).join('')}</div>`;
+    const boardHtml = showPts && board.some((b) => b.hasPoints) ? `<div class="fam-board">${board.filter((b) => b.hasPoints).map((b) => {
+      const pct = b.possible ? Math.min(100, Math.round((b.week / b.possible) * 100)) : 0;
+      return `<div class="card fam-score">${UI.avatar(b.person)}<div class="grow"><b>${esc(first(b.person))}</b><div class="fam-bar" role="img" aria-label="${b.week} of ${b.possible} points this week"><span style="width:${pct}%"></span></div>
+        <small>${pts(b.week)} this week${b.balance ? ` · ${FM.pointValue() ? `${esc(FM.money(b.balance))} to pay` : `${pts(b.balance)} saved`}` : ''}</small></div>
+        ${b.balance && can('points:payout') ? `<button class="btn btn-sm" data-action="fam-payout" data-id="${esc(b.person.id)}">${icon('dollar')}${FM.pointValue() ? 'Pay' : 'Cash in'}</button>` : ''}</div>`;
+    }).join('')}</div>` : '';
+    const kidOpts = FM.members().map((x) => F.opt(x.id, x.name, FM.kids()[0] ? FM.kids()[0].id : '')).join('');
+    const addBar = boss ? `<form class="card fam-add" data-fam-form="chore" autocomplete="off">
+        <label class="sr-only" for="fc-title">New chore</label><input class="input" id="fc-title" name="title" placeholder="Add a chore — e.g. Feed the dog" maxlength="100" enterkeyhint="done">
+        <div class="fam-add-row"><label class="sr-only" for="fc-who">Who</label><select class="input" id="fc-who" name="who">${kidOpts}</select>
+          <label class="sr-only" for="fc-rep">Repeats</label><select class="input" id="fc-rep" name="rep">${F.opt('daily', 'Every day', 'daily')}${F.opt('weekly', 'Every week', 'daily')}${F.opt('none', 'Just once', 'daily')}</select>
+          ${showPts ? `<label class="fam-pts-in"><span class="sr-only">Points</span>${icon('star')}<input class="input" name="points" type="number" min="0" max="100" value="1" aria-label="Points"></label>` : ''}
+          <button type="submit" class="btn btn-primary">${icon('plus')}Add</button></div></form>` : '';
+    let body = '';
+    if (tab === 'today') {
+      body = people.map((x) => {
+        const occ = FM.choreOccs(today, today, x.id);
+        const late = S.overdue().filter((o) => o.task.chore && o.task.assigneeId === x.id && !S.repeats(o.task));
+        const list = [...late, ...occ];
+        if (!list.length && boss && (!FM.isKid(x) || !FM.chores().some((t) => t.assigneeId === x.id))) return '';
+        const done = occ.filter((o) => o.status === 'done').length;
+        const todayPts = occ.filter((o) => o.status === 'done').reduce((n, o) => n + (o.task.points || 0), 0);
+        return `<section class="fam-person"><div class="fam-ph">${UI.avatar(x, 'sm')}<b>${esc(p && x.id === p.id ? 'You' : first(x))}</b><span class="muted">${list.length ? `${done} of ${occ.length} done` : 'Nothing today'}</span>${showPts && todayPts ? `<span class="pill ok">+${pts(todayPts)}</span>` : ''}${list.length && done === occ.length && !late.length ? '<span class="fam-yay">All done! 🎉</span>' : ''}</div>
+          ${list.length ? list.map((o) => V.myCard(o)).join('') : `<div class="card fam-none">${boss ? `No chores today for ${esc(first(x))}.` : 'No chores today — enjoy!'}</div>`}</section>`;
+      }).join('') || `<div class="card">${empty('No chores yet', boss ? 'Add one above: pick who, how often and how many points.' : 'A grown-up can add chores for you.')}</div>`;
+    } else {
+      const dates = Array.from({ length: 7 }, (_, i) => U.addISO(wk.start, i));
+      body = people.map((x) => {
+        const mine = FM.chores().filter((t) => t.assigneeId === x.id && S.occurrences(t, wk.start, wk.end).length);
+        if (!mine.length) return '';
+        return `<section class="card fam-chart"><div class="fam-ph">${UI.avatar(x, 'sm')}<b>${esc(first(x))}</b>${showPts ? `<span class="muted">${pts(FM.pointsFor(x.id, wk.start, wk.end))}</span>` : ''}</div>
+          <div class="fam-grid" role="table" aria-label="${esc(first(x))}’s chores this week"><div class="fam-gr head" role="row"><span role="columnheader"></span>${dates.map((d, i) => `<span role="columnheader" class="${d === today ? 'now' : ''}">${DAYS[(i + (S.state.settings.weekStart === 0 ? 6 : 0)) % 7]}</span>`).join('')}</div>
+          ${mine.map((t) => { const occ = new Set(S.occurrences(t, wk.start, wk.end)); const tog = can('task:toggle', t);
+            return `<div class="fam-gr" role="row"><span class="fam-gt" role="cell" data-action="${can('task:edit', t) ? 'edit-task' : 'view-task'}" data-id="${esc(t.id)}">${esc(t.title)}${showPts && t.points ? ` <small>${icon('star')}${t.points}</small>` : ''}</span>${dates.map((d) => { if (!occ.has(d)) return '<span role="cell" class="fam-gc off"></span>'; const dn = S.occStatus(t, d) === 'done';
+              return `<span role="cell" class="fam-gc">${tog && d <= today ? `<button class="tick ${dn ? 'on' : ''}" data-action="toggle-task" data-id="${esc(t.id)}" data-date="${esc(d)}" aria-label="${esc(t.title)}, ${esc(U.fmtDate(d, { weekday: 'long' }))}: ${dn ? 'done' : 'not done'}">${icon('check')}</button>` : `<span class="tick ro ${dn ? 'on' : ''}" aria-label="${dn ? 'done' : 'not yet'}">${icon('check')}</span>`}</span>`; }).join('')}</div>`; }).join('')}</div></section>`;
+      }).join('') || `<div class="card">${empty('No chores this week', '')}</div>`;
+    }
+    const total = FM.choreOccs(today, today, boss ? '' : (p || {}).id).filter((o) => o.status !== 'done').length;
+    return { title: 'Chores', sub: total ? `${plural(total, 'chore')} left today` : 'All caught up today', html: tabs + boardHtml + addBar + body };
+  };
+
+  /* ================= Meals: meal plan + grocery list ================= */
+  const MTABS = [['plan', 'meal', 'Meal plan'], ['list', 'cart', 'Grocery list']];
+  const IDEAS = ['Tacos', 'Spaghetti', 'Pizza night', 'Stir-fry', 'Soup & sandwiches', 'Breakfast for dinner', 'Leftovers', 'Eat out'];
+  V.meals = (ui, q) => {
+    let tab = (q && q.get && q.get('tab')) || ui.mealTab || 'plan';
+    if (!MTABS.some((t) => t[0] === tab)) tab = 'plan';
+    if (q && q.get && q.get('tab') && q.get('tab') !== ui.mealTab) { ui.mealTab = tab; try { history.replaceState(null, '', '#/meals'); } catch (e) { /* ignore */ } }
+    const n = FM.openItems().length;
+    const tabs = `<div class="seg fam-tabs" role="tablist" aria-label="Meals">${MTABS.map(([k, ic, l]) => `<button type="button" role="tab" data-action="set" data-key="mealTab" data-val="${k}" aria-selected="${tab === k}" aria-pressed="${tab === k}">${icon(ic)}<span>${l}</span>${k === 'list' && n ? ` <span class="count">${n}</span>` : ''}</button>`).join('')}</div>`;
+    const v = tab === 'list' ? groceryTab() : planTab(ui);
+    return { title: 'Meals', sub: v.sub, actions: v.actions || '', html: tabs + v.html };
+  };
+  function planTab(ui) {
+    const off = Number(ui.mealWeek) || 0, wk = FM.thisWeek(U.addISO(U.todayISO(), off * 7)), edit = can('meal:edit');
+    const days = FM.weekMeals(wk.start);
+    const planned = days.filter((d) => d.meals.some((m) => m.slot === 'dinner')).length;
+    const label = off === 0 ? 'This week' : off === 1 ? 'Next week' : off === -1 ? 'Last week' : `Week of ${U.fmtDate(wk.start)}`;
+    const nav = `<div class="fam-weeknav"><button class="btn icon-btn" data-action="fam-week" data-dir="-1" aria-label="Previous week">${icon('left')}</button><b>${esc(label)}</b><span class="muted">${esc(U.fmtDate(wk.start))} – ${esc(U.fmtDate(wk.end))}</span>${off ? `<button class="btn btn-sm" data-action="fam-week" data-dir="0">This week</button>` : ''}<button class="btn icon-btn" data-action="fam-week" data-dir="1" aria-label="Next week">${icon('right')}</button></div>`;
+    const rows = days.map((d) => {
+      const has = d.meals.some((m) => m.slot === 'dinner');
+      return `<div class="fam-day ${d.date === U.todayISO() ? 'is-today' : ''}">${dayBox(d.date)}<div class="grow">
+        ${d.meals.map((m) => `<button type="button" class="fam-meal" data-action="${edit ? 'fam-meal' : 'fam-meal-view'}" data-id="${esc(m.id)}"><span class="fam-slot">${esc(FM.SLOTS[m.slot])}</span><b>${esc(m.title || 'Untitled')}</b>${m.cookId ? `<small>${UI.avatar(S.person(m.cookId), 'xs')}${esc(cookTxt(m))}</small>` : ''}</button>`).join('')}
+        ${!has ? (edit ? `<button type="button" class="fam-meal add" data-action="fam-meal" data-date="${esc(d.date)}">${icon('plus')}<span>Plan dinner</span></button>` : '<div class="muted fam-meal none">Dinner not planned yet</div>') : ''}
+      </div>${edit && has ? `<button class="btn btn-ghost icon-btn" data-action="fam-meal" data-date="${esc(d.date)}" data-slot="breakfast" aria-label="Add another meal on ${esc(U.fmtDate(d.date, { weekday: 'long' }))}" title="Add breakfast or lunch">${icon('plus')}</button>` : ''}</div>`;
+    }).join('');
+    return {
+      sub: `${planned} of 7 dinners planned`,
+      html: `${nav}<div class="card fam-week">${rows}</div>${edit ? '<p class="hint fam-tip">Tip: add ingredients to a meal and send them to the grocery list in one tap.</p>' : ''}`,
+    };
+  }
+  function groceryTab() {
+    const open = FM.openItems(), done = FM.doneItems(), add = can('grocery:add');
+    const row = (g) => { const by = S.person(g.by), m = g.mealId ? FM.meal(g.mealId) : null;
+      return `<div class="fam-g ${g.done ? 'is-done' : ''}">${can('grocery:check') ? `<button class="tick ${g.done ? 'on' : ''}" data-action="fam-groc" data-id="${esc(g.id)}" aria-label="${g.done ? 'Put back on the list' : 'Got it'}: ${esc(g.text)}">${icon('check')}</button>` : `<span class="tick ro ${g.done ? 'on' : ''}"></span>`}
+        <span class="grow" data-action="${can('grocery:check') ? 'fam-groc' : ''}" data-id="${esc(g.id)}"><b>${esc(g.text)}</b>${m || by ? `<small>${m ? `for ${esc(m.title)}` : ''}${m && by ? ' · ' : ''}${by ? `added by ${esc(me() && by.id === me().id ? 'you' : first(by))}` : ''}</small>` : ''}</span>
+        ${can('grocery:delete', g) ? `<button class="btn btn-ghost icon-btn" data-action="fam-groc-del" data-id="${esc(g.id)}" aria-label="Remove ${esc(g.text)}" title="Remove">${icon('x')}</button>` : ''}</div>`; };
+    return {
+      sub: open.length ? `${plural(open.length, 'item')} to get` : 'Nothing on the list',
+      actions: open.length ? `<button class="btn" data-action="fam-groc-copy">${icon('copy')}<span class="lbl">Copy list</span></button>` : '',
+      html: `${add ? `<form class="card fam-add groc" data-fam-form="grocery" autocomplete="off"><label class="sr-only" for="fg-text">Add to the grocery list</label><input class="input" id="fg-text" name="text" placeholder="Add items — milk, eggs, bread" maxlength="300" enterkeyhint="done"><button type="submit" class="btn btn-primary">${icon('plus')}Add</button></form>` : ''}
+        <div class="card fam-glist">${open.length ? open.map(row).join('') : `<div class="all-good">${icon('check')}<span>The list is empty.</span></div>`}</div>
+        ${done.length ? `<div class="sec-title">In the cart · ${done.length}${can('home:manage') ? '<button class="more linkish" data-action="fam-groc-clear">Clear checked</button>' : ''}</div><div class="card fam-glist">${done.map(row).join('')}</div>` : ''}`,
+    };
+  }
+  /** Add or change a meal. Ingredients can go straight onto the grocery list. */
+  function mealForm(m, defaults) {
+    const isNew = !m, x = Object.assign({ date: U.todayISO(), slot: 'dinner', title: '', cookId: '', ingredients: '', notes: '' }, m || defaults || {});
+    UI.openModal({
+      title: isNew ? `Plan ${FM.SLOTS[x.slot].toLowerCase()}` : 'Edit meal', size: 'sm',
+      body: `<div class="form-grid">
+        <div class="field full"><label for="ml-title">What’s for ${esc(FM.SLOTS[x.slot].toLowerCase())}?</label><input class="input" id="ml-title" name="title" value="${esc(x.title)}" placeholder="e.g. Taco night" maxlength="80" autofocus>
+          ${isNew ? `<div class="fam-ideas">${IDEAS.map((i) => `<button type="button" class="chip" data-idea="${esc(i)}">${esc(i)}</button>`).join('')}</div>` : ''}</div>
+        <div class="field"><label for="ml-date">Day</label><input class="input" id="ml-date" name="date" type="date" value="${esc(x.date)}"></div>
+        <div class="field"><label for="ml-slot">Meal</label><select class="input" id="ml-slot" name="slot">${F.mapOpts(FM.SLOTS, x.slot)}</select></div>
+        <div class="field full"><label for="ml-cook">Who’s cooking? <span class="muted">(optional)</span></label><select class="input" id="ml-cook" name="cookId">${F.opt('', 'No one picked', x.cookId)}${FM.members().map((p) => F.opt(p.id, p.name, x.cookId)).join('')}</select></div>
+        <div class="field full"><label for="ml-ing">Ingredients <span class="muted">(optional, separate with commas)</span></label><textarea class="input" id="ml-ing" name="ingredients" rows="2" placeholder="Taco shells, ground beef, cheese">${esc(x.ingredients)}</textarea>
+          <label class="check" style="margin-top:8px"><input type="checkbox" name="toList" ${isNew ? 'checked' : ''}> Add ingredients to the grocery list</label></div>
+        <div class="field full"><label for="ml-notes">Notes <span class="muted">(optional)</span></label><input class="input" id="ml-notes" name="notes" value="${esc(x.notes)}" placeholder="Recipe link, start the crockpot by noon…" maxlength="200"></div>
+      </div>`,
+      footer: `${isNew ? '' : `<button type="button" class="btn btn-danger left" data-del>${icon('trash')}Delete</button>`}<button type="button" class="btn ${isNew ? 'left' : ''}" data-m="close">Cancel</button><button type="submit" class="btn btn-primary">${isNew ? 'Add to plan' : 'Save'}</button>`,
+      onMount(f, api) {
+        f.addEventListener('click', (e) => { const b = e.target.closest('[data-idea]'); if (b) { e.preventDefault(); f.elements.title.value = b.dataset.idea; f.elements.title.focus(); } });
+        f.addEventListener('input', (e) => e.target.classList.remove('invalid'));
+        const del = f.querySelector('[data-del]');
+        if (del) del.onclick = () => { const copy = Object.assign({}, m); api.close(); FM.removeMeal(m.id); UI.toast(`${m.title || 'Meal'} removed`, () => S.upsert('meals', copy)); };
+      },
+      onSubmit(f, api) {
+        const v = (k) => String(f.elements[k].value || '').trim();
+        if (!v('title')) { f.elements.title.classList.add('invalid'); f.elements.title.focus(); return false; }
+        if (!v('date')) { f.elements.date.classList.add('invalid'); return false; }
+        const saved = FM.saveMeal(Object.assign({}, m || {}, { date: v('date'), slot: v('slot'), title: v('title'), cookId: v('cookId'), ingredients: v('ingredients'), notes: v('notes') }));
+        const added = f.elements.toList.checked && saved.ingredients ? FM.addGroceries(saved.ingredients, (me() || {}).id, saved.id) : [];
+        api.close();
+        UI.toast(`${isNew ? 'Planned' : 'Saved'}: ${saved.title}${added.length ? ` · ${plural(added.length, 'item')} added to the grocery list` : ''}`, isNew ? () => { S.remove('meals', saved.id); added.forEach((g) => FM.removeGrocery(g.id)); } : null);
+      },
+    });
+  }
+  function mealView(m) {
+    const c = S.person(m.cookId);
+    UI.openModal({ title: esc(m.title), size: 'sm', body: `<dl class="kv"><dt>When</dt><dd>${esc(FM.SLOTS[m.slot])} · ${esc(dayName(m.date))}</dd>${c ? `<dt>Cooking</dt><dd>${esc(c.name)}</dd>` : ''}${m.ingredients ? `<dt>Ingredients</dt><dd>${esc(m.ingredients)}</dd>` : ''}${m.notes ? `<dt>Notes</dt><dd>${esc(m.notes)}</dd>` : ''}</dl>`, footer: '<button type="button" class="btn btn-primary" data-m="close">Close</button>' });
+  }
+
+  /* ================= Rides ================= */
+  V.rides = () => {
+    const today = U.todayISO(), list = FM.trips(today, U.addISO(today, 13)), edit = can('ride:edit'), mine = me();
+    const openN = list.filter((x) => x.open).length;
+    const byDay = {};
+    list.forEach((x) => (byDay[x.date] = byDay[x.date] || []).push(x));
+    const leg = (x, k, label) => {
+      const pid = x.ride[k], who = S.person(pid), id = `rd-${x.event.id}-${x.date}-${k}`;
+      let ctl;
+      if (edit) ctl = `<label class="sr-only" for="${id}">${label} driver</label><select class="input fam-driver ${pid ? '' : 'open'}" id="${id}" data-fam-ride="${esc(x.event.id)}|${esc(x.date)}|${k}">${F.opt('', 'Needs a driver', pid)}${FM.drivers().map((p) => F.opt(p.id, mine && p.id === mine.id ? `${p.name} (you)` : p.name, pid)).join('')}</select>`;
+      else if (!pid && can('ride:claim')) ctl = `<button class="btn btn-sm btn-primary" data-action="fam-drive" data-id="${esc(x.event.id)}" data-date="${esc(x.date)}" data-leg="${k}">${icon('car')}I’ll drive</button>`;
+      else ctl = pid ? `<span class="fam-who">${UI.avatar(who, 'xs')}${esc(mine && pid === mine.id ? 'You' : first(who) || 'Someone')}</span>` : '<span class="pill warn">Needs a driver</span>';
+      return `<div class="fam-leg"><span class="fam-leg-l">${label}</span>${ctl}${!edit && pid && mine && pid === mine.id ? `<button class="btn btn-ghost btn-sm" data-action="fam-undrive" data-id="${esc(x.event.id)}" data-date="${esc(x.date)}" data-leg="${k}">Can’t</button>` : ''}</div>`;
+    };
+    const card = (x) => {
+      const kids = FM.riders(x.event);
+      return `<div class="card fam-trip ${x.open ? 'open' : ''}"><div class="fam-trip-h"><div class="grow"><div class="t">${esc(x.event.title)}${x.open ? ' <span class="pill warn">Needs a driver</span>' : ' <span class="pill ok">Covered</span>'}</div>
+        <div class="s">${icon('clock')}${esc(timeRange(x.event))}${x.event.location ? ` · ${icon('pin')}${esc(x.event.location)}` : ''}</div></div>
+        <div class="fam-kids" title="${esc(kids.map((k) => k.name).join(', '))}">${kids.map((k) => UI.avatar(k, 'sm')).join('')}</div></div>
+        <div class="fam-legs">${leg(x, 'drop', 'Drop-off')}${leg(x, 'pick', 'Pick-up')}</div></div>`;
+    };
+    const myDrives = mine ? FM.myDrives(mine.id, today, U.addISO(today, 6)) : [];
+    return {
+      title: 'Rides', sub: list.length ? (openN ? `${plural(openN, 'trip')} still ${openN === 1 ? 'needs' : 'need'} a driver` : 'Every trip has a driver') : 'Activities that need a ride show up here',
+      actions: can('event:create') ? `<button class="btn btn-primary" data-action="fam-new-activity">${icon('plus')}<span class="lbl">Add activity</span></button>` : '',
+      html: `${myDrives.length ? `<div class="card note-card">${icon('car')}<span>You’re driving <b>${plural(myDrives.length, 'time')}</b> this week: ${myDrives.slice(0, 3).map((x) => esc(`${x.event.title} ${U.relDay(x.date).toLowerCase()}`)).join(', ')}${myDrives.length > 3 ? '…' : ''}.</span></div>` : ''}
+        ${list.length ? Object.keys(byDay).map((d) => `<div class="day-label">${esc(dayName(d))}</div>${byDay[d].map(card).join('')}`).join('')
+          : `<div class="card">${empty('No rides needed in the next two weeks', 'Add practices, lessons and appointments and tick “Needs a ride” to plan who drives.', can('event:create') ? `<button class="btn btn-primary" data-action="fam-new-activity">${icon('plus')}Add activity</button>` : '')}</div>`}`,
+    };
+  };
+
+  /* ================= Settings card ================= */
+  function settingsCard() {
+    if (!on() || !can('settings')) return '';
+    const c = S.config(), fc = c.family || {}, banner = !c.features.verse ? 'off' : fc.banner === 'verse' ? 'verse' : 'message';
+    const VALUES = [[0, 'Just points'], [0.05, '5¢ a point'], [0.1, '10¢ a point'], [0.25, '25¢ a point'], [0.5, '50¢ a point'], [1, '$1 a point']];
+    return `<div class="card card-pad" id="customize-family"><h2>Family</h2><div style="display:grid;gap:16px">
+      <label class="check"><input type="checkbox" data-cfg="family.points" ${fc.points !== false ? 'checked' : ''}> Give chores points (a weekly tally on Chores)</label>
+      <div class="field" ${fc.points !== false ? '' : 'hidden'}><label for="s-ptv">Allowance</label><select class="input" id="s-ptv" data-cfg="family.pointValue">${VALUES.map(([v, l]) => F.opt(v, l, Number(fc.pointValue) || 0)).join('')}</select><div class="hint">Points add up until you tap “Pay” on Chores.</div></div>
+      <div class="field"><span class="label">Weekly banner on Home</span><div class="seg" role="group" aria-label="Weekly banner">${[['off', 'Off'], ['verse', 'Bible verse'], ['message', 'Encouraging message']].map(([k, l]) => `<button type="button" data-action="fam-banner" data-val="${k}" aria-pressed="${banner === k}">${l}</button>`).join('')}</div></div>
+    </div></div>`;
+  }
+
+  /* ================= actions ================= */
+  const evOf = (el) => S.get('events', el.dataset.id);
+  const actions = {
+    'new-chore': () => F.taskForm(null, { chore: true, recurring: 'daily', points: UI.pointsOn() ? 1 : 0, estHours: 0, assigneeId: (FM.kids()[0] || {}).id || '', ministryId: (S.state.ministries.find((x) => /home/i.test(x.name)) || {}).id || '' }),
+    'new-meal': () => mealForm(null, { date: U.todayISO(), slot: 'dinner' }),
+    'new-grocery': () => { NS.App.set({ mealTab: 'list' }); go('#/meals'); setTimeout(() => { const i = document.getElementById('fg-text'); if (i) i.focus(); }, 60); },
+    'fam-week': (el) => { const d = Number(el.dataset.dir); const ui = NS.App.ui; NS.App.set({ mealWeek: d ? (Number(ui.mealWeek) || 0) + d : 0 }); },
+    'fam-meal': (el) => { const m = el.dataset.id ? FM.meal(el.dataset.id) : null; mealForm(m, m ? null : { date: el.dataset.date || U.todayISO(), slot: el.dataset.slot || 'dinner' }); },
+    'fam-meal-view': (el) => { const m = FM.meal(el.dataset.id); if (m) mealView(m); },
+    'fam-groc': (el) => { const g = FM.toggleGrocery(el.dataset.id); if (g && g.done) UI.toast(`Got it: ${g.text}`, () => FM.toggleGrocery(g.id)); },
+    'fam-groc-del': (el) => { const g = FM.groceries().find((x) => x.id === el.dataset.id); if (!g) return; const i = FM.groceries().indexOf(g); FM.removeGrocery(g.id); UI.toast(`${g.text} removed`, () => { S.state.groceries.splice(i, 0, g); S.save(); }); },
+    'fam-groc-clear': () => { const gone = FM.clearDone(); if (gone.length) UI.toast(`${plural(gone.length, 'item')} cleared`, () => FM.restoreGroceries(gone)); },
+    'fam-groc-copy': () => {
+      const txt = `${S.churchName()} grocery list\n${FM.openItems().map((g) => `• ${g.text}`).join('\n')}`;
+      const done = () => UI.toast('Grocery list copied — paste it in a text');
+      if (navigator.share && /Mobi|Android|iPhone/i.test(navigator.userAgent)) navigator.share({ title: 'Grocery list', text: txt }).catch(() => {});
+      else if (navigator.clipboard) navigator.clipboard.writeText(txt).then(done, () => UI.toast('Couldn’t copy — select the list and copy it'));
+    },
+    'fam-drive': (el) => { const m = me(), ev = evOf(el); if (!m || !ev) return; FM.setRide(ev.id, el.dataset.date, el.dataset.leg, m.id); UI.toast(`Thanks! You’re on ${el.dataset.leg === 'pick' ? 'pick-up' : 'drop-off'} for ${ev.title}`, () => FM.setRide(ev.id, el.dataset.date, el.dataset.leg, '')); },
+    'fam-undrive': (el) => { const m = me(), ev = evOf(el); if (!m || !ev) return; FM.setRide(ev.id, el.dataset.date, el.dataset.leg, ''); UI.toast(`Okay — ${ev.title} needs a driver again`, () => FM.setRide(ev.id, el.dataset.date, el.dataset.leg, m.id)); },
+    'fam-new-activity': () => F.eventForm(null, { type: 'activity', needsRide: true, ministryId: (S.state.ministries.find((m) => /activit/i.test(m.name)) || {}).id || '' }),
+    'fam-payout': async (el) => {
+      const p = S.person(el.dataset.id); if (!p) return;
+      const bal = FM.balance(p.id), money = FM.pointValue() ? FM.money(bal) : '';
+      if (!(await UI.confirmDialog({ title: money ? `Pay ${first(p)} ${money}?` : `Cash in ${first(p)}’s points?`, message: `${pts(bal)} saved up. This marks them as paid and starts the tally again.`, okText: money ? `Paid ${money}` : 'Cash in' }))) return;
+      const x = FM.payOut(p.id, (me() || {}).id);
+      if (x) UI.toast(`${first(p)} paid${money ? ` ${money}` : ''} 🎉`, () => FM.undoPayout(x.id));
+    },
+    'fam-banner': (el) => { FM.setBanner(el.dataset.val); UI.toast(el.dataset.val === 'off' ? 'Weekly banner off' : el.dataset.val === 'verse' ? 'A Bible verse each week' : 'An encouraging message each week'); },
+  };
+  const GUARD = {
+    'new-chore': () => can('task:create'),
+    'new-meal': () => can('meal:edit'),
+    'new-grocery': () => can('grocery:add'),
+    'fam-meal': () => can('meal:edit'),
+    'fam-groc': () => can('grocery:check'),
+    'fam-groc-del': (el) => can('grocery:delete', FM.groceries().find((x) => x.id === el.dataset.id)),
+    'fam-groc-clear': () => can('home:manage'),
+    'fam-drive': () => can('ride:claim'),
+    'fam-undrive': (el) => { const ev = evOf(el), m = me(); return !!ev && !!m && FM.rideFor(ev, el.dataset.date)[el.dataset.leg] === m.id; },
+    'fam-new-activity': () => can('event:create'),
+    'fam-payout': () => can('points:payout'),
+    'fam-banner': () => can('settings'),
+  };
+  const allowed = (el) => on() && can('family:view') && (GUARD[el.dataset.action] ? GUARD[el.dataset.action](el) : true);
+
+  function bind(set) {
+    const view = document.getElementById('view');
+    view.addEventListener('submit', (e) => {
+      const f = e.target.closest('[data-fam-form]'); if (!f || !on()) return;
+      e.preventDefault();
+      const m = me();
+      if (f.dataset.famForm === 'grocery') {
+        if (!can('grocery:add')) return;
+        const added = FM.addGroceries(f.elements.text.value, m ? m.id : '');
+        if (!added.length) { if (!f.elements.text.value.trim()) f.elements.text.focus(); else UI.toast('Already on the list'); return; }
+        UI.toast(`Added ${added.length === 1 ? added[0].text : plural(added.length, 'item')}`, () => added.forEach((g) => FM.removeGrocery(g.id)));
+        setTimeout(() => { const i = document.getElementById('fg-text'); if (i) { i.value = ''; i.focus(); } }, 0);
+      }
+      if (f.dataset.famForm === 'chore') {
+        if (!can('task:create')) return;
+        const title = f.elements.title.value.trim();
+        if (!title) { f.elements.title.classList.add('invalid'); f.elements.title.focus(); return; }
+        const who = S.person(f.elements.who.value), rep = f.elements.rep.value;
+        const item = { title, assigneeId: who ? who.id : '', ministryId: (S.state.ministries.find((x) => /home/i.test(x.name)) || {}).id || '', estHours: 0, dueDate: U.todayISO(), priority: 'medium', status: 'todo', recurring: S.REPEATS[rep] ? rep : 'daily', repeatUntil: '', doneDates: [], createdAt: U.todayISO(), chore: true, points: f.elements.points ? Math.max(0, Math.min(100, Number(f.elements.points.value) || 0)) : 0, description: '' };
+        if (!can('task:edit', item)) { UI.toast('You can only add chores for people you look after'); return; }
+        const saved = S.upsert('tasks', item);
+        set({ choreWho: item.assigneeId });
+        UI.toast(`Added “${title}” for ${who ? first(who) : 'no one yet'}`, () => S.remove('tasks', saved.id));
+        setTimeout(() => { const i = document.getElementById('fc-title'); if (i) i.focus(); const w = document.getElementById('fc-who'); if (w && who) w.value = who.id; const r = document.getElementById('fc-rep'); if (r) r.value = rep; }, 0);
+      }
+    });
+    view.addEventListener('change', (e) => {
+      const d = e.target.dataset;
+      if (d.famRide) {
+        if (!can('ride:edit')) { UI.toast('Ask a parent to change who drives'); NS.App.render(); return; }
+        const [id, date, leg] = d.famRide.split('|'); const ev = S.get('events', id); const prev = ev ? FM.rideFor(ev, date)[leg] : '';
+        FM.setRide(id, date, leg, e.target.value);
+        const p = S.person(e.target.value);
+        UI.toast(p ? `${first(p)} is driving` : 'Needs a driver', () => FM.setRide(id, date, leg, prev));
+      }
+    });
+  }
+  function afterRender(id) {
+    if (id === 'chores') { const w = document.getElementById('fc-who'), ui = NS.App.ui; if (w && ui.choreWho && S.person(ui.choreWho)) w.value = ui.choreWho; }
+  }
+
+  /* ================= bell, search ================= */
+  function bellItems(who, attention) {
+    if (!on() || !who) return;
+    const today = U.todayISO();
+    FM.myDrives(who.id, today, U.addISO(today, 1)).forEach((x) => {
+      const legs = [x.ride.drop === who.id && 'drop-off', x.ride.pick === who.id && 'pick-up'].filter(Boolean).join(' & ');
+      attention.push({ key: `ride:${x.event.id}:${x.date}:${who.id}`, ico: 'car', tone: '', text: `You’re driving: <b>${esc(x.event.title)}</b> ${esc(U.relDay(x.date).toLowerCase())}`, sub: `${legs} · ${timeRange(x.event)}${x.event.location ? ` · ${x.event.location}` : ''}`, href: '#/rides', at: `${today}T00:05` });
+    });
+    if (can('ride:edit')) {
+      FM.openTrips(today, U.addISO(today, 2)).forEach((x) => attention.push({ key: `ridereq:${x.event.id}:${x.date}`, ico: 'car', tone: 'warn', text: `<b>${esc(x.event.title)}</b> needs a driver ${esc(U.relDay(x.date).toLowerCase())}`, sub: `${FM.riders(x.event).map(first).join(' & ')} · ${timeRange(x.event)}`, href: '#/rides', at: `${today}T00:06` }));
+      if (!FM.dinner(today) && S.state.meals.length) attention.push({ key: `dinner:${today}`, ico: 'meal', tone: '', text: 'Dinner tonight isn’t planned yet', sub: 'Tap to plan it', href: '#/meals', at: `${today}T00:07` });
+    }
+  }
+  function searchEntries(add) {
+    if (!on() || !can('family:view')) return;
+    S.state.meals.slice(-80).forEach((m) => add('meal', m.title, `${m.ingredients} ${m.notes}`, `${FM.SLOTS[m.slot]} · ${U.fmtDay(m.date)}`, { href: '#/meals' }, 'meal'));
+    FM.openItems().forEach((g) => add('grocery', g.text, 'grocery list shopping', 'On the grocery list', { href: '#/meals?tab=list' }, 'cart'));
+  }
+
+  NS.FamilyUI = { actions, allowed, bind, afterRender, home, myExtras, settingsCard, bellItems, searchEntries, mealForm };
+})(window.ChurchPM);
+
+</script>
+  <script>
 /* Church PM — meeting audio storage (IndexedDB). Audio blobs are too big for localStorage,
  * so they live here, keyed by meeting id. Everything else stays in localStorage.
  * All methods return Promises and fail soft (resolve null/false) when IndexedDB is unavailable. */
@@ -8515,7 +9398,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
     ['calendar', 'calendar', 'Calendar & events', orgCopy(type, 'eventsFeature')],
     ['workload', 'workload', 'Workload & capacity', 'Hours planned vs. each person’s week, with overload warnings.'],
     ['projects', 'folder', 'Projects', 'Group related tasks with their own members and progress.'],
-  ].concat(type === 'church' ? [['worship', 'music', 'Worship planning', 'Service orders, band & tech scheduling, a song library with chord charts and Music Stand.']] : []);
+  ].concat(type === 'family' ? [['family', 'home', 'Family tools', 'Chores with points, a weekly meal plan & grocery list, and who drives to practices.']] : []).concat(type === 'church' ? [['worship', 'music', 'Worship planning', 'Service orders, band & tech scheduling, a song library with chord charts and Music Stand.']] : []);
   const DAY = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
   /* ---- shared controls. mode 'wz' = wizard draft, 'cfg' = live config in Settings ---- */
@@ -8583,7 +9466,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
   // defaulted; "Customize first" opens the full wizard. "Run setup again" in Settings is the full wizard.
   const QUICK = { id: 'quick', title: 'Let’s set up your planner', sub: 'Three quick things. Everything else starts with sensible defaults you can change any time in Settings.' };
   // "Tell us about you" only appears the first time (before anyone is on the team).
-  const steps = () => (draft.quick ? [QUICK] : ALL_STEPS.filter((x) => x.id !== 'you' || !draft.hasPeople));
+  const steps = () => (draft.quick ? [QUICK] : ALL_STEPS.filter((x) => (x.id !== 'you' || !draft.hasPeople) && (x.id !== 'people' || draft.config.orgType !== 'family')));
   const root = () => document.getElementById('setup-root');
   const groupsFor = (type) => (NS.ORG_TYPES[type] || NS.ORG_TYPES.church).groups.map(([name, color]) => ({ id: U.uid('m'), name, color }));
   const draftRole = () => (draft.config.roles || []).find((r) => r.id === draft.roleId) || null;
@@ -8620,7 +9503,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
         ${draft.hasPeople ? '' : `<span class="label" style="margin-top:16px">Your role <span class="muted">(optional — adds a few repeating tasks for you)</span></span>
         <div class="role-pick chips" role="group" aria-label="Your role">${(c.roles || []).map((x) => `<button type="button" class="role-opt" data-wz="role" data-val="${esc(x.id)}" aria-pressed="${draft.roleId === x.id}"><b>${esc(x.label)}</b></button>`).join('')}</div>
         ${r ? `<details class="starter-mini" ${draft.starterOpen ? 'open' : ''}><summary>${icon('check')}Adds ${n} of ${(r.starterTasks || []).length} repeating starter tasks for ${esc(r.label)} · <u>review</u></summary><div class="starter">
-            ${(r.starterTasks || []).map((t, i) => `<label class="starter-row" for="wz-st${i}"><input type="checkbox" id="wz-st${i}" data-wzs="${i}" ${draft.starterPicks[i] ? 'checked' : ''}><span class="grow">${esc(t.title)}</span><span class="muted">${t.recurring === 'monthly' ? 'Monthly' : DAY[t.day] || ''}</span><span class="hours">${U.hrs(t.hours)}</span></label>`).join('')}</div></details>` : ''}`}`;
+            ${(r.starterTasks || []).map((t, i) => `<label class="starter-row" for="wz-st${i}"><input type="checkbox" id="wz-st${i}" data-wzs="${i}" ${draft.starterPicks[i] ? 'checked' : ''}><span class="grow">${esc(t.title)}</span><span class="muted">${t.recurring === 'monthly' ? 'Monthly' : t.recurring === 'daily' ? 'Daily' : DAY[t.day] || ''}</span>${t.points && draft.config.orgType === 'family' ? `<span class="hours">${UI.ptsTxt(t.points)}</span>` : draft.config.features.workload === false ? '' : `<span class="hours">${U.hrs(t.hours)}</span>`}</label>`).join('')}</div></details>` : ''}`}`;
       }
       case 'org': return `<div class="org-pick" role="group" aria-label="Type of organization">${Object.entries(NS.ORG_TYPES).map(([k, x]) => `<button type="button" class="org-opt" data-wz="org" data-val="${k}" aria-pressed="${type === k}">${icon(x.icon)}<b>${esc(x.label)}</b><span>${esc(x.blurb)}</span></button>`).join('')}</div>
         <div class="form-grid" style="margin-top:18px"><div class="field full"><label for="wz-name">${esc(Noun)} name</label><input class="input input-lg ${err ? 'invalid' : ''}" id="wz-name" value="${esc(c.branding.churchName)}" data-wzf="branding.churchName" placeholder="${esc(o.namePlaceholder)}" maxlength="60" autocomplete="organization">${err ? `<div class="err">${esc(err)}</div>` : ''}</div></div>`;
@@ -8631,7 +9514,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
           <span class="label" style="margin-top:16px">Your role</span>
           <div class="role-pick" role="group" aria-label="Your role">${(c.roles || []).map((x) => `<button type="button" class="role-opt" data-wz="role" data-val="${esc(x.id)}" aria-pressed="${draft.roleId === x.id}"><b>${esc(x.label)}</b><span>${esc(x.group || '')}</span></button>`).join('')}</div>
           ${r ? `<div class="starter"><div class="starter-h"><span class="label">Starter tasks for ${esc(r.label)}</span><span class="hint">Repeating · assigned to you</span></div>
-            ${(r.starterTasks || []).map((t, i) => `<label class="starter-row" for="wz-st${i}"><input type="checkbox" id="wz-st${i}" data-wzs="${i}" ${draft.starterPicks[i] ? 'checked' : ''}><span class="grow">${esc(t.title)}</span><span class="muted">${t.recurring === 'monthly' ? 'Monthly' : DAY[t.day] || ''}</span><span class="hours">${U.hrs(t.hours)}</span></label>`).join('')}
+            ${(r.starterTasks || []).map((t, i) => `<label class="starter-row" for="wz-st${i}"><input type="checkbox" id="wz-st${i}" data-wzs="${i}" ${draft.starterPicks[i] ? 'checked' : ''}><span class="grow">${esc(t.title)}</span><span class="muted">${t.recurring === 'monthly' ? 'Monthly' : t.recurring === 'daily' ? 'Daily' : DAY[t.day] || ''}</span>${t.points && draft.config.orgType === 'family' ? `<span class="hours">${UI.ptsTxt(t.points)}</span>` : draft.config.features.workload === false ? '' : `<span class="hours">${U.hrs(t.hours)}</span>`}</label>`).join('')}
             <div class="starter-f"><button type="button" class="linkish" data-wz="starter-all" data-val="${draft.starterPicks.every(Boolean) ? '0' : '1'}">${draft.starterPicks.every(Boolean) ? 'Skip all' : 'Keep all'}</button><span class="hint">${draft.starterPicks.filter(Boolean).length} of ${draft.starterPicks.length} kept</span></div></div>` : '<p class="hint" style="margin-top:12px">Optional: pick a role to get starter tasks. You can skip this.</p>'}`;
       }
       case 'look': return `<div class="look-grid"><div>
@@ -8673,7 +9556,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
     const pc = S.presetConfig(type), oldO = NS.ORG_TYPES[old] || NS.ORG_TYPES.church;
     c.orgType = type; c.labels = pc.labels; c.roles = pc.roles;
     Object.keys(c.staffTypes).forEach((k) => { c.staffTypes[k].label = pc.staffTypes[k].label; c.staffTypes[k].defaultHours = pc.staffTypes[k].defaultHours; });
-    c.features.verse = pc.features.verse; c.features.worship = pc.features.worship;
+    Object.assign(c.features, pc.features); c.family = Object.assign({}, pc.family);
     if (!/^data:/.test(c.branding.logo)) c.branding.logo = pc.branding.logo;
     if (String(c.branding.accent).toLowerCase() === oldO.accent) c.branding.accent = pc.branding.accent;
     if (!draft.hasPeople || S.isEmpty()) draft.ministries = groupsFor(type);
@@ -8751,7 +9634,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && open && draft && draft.canCancel && !document.querySelector('.modal')) wzActions.cancel(); });
   }
 
-  NS.Setup = { start, close, bind, readLogo, setPath, coerce, controls: C, orgCopy, get isOpen() { return open; } };
+  NS.Setup = { FEATURES, start, close, bind, readLogo, setPath, coerce, controls: C, orgCopy, get isOpen() { return open; } };
 })(window.ChurchPM);
 
 </script>
@@ -8865,13 +9748,14 @@ Even [C]so, it is [G7]well with my [C]soul.` },
     const today = U.todayISO(), can = (a, t) => Session().can(a, t);
     const attention = [], updates = [];
     S.overdue().filter((o) => o.task.assigneeId === me.id).forEach((o) => attention.push({ key: `over:${o.task.id}:${o.date}`, ico: 'alert', tone: 'bad', text: `Overdue: ${q(o.task.title)}`, sub: `Was due ${U.relDay(o.date).toLowerCase()}`, a: 'edit-task', id: o.task.id, date: o.date, at: `${o.date}T00:00` }));
-    S.taskOccurrences(today, today, (t) => t.assigneeId === me.id).filter((o) => o.status !== 'done').forEach((o) => attention.push({ key: `today:${o.task.id}:${today}`, ico: 'clock', tone: 'warn', text: `Due today: ${q(o.task.title)}`, sub: U.hrs(o.task.estHours), a: 'edit-task', id: o.task.id, date: o.date, at: `${today}T00:01` }));
+    S.taskOccurrences(today, today, (t) => t.assigneeId === me.id).filter((o) => o.status !== 'done').forEach((o) => attention.push({ key: `today:${o.task.id}:${today}`, ico: 'clock', tone: 'warn', text: `${o.task.chore ? 'Chore today' : 'Due today'}: ${q(o.task.title)}`, sub: o.task.chore ? (o.task.points && S.config().family.points !== false ? `${o.task.points} pt${o.task.points === 1 ? '' : 's'} · check it off on Chores` : 'Check it off on Chores') : S.feature('workload') ? U.hrs(o.task.estHours) : 'Due today', ...(o.task.chore ? { href: '#/chores' } : { a: 'edit-task' }), id: o.task.id, date: o.date, at: `${today}T00:01` }));
     S.helpRequests().filter((t) => t.help.by !== me.id && can('task:edit', t)).forEach((t) => attention.push({ key: `help:${t.id}:${t.help.at}`, ico: 'hand', tone: 'warn', text: `<b>${esc(first(S.person(t.help.by)))}</b> asked for help with ${q(t.title)}`, sub: t.help.note ? `“${t.help.note}”` : '', a: 'edit-task', id: t.id, date: t.help.date, at: t.help.at }));
     if (Session().isManager()) {
       const n = S.overdue().filter((o) => o.task.assigneeId !== me.id && can('task:edit', o.task)).length;
       if (n) attention.push({ key: `team-over:${today}:${n}`, ico: 'tasks', tone: 'bad', text: `${n} team task${n === 1 ? ' is' : 's are'} overdue`, sub: 'See them on Tasks → Overdue', href: '#/tasks?range=overdue', at: `${today}T00:02` });
     }
     if (NS.WorshipUI) NS.WorshipUI.bellItems(me, attention);
+    if (NS.FamilyUI) NS.FamilyUI.bellItems(me, attention);
     const acts = S.activityFor(me.id).slice(-40).reverse();
     acts.forEach((x) => {
       const by = S.person(x.by), t = x.taskId ? S.get('tasks', x.taskId) : null;
@@ -9051,6 +9935,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
       (me ? S.projectsFor(me) : S.state.projects).forEach((p) => add('project', p.name, p.description || '', `${p.status === 'active' ? 'Active' : p.status || ''} project`, { href: `#/project?id=${encodeURIComponent(p.id)}` }, 'folder'));
     }
     if (NS.WorshipUI) NS.WorshipUI.searchEntries(add);
+    if (NS.FamilyUI) NS.FamilyUI.searchEntries(add);
     return out;
   }
 
@@ -9213,12 +10098,15 @@ Even [C]so, it is [G7]well with my [C]soul.` },
   const NAV = [
     { id: 'home', label: 'Home', icon: 'home', show: () => lead() },
     { id: 'my', label: 'My week', icon: 'sun', show: () => !lead() },
-    { id: 'tasks', label: 'Tasks', icon: 'tasks', show: () => lead() },
+    { id: 'chores', label: 'Chores', icon: 'broom', show: () => Session.can('family:view') },
+    { id: 'meals', label: 'Meals', icon: 'meal', show: () => Session.can('family:view') },
+    { id: 'tasks', get label() { return S.isFamily() ? 'To-dos' : 'Tasks'; }, icon: 'tasks', show: () => lead() },
     { id: 'projects', label: 'Projects', icon: 'folder', show: () => Session.can('project:create') || S.projectsFor(Session.me()).length > 0 },
     { id: 'calendar', label: 'Calendar', icon: 'calendar', show: () => Session.can('calendar:view') },
+    { id: 'rides', label: 'Rides', icon: 'car', show: () => Session.can('family:view') },
     { id: 'worship', label: 'Worship', icon: 'music', show: () => Session.can('worship:view') },
     { id: 'meetings', label: 'Meetings', icon: 'mic', show: () => Session.can('meetings') },
-    { id: 'team', label: 'Team', icon: 'people', show: () => ['person:create', 'invite', 'see_workload', 'assign_others'].some((a) => Session.can(a)) },
+    { id: 'team', get label() { return S.isFamily() ? 'Family' : 'Team'; }, icon: 'people', show: () => ['person:create', 'invite', 'see_workload', 'assign_others'].some((a) => Session.can(a)) },
   ];
   // Pages that aren't in the nav: who may open them, and which nav item to highlight.
   const HIDDEN = {
@@ -9232,10 +10120,10 @@ Even [C]so, it is [G7]well with my [C]soul.` },
   // Old addresses that now live elsewhere (People + Workload were merged into Team).
   const ALIASES = { workload: 'team', people: 'team' };
   // Routes that belong to an optional feature (Settings → Features); hidden when it's off.
-  const ROUTE_FEATURE = { calendar: 'calendar', meetings: 'meetings', meeting: 'meetings', talk: 'talk', projects: 'projects', project: 'projects', worship: 'worship', plan: 'worship', song: 'worship' };
+  const ROUTE_FEATURE = { calendar: 'calendar', meetings: 'meetings', meeting: 'meetings', talk: 'talk', projects: 'projects', project: 'projects', worship: 'worship', plan: 'worship', song: 'worship', chores: 'family', meals: 'family', rides: 'family' };
   const enabled = (id) => !ROUTE_FEATURE[id] || S.feature(ROUTE_FEATURE[id]);
   const routesFor = () => NAV.filter((r) => enabled(r.id) && r.show());
-  const defaults = { calScope: '', taskRange: 'week', taskLayout: 'list', taskStatus: '', taskPrio: '', ministry: '', person: '', search: '', personType: '', calMode: 'month', calDate: '', workWeek: '', wlSort: 'load', calShowTasks: true, calShowEvents: true, expanded: {}, showFilters: false, verseOffset: 0, teamTab: 'people', projFilter: 'active', worshipTab: '', wSongQ: '', wSongSort: 'title', wWho: '', wSongKey: {}, wSchedOff: 0 };
+  const defaults = { choreTab: 'today', mealTab: 'plan', mealWeek: 0, choreWho: '', calScope: '', taskRange: 'week', taskLayout: 'list', taskStatus: '', taskPrio: '', ministry: '', person: '', search: '', personType: '', calMode: 'month', calDate: '', workWeek: '', wlSort: 'load', calShowTasks: true, calShowEvents: true, expanded: {}, showFilters: false, verseOffset: 0, teamTab: 'people', projFilter: 'active', worshipTab: '', wSongQ: '', wSongSort: 'title', wWho: '', wSongKey: {}, wSchedOff: 0 };
   let ui = Object.assign({}, defaults);
   try { Object.assign(ui, JSON.parse(localStorage.getItem(UI_KEY) || '{}')); } catch (e) { /* ignore */ }
   ui.calDate = ''; ui.workWeek = ''; ui.verseOffset = 0; ui.homeAll = ''; // always open on the current week
@@ -9299,6 +10187,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
     if (focusId) { const el = document.getElementById(focusId); if (el) { el.focus(); if (sel && el.setSelectionRange) try { el.setSelectionRange(sel[0], sel[1]); } catch (e) { /* ignore */ } } }
     if (id === 'tasks' && ui.taskLayout === 'board') wireBoard();
     NS.WorshipUI.afterRender(id);
+    NS.FamilyUI.afterRender(id);
     NS.Meetings.hydrate();
     if (NS.Tips && NS.Tips.active) setTimeout(() => NS.Tips.refresh(), 0);
     NS.Notify.refresh();
@@ -9403,6 +10292,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
   function allowed(el) {
     const a = el.dataset.action;
     if (NS.WorshipUI.actions[a]) return NS.WorshipUI.allowed(el);
+    if (NS.FamilyUI.actions[a]) return NS.FamilyUI.allowed(el);
     if (NS.Meetings.actions[a]) {
       if (NS.Meetings.TALK_ACTIONS.has(a)) return a === 'talk-new' ? can('talk') : NS.Meetings.canAct(el);
       return can('meetings');
@@ -9412,6 +10302,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
   const actions = {
     ...NS.Meetings.actions,
     ...NS.WorshipUI.actions,
+    ...NS.FamilyUI.actions,
     'view-as': () => F.viewAsPicker(),
     search: () => NS.Search.open(),
     'notif-menu': (el) => NS.Notify.openPanel(el),
@@ -9497,7 +10388,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
       // refresh the row in place if it lives in a dialog (the page behind re-renders itself)
       const row = el.closest('.modal .row');
       if (row) { const tmp = document.createElement('div'); tmp.innerHTML = UI.taskRow({ task: t, date, status: S.occStatus(t, date) }, { hideWho: !row.querySelector('.right .avatar') }); row.replaceWith(tmp.firstElementChild); }
-      if (!wasDone) UI.toast(`Done: ${t.title}`, () => S.setOccurrenceStatus(t, date, 'todo'));
+      if (!wasDone) UI.toast(`Done: ${t.title}${t.chore && t.points && UI.pointsOn() ? ` · +${UI.ptsTxt(t.points)} ⭐` : ''}`, () => S.setOccurrenceStatus(t, date, 'todo'));
     },
     set: (el) => set({ [el.dataset.key]: el.dataset.val }),
     'tasks-more': (el) => {
@@ -9642,6 +10533,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
       }
     });
     NS.WorshipUI.bind(set);
+    NS.FamilyUI.bind(set);
     window.addEventListener('hashchange', () => { UI.closeAllModals(); render(); window.scrollTo(0, 0); });
   }
 
@@ -9684,7 +10576,7 @@ Even [C]so, it is [G7]well with my [C]soul.` },
     let lastDay = U.todayISO();
     setInterval(() => { if (U.todayISO() !== lastDay) { lastDay = U.todayISO(); render(); } }, 60000);
   }
-  NS.App = { init, render, run, pages, viewAs, switchWorkspace, createWorkspace, openInvite, createMeeting: (d, start) => NS.Meetings.createMeeting(d, start), get ui() { return ui; } };
+  NS.App = { init, render, run, set, pages, viewAs, switchWorkspace, createWorkspace, openInvite, createMeeting: (d, start) => NS.Meetings.createMeeting(d, start), get ui() { return ui; } };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })(window.ChurchPM);
 

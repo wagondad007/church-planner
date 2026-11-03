@@ -2,7 +2,7 @@
   "id": "./",
   "name": "Planner",
   "short_name": "Planner",
-  "description": "People, tasks, workload and calendar for churches, businesses and counseling teams.",
+  "description": "People, tasks, workload and calendar for churches, businesses, counseling teams and families.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
