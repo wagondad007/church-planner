@@ -1591,6 +1591,249 @@ kbd { font: 600 11.5px/1 ui-monospace, SFMono-Regular, Menlo, monospace; padding
   .viewas .avatar { width: 32px; height: 32px; }
 }
 
+/* =====================================================================
+   Worship planning (church): services, schedule, songs, Music Stand
+   ===================================================================== */
+.w-tabs { margin-bottom: 18px; max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+.w-tabs button { display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; }
+.w-tabs svg { width: 16px; height: 16px; }
+.w-tabs .count { background: var(--warn); color: #1b1404; border-radius: 99px; font-size: 11px; padding: 0 7px; font-weight: 700; }
+.w-plans { display: grid; gap: 12px; }
+.w-plans.past { margin-top: 12px; }
+.w-plan-card { display: flex; align-items: center; gap: 16px; padding: 16px 18px; color: var(--text); text-decoration: none; transition: border-color .15s, transform .15s; }
+.w-plan-card:hover { border-color: rgba(var(--accent-rgb), .45); }
+.w-plan-card .grow { flex: 1; min-width: 0; }
+.w-plan-card .t { font-weight: 650; font-size: 16px; }
+.w-plan-card .s { color: var(--text-2); font-size: 13.5px; margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.w-go svg { width: 18px; height: 18px; color: var(--text-3); }
+.w-date { flex: none; width: 54px; border-radius: 14px; background: var(--surface-2); border: 1px solid var(--line); display: flex; flex-direction: column; align-items: center; padding: 6px 0; line-height: 1.1; }
+.w-date b { font-size: 21px; font-weight: 700; color: var(--text); }
+.w-date small { font-size: 10.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--accent); font-weight: 650; }
+.w-date small:last-child { color: var(--text-3); }
+.w-meta { display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 8px; font-size: 12.5px; color: var(--text-3); align-items: center; }
+.w-meta > span { display: inline-flex; align-items: center; gap: 5px; }
+.w-meta svg { width: 14px; height: 14px; }
+.w-key { display: inline-grid; place-items: center; min-width: 40px; height: 40px; padding: 0 6px; border-radius: 12px; background: rgba(var(--accent-rgb), .14); color: var(--accent); font-weight: 750; font-size: 15px; flex: none; }
+.w-key.sm { min-width: 0; height: 20px; font-size: 11.5px; border-radius: 7px; padding: 0 6px; vertical-align: 1px; }
+.w-used { font-size: 12.5px; flex: none; }
+.w-song-row { color: var(--text); text-decoration: none; }
+
+/* schedule matrix */
+.w-grid-wrap { padding: 8px 0 12px; overflow: hidden; }
+.w-grid-nav { display: flex; align-items: center; justify-content: space-between; padding: 4px 10px 8px; font-weight: 600; color: var(--text-2); font-size: 14px; }
+.w-grid-scroll { overflow-x: auto; }
+.w-grid { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 13.5px; }
+.w-grid th, .w-grid td { padding: 6px 8px; text-align: left; vertical-align: middle; border-top: 1px solid var(--line); }
+.w-grid thead th { border-top: 0; font-weight: 650; color: var(--text); min-width: 130px; }
+.w-grid thead th a { color: var(--text); text-decoration: none; }
+.w-grid thead th small { display: block; font-weight: 500; color: var(--text-3); font-size: 11.5px; }
+.w-grid thead th:first-child, .w-grid tbody th[scope=row] { position: sticky; left: 0; background: var(--surface); z-index: 1; min-width: 118px; font-weight: 600; color: var(--text-2); }
+.w-team-row th { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--accent) !important; padding-top: 14px; background: var(--surface); }
+.w-cell { display: table-cell; }
+.w-cell .w-chip + .w-chip { margin-top: 4px; }
+.w-chip { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line-2); background: var(--surface-2); color: var(--text); border-radius: 99px; padding: 3px 10px 3px 3px; font-size: 13px; font-weight: 600; cursor: pointer; max-width: 160px; position: relative; }
+.w-chip span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.w-chip.st-accepted { border-color: rgba(63,207,142,.55); background: rgba(63,207,142,.12); }
+.w-chip.st-pending { border-color: rgba(242,184,75,.6); background: rgba(242,184,75,.10); border-style: dashed; }
+.w-chip.st-declined { border-color: rgba(239,90,96,.6); background: rgba(239,90,96,.12); text-decoration: line-through; color: var(--text-2); }
+.w-chip.st-open { padding: 4px 12px; border-style: dashed; color: var(--text-3); background: transparent; }
+.w-legend .w-chip { padding: 2px 10px; cursor: default; }
+.w-warn svg { width: 14px; height: 14px; color: var(--warn); }
+.w-add { width: 30px; height: 30px; border-radius: 99px; border: 1px dashed var(--line-2); background: transparent; color: var(--text-3); cursor: pointer; font-size: 16px; }
+.w-add:hover { color: var(--accent); border-color: var(--accent); }
+.w-legend { display: flex; flex-wrap: wrap; gap: 8px 12px; padding: 12px 12px 0; font-size: 12px; color: var(--text-3); align-items: center; }
+.w-legend > span:last-child { display: inline-flex; gap: 4px; align-items: center; }
+.w-legend svg { width: 14px; height: 14px; color: var(--warn); }
+.w-chips-line { display: flex; flex-wrap: wrap; gap: 8px; }
+.w-acts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.w-who { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; color: var(--text-2); }
+.w-who select { min-width: 200px; }
+.w-serving .nrow, .w-roster .nrow { color: var(--text); text-decoration: none; }
+
+/* service plan */
+.w-plan-cols { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+.w-plan-cols > * { min-width: 0; }
+.w-total { font-weight: 600; text-transform: none; letter-spacing: 0; margin-left: 6px; }
+.w-banner { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding: 14px 16px; border-radius: 16px; margin-bottom: 16px; background: var(--surface); border: 1px solid var(--line); }
+.w-banner > svg { width: 22px; height: 22px; flex: none; }
+.w-banner .grow { flex: 1; min-width: 180px; }
+.w-banner b { display: block; font-size: 15.5px; }
+.w-banner small { color: var(--text-2); }
+.w-banner.st-pending { border-color: rgba(242,184,75,.55); background: rgba(242,184,75,.08); }
+.w-banner.st-pending > svg { color: var(--warn); }
+.w-banner.st-accepted > svg { color: var(--ok); }
+.w-banner.st-declined > svg { color: var(--bad); }
+.so-list { list-style: none; margin: 0; padding: 6px; }
+.so-row { display: flex; align-items: center; gap: 10px; padding: 8px 8px; border-radius: 12px; border-top: 1px solid var(--line); background: var(--surface); min-height: 56px; }
+.so-row:first-child { border-top: 0; }
+.so-row:hover { background: var(--surface-2); }
+.so-row.so-header { min-height: 40px; padding-top: 14px; }
+.so-row.so-header b { font-size: 11.5px; text-transform: uppercase; letter-spacing: .1em; color: var(--accent); }
+.so-handle { flex: none; width: 30px; height: 40px; display: grid; place-items: center; border: 0; background: transparent; color: var(--text-3); cursor: grab; touch-action: none; border-radius: 8px; }
+.so-handle:hover, .so-handle:focus-visible { color: var(--text); background: var(--surface-3); }
+.so-handle svg { width: 18px; height: 18px; }
+.so-time { flex: none; width: 66px; font-variant-numeric: tabular-nums; color: var(--text-3); font-size: 13px; font-weight: 600; }
+.so-ico { flex: none; width: 32px; height: 32px; border-radius: 10px; display: grid; place-items: center; background: var(--surface-2); color: var(--text-2); }
+.so-ico svg { width: 16px; height: 16px; }
+.so-row.t-song .so-ico { background: rgba(var(--accent-rgb), .15); color: var(--accent); }
+.so-main { flex: 1; min-width: 0; cursor: pointer; }
+.so-main .t { font-weight: 600; font-size: 15px; }
+.so-main .s { color: var(--text-3); font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.so-who { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--text-2); flex: none; }
+.so-min { flex: none; display: inline-flex; align-items: center; gap: 4px; }
+.so-min input { width: 56px; padding: 6px 6px; text-align: center; font-variant-numeric: tabular-nums; }
+.so-min small, .so-len { color: var(--text-3); font-size: 12px; }
+.so-row.dragging { opacity: .95; box-shadow: 0 10px 30px rgba(0,0,0,.45); border: 1px solid rgba(var(--accent-rgb), .6); position: relative; z-index: 2; }
+.so-list.is-dragging, .so-list.is-dragging * { cursor: grabbing; user-select: none; }
+.so-add { display: flex; flex-wrap: wrap; gap: 8px; padding: 6px 12px 12px; }
+.so-foot { display: flex; justify-content: space-between; padding: 12px 18px; border-top: 1px solid var(--line); color: var(--text-2); font-size: 14px; }
+.so-empty { list-style: none; }
+.w-team-h { font-size: 11.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); font-weight: 650; margin: 14px 4px 6px; }
+.w-team-h:first-of-type { margin-top: 0; }
+.w-slot { min-height: 58px; }
+.w-empty-av { width: 32px; height: 32px; border-radius: 99px; border: 1.5px dashed var(--line-2); display: grid; place-items: center; color: var(--text-3); }
+.w-empty-av svg { width: 14px; height: 14px; }
+.w-team-add { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.w-cal { display: flex; align-items: center; gap: 6px; margin-top: 14px; }
+.w-cal svg { width: 15px; height: 15px; }
+.txt-warn svg, .txt-ok svg { width: 13px; height: 13px; vertical-align: -2px; margin-right: 3px; }
+.w-evlink { display: flex; align-items: center; gap: 12px; width: 100%; margin-top: 16px; padding: 12px 14px; border-radius: 14px; border: 1px solid rgba(var(--accent-rgb), .4); background: rgba(var(--accent-rgb), .08); color: var(--text); text-decoration: none; cursor: pointer; font: inherit; text-align: left; }
+.w-evlink .grow { flex: 1; min-width: 0; }
+.w-evlink b { display: block; }
+.w-evlink small { color: var(--text-2); }
+.w-evlink svg { width: 18px; height: 18px; color: var(--accent); flex: none; }
+
+/* dialogs */
+.w-form > * { grid-column: 1 / -1; }
+.form-row { display: grid; gap: 12px; }
+.form-row.two { grid-template-columns: 1fr 1fr; }
+.form-row.four { grid-template-columns: 1.2fr 1fr 1fr 1.2fr; }
+.w-pick { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 1px solid var(--line-2); border-radius: 12px; cursor: pointer; font-weight: 500; color: var(--text); }
+.w-pick:has(input:checked) { border-color: var(--accent); background: var(--accent-50); }
+.w-pick input { accent-color: var(--accent); width: 17px; height: 17px; flex: none; }
+.w-pick .grow { flex: 1; min-width: 0; }
+.w-pick b { display: block; font-weight: 600; }
+.w-pick small { color: var(--text-3); font-size: 12px; }
+.w-songlist { display: grid; gap: 6px; max-height: 240px; overflow: auto; margin: 8px 0 12px; padding-right: 2px; }
+.w-checklist { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; max-height: 300px; overflow: auto; margin-top: 8px; }
+.w-checklist .w-pick[hidden] { display: none; }
+.w-cands { margin-top: 4px; }
+.w-cand { width: 100%; text-align: left; font: inherit; color: var(--text); background: transparent; border: 0; border-top: 1px solid var(--line); min-height: 56px; }
+.w-cand.is-cur { background: var(--accent-50); }
+.w-slot-cur { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 14px; background: var(--surface-2); margin-bottom: 12px; }
+.w-slot-cur .grow { flex: 1; } .w-slot-cur b { display: block; } .w-slot-cur small { color: var(--text-3); }
+.w-others { margin-top: 12px; } .w-others summary { cursor: pointer; font-weight: 600; color: var(--text-2); padding: 6px 0; } .w-others input { margin: 8px 0; }
+.w-songform { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 22px; }
+.w-preview .chart { max-height: 560px; overflow: auto; background: var(--surface-2); border-radius: 14px; padding: 14px 16px; font-size: 14px; }
+.w-attline { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 10px; background: var(--surface-2); }
+.w-attline svg { width: 15px; height: 15px; }
+textarea.mono, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13.5px; line-height: 1.5; }
+.w-share { width: 100%; }
+.w-menu { display: grid; gap: 2px; }
+.w-menu button { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 0; background: transparent; color: var(--text); font: inherit; font-weight: 500; border-radius: 10px; cursor: pointer; text-align: left; }
+.w-menu button:hover, .w-menu button:focus-visible { background: var(--surface-2); }
+.w-menu button svg { width: 16px; height: 16px; color: var(--text-3); }
+.w-menu .danger, .w-menu .danger svg { color: var(--bad-text); }
+
+/* song page + chord charts */
+.w-song-meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 16px; }
+.w-keypick { display: inline-flex; align-items: center; gap: 8px; margin-left: auto; color: var(--text-2); font-weight: 600; font-size: 13.5px; }
+.w-keypick select { width: auto; min-width: 90px; }
+.w-att-prev img { max-width: 100%; border-radius: 10px; display: block; }
+.chart { line-height: 1.35; color: var(--text); }
+.cp-line { display: flex; flex-wrap: wrap; align-items: flex-end; margin: 0 0 .3em; }
+.cp-seg { display: inline-flex; flex-direction: column; white-space: pre; }
+.cp-ch { color: var(--accent); font-weight: 700; font-size: .92em; min-height: 1.25em; padding-right: .35em; }
+.cp-ly { white-space: pre; }
+.cp-nochords .cp-ch, .cp-line.cp-nochords .cp-ch { display: none; }
+.cp-chords-only .cp-seg { margin-right: .9em; }
+.cp-sec { font-size: .72em; text-transform: uppercase; letter-spacing: .12em; color: var(--text-3); font-weight: 700; margin: 1.1em 0 .4em; }
+.cp-com { color: var(--text-2); font-style: italic; margin: .5em 0; }
+.cp-chorus { border-left: 3px solid rgba(var(--accent-rgb), .55); padding-left: .8em; margin: .3em 0; }
+.cp-gap { height: .7em; }
+.card-pad.chart { font-size: 17px; overflow-x: auto; }
+
+/* Music Stand — full screen, dark, big */
+body.stand-open { overflow: hidden; }
+.stand { position: fixed; inset: 0; z-index: 200; background: #050506; color: #f4f4f5; display: flex; flex-direction: column; --accent-stand: var(--accent); }
+.stand-h { display: flex; align-items: center; gap: 14px; padding: calc(10px + env(safe-area-inset-top)) 16px 8px; border-bottom: 1px solid rgba(255,255,255,.08); }
+.stand-title { flex: 1; min-width: 0; }
+.stand-title b { display: block; font-size: 20px; letter-spacing: -.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.stand-title small { color: #9a9aa3; font-size: 13px; }
+.stand-keyinfo { display: flex; align-items: center; gap: 10px; flex: none; }
+.stand-keyinfo small { color: #b6b6bf; font-size: 12.5px; }
+.st-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-width: 40px; height: 40px; padding: 0 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.05); color: #f4f4f5; font: inherit; font-weight: 650; font-size: 15px; cursor: pointer; }
+.st-btn:hover { background: rgba(255,255,255,.1); }
+.st-btn:disabled { opacity: .35; cursor: default; }
+.st-btn svg { width: 18px; height: 18px; }
+.st-btn[aria-pressed="true"] { background: var(--accent); color: #111; border-color: var(--accent); }
+.stand-tools { display: flex; flex-wrap: wrap; gap: 8px; padding: 8px 16px; border-bottom: 1px solid rgba(255,255,255,.08); align-items: center; }
+.st-group { display: inline-flex; align-items: center; gap: 4px; padding: 2px; border-radius: 14px; background: rgba(255,255,255,.03); }
+.st-lbl { min-width: 54px; text-align: center; font-size: 13.5px; color: #c9c9d1; font-weight: 600; }
+.stand-body { flex: 1; overflow-y: auto; padding: 22px max(20px, 4vw) 40vh; -webkit-overflow-scrolling: touch; outline: none; }
+.stand-chart { max-width: 1100px; margin: 0 auto; columns: auto; }
+.stand .chart { color: #f4f4f5; }
+.stand .cp-ch { color: var(--accent); }
+.stand .cp-sec { color: #8f8f99; }
+.stand-next { max-width: 1100px; margin: 2em auto 0; color: #8f8f99; font-size: .8em; border-top: 1px dashed rgba(255,255,255,.15); padding-top: 1em; }
+.stand-next b { color: #f4f4f5; }
+.stand-att { height: 100%; }
+.stand-att iframe { width: 100%; height: 75vh; border: 0; background: #fff; border-radius: 8px; }
+.stand-att img { max-width: 100%; display: block; margin: 0 auto; border-radius: 8px; background: #fff; }
+.stand-f { display: flex; align-items: center; gap: 10px; padding: 8px 16px calc(8px + env(safe-area-inset-bottom)); border-top: 1px solid rgba(255,255,255,.08); }
+.st-nav { flex: 1; max-width: 300px; justify-content: flex-start; overflow: hidden; }
+.st-nav:last-child { justify-content: flex-end; }
+.st-nav span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #c9c9d1; font-weight: 500; }
+.stand-dots { flex: 1; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+.st-dot { width: 12px; height: 12px; padding: 0; border-radius: 99px; border: 0; background: rgba(255,255,255,.22); cursor: pointer; }
+.st-dot.on { background: var(--accent); width: 26px; }
+
+/* printable run sheet */
+#print-root { display: none; }
+@media print {
+  body.printing-sheet > *:not(#print-root) { display: none !important; }
+  body.printing-sheet #print-root { display: block !important; color: #111; font-size: 11pt; }
+  .sheet h1 { font-size: 20pt; margin: 0 0 2pt; } .sheet h2 { font-size: 13pt; margin: 14pt 0 4pt; }
+  .sheet-sub { color: #555; margin: 0 0 10pt; }
+  .sheet-t { width: 100%; border-collapse: collapse; }
+  .sheet-t th, .sheet-t td { text-align: left; padding: 4pt 6pt; border-bottom: 1px solid #ddd; vertical-align: top; }
+  .sheet-t td:first-child { width: 64pt; white-space: nowrap; } .sheet-t td:nth-child(3) { width: 34pt; }
+  .sheet-h td { font-weight: 700; text-transform: uppercase; letter-spacing: .08em; font-size: 9pt; padding-top: 10pt; border-bottom: 2px solid #111; }
+  .sheet-key { border: 1px solid #999; border-radius: 4pt; padding: 0 3pt; font-size: 9pt; }
+  .sheet-total { font-weight: 700; } .sheet-team { columns: 2; padding-left: 14pt; }
+}
+
+@media (max-width: 860px) {
+  .w-plan-cols, .w-songform { grid-template-columns: minmax(0, 1fr); }
+  .w-plan-card { padding: 14px; gap: 12px; }
+  .so-time { width: 52px; font-size: 12px; }
+  .so-ico { display: none; }
+  .so-row { gap: 6px; padding: 8px 4px; }
+  .so-min input { width: 46px; }
+  .so-min small { display: none; }
+  .w-checklist { grid-template-columns: 1fr; }
+  .form-row.four { grid-template-columns: 1fr 1fr; }
+  .w-keypick { margin-left: 0; }
+  .bottom-nav a { font-size: 10.5px; padding: 5px 2px; min-width: 0; }
+  .bottom-nav a span { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .stand-h { padding: calc(8px + env(safe-area-inset-top)) 10px 6px; gap: 10px; }
+  .stand-title b { font-size: 17px; }
+  .stand-keyinfo small { display: none; }
+  .stand-tools { padding: 6px 8px; gap: 6px; overflow-x: auto; flex-wrap: nowrap; scrollbar-width: none; }
+  .stand-tools > * { flex: none; }
+  .st-btn { min-width: 38px; height: 38px; padding: 0 9px; font-size: 14px; }
+  .st-lbl { min-width: 46px; font-size: 12.5px; }
+  .stand-body { padding: 16px 16px 40vh; }
+  .stand-f { padding: 6px 10px calc(6px + env(safe-area-inset-bottom)); }
+  .st-nav { flex: none; }
+}
+.cp-chords-only .cp-ch { margin-right: .9em; }
+/* worship: keep phone layouts inside the viewport */
+.w-plans { grid-template-columns: minmax(0, 1fr); }
+.w-plan-card { min-width: 0; }
+.w-plan-card .t { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+@media (max-width: 600px) { .topbar .actions [data-action="w-print"] { display: none; } }
+
 </style>
 </head>
 <body>
@@ -1858,7 +2101,7 @@ window.ChurchPM = window.ChurchPM || {};
       staffTypes: { hourly: ['Hourly', 40], salaried: ['Salaried', 45], volunteer: ['Volunteer', 4] },
       groups: [['Worship', '#7c3aed'], ['Children', '#d97706'], ['Youth', '#2563eb'], ['Pastoral Care', '#db2777'], ['Outreach', '#ea580c'], ['Facilities', '#059669'], ['Communications', '#0891b2'], ['Admin', '#64748b']],
       logos: ['church', 'cross', 'bible', 'heart', 'flame'], accent: '#e3af4a',
-      features: { verse: true },
+      features: { verse: true, worship: true },
       copy: {
         teamHint: 'Staff and volunteers you plan for.', eventStep: 'Add a service or event', eventHint: 'Sunday services, rehearsals, youth night…',
         sample: 'church', sampleName: 'Grace Community Church', thanks: 'Thank you for serving!', taskPh: 'e.g. Sunday bulletin & slides', eventPh: 'e.g. Elder Board Meeting',
@@ -1876,7 +2119,7 @@ window.ChurchPM = window.ChurchPM || {};
       staffTypes: { hourly: ['Hourly', 40], salaried: ['Salaried', 45], volunteer: ['Contractor', 20] },
       groups: [['Operations', '#2563eb'], ['Field Service', '#059669'], ['Sales', '#d97706'], ['Marketing', '#db2777'], ['Customer Support', '#0891b2'], ['Finance', '#7c3aed'], ['Admin', '#64748b']],
       logos: ['briefcase', 'building', 'store', 'wrench', 'rocket'], accent: '#5b8def',
-      features: { verse: false },
+      features: { verse: false, worship: false },
       copy: {
         teamHint: 'Employees and contractors you plan for.', eventStep: 'Add a meeting or appointment', eventHint: 'Team huddles, client visits, deliveries…',
         sample: 'business', sampleName: 'Brightline Home Services', thanks: 'Thanks for pitching in!', taskPh: 'e.g. Send the Acme proposal', eventPh: 'e.g. Quarterly planning meeting',
@@ -1893,7 +2136,7 @@ window.ChurchPM = window.ChurchPM || {};
       staffTypes: { hourly: ['Hourly', 40], salaried: ['Salaried', 40], volunteer: ['Volunteer', 4] },
       groups: [['Programs', '#2563eb'], ['Volunteers', '#059669'], ['Events', '#d97706'], ['Fundraising', '#db2777'], ['Communications', '#0891b2'], ['Operations', '#64748b']],
       logos: ['heart', 'star', 'building', 'leaf', 'rocket'], accent: '#3fb68b',
-      features: { verse: false },
+      features: { verse: false, worship: false },
       copy: {
         teamHint: 'Staff and volunteers you plan for.', eventStep: 'Add an event', eventHint: 'Program sessions, volunteer shifts, fundraisers…',
         sample: 'business', sampleName: 'Brightline Home Services', thanks: 'Thank you for volunteering!', taskPh: 'e.g. Send donor thank-you notes', eventPh: 'e.g. Board meeting',
@@ -1910,7 +2153,7 @@ window.ChurchPM = window.ChurchPM || {};
       staffTypes: { hourly: ['Hourly', 30], salaried: ['Salaried', 40], volunteer: ['Intern', 15] },
       groups: [['Sessions', '#0891b2'], ['Intake', '#7c3aed'], ['Admin', '#64748b']],
       logos: ['leaf', 'heart', 'star', 'building'], accent: '#2fb8c4',
-      features: { verse: false },
+      features: { verse: false, worship: false },
       copy: {
         teamHint: 'Counselors, schedulers and interns you plan for.', eventStep: 'Add an appointment', eventHint: 'Client sessions, intake calls, supervision…',
         sample: 'counseling', sampleName: 'Clearwater Counseling', thanks: 'Thanks for all you do!', taskPh: 'e.g. Send intake packet to new client', eventPh: 'e.g. Session — J.M.',
@@ -1961,6 +2204,322 @@ window.ChurchPM = window.ChurchPM || {};
   };
   NS.ORG_TYPES = ORG_TYPES;
   NS.ROLE_LIBRARY = ROLE_LIBRARY;
+})(window.ChurchPM = window.ChurchPM || {});
+
+</script>
+  <script>
+/* Planner — chord charts (pure, no DOM): ChordPro-style text with chords in [brackets].
+ *
+ *   {title: Amazing Grace}  {artist: John Newton}  {key: G}  {tempo: 80}  {time: 3/4}
+ *   {comment: Verse 1}  or a line that is just a section name ("Verse 1", "Chorus:", "[Bridge]")
+ *   {start_of_chorus} … {end_of_chorus}   (also {soc} / {eoc})
+ *   A-[G]mazing [G7]grace, how [C]sweet the [G]sound
+ *
+ * parse(text) → { meta, lines: [{ kind: 'lyric'|'section'|'comment'|'blank', parts: [{ chord, text }], chorus }] }
+ * transposeChord('F#m7/C#', 2, 'A') → 'G#m7/D#'.  toNashville('Em7', 'G') → '6m7'.
+ * Works in the browser (NS.ChordPro) and in Node (module.exports) for the unit tests. */
+(function (root) {
+  'use strict';
+  const SHARPS = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+  const FLATS = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
+  const NOTE = { C: 0, 'B#': 0, 'C#': 1, Db: 1, D: 2, 'D#': 3, Eb: 3, E: 4, Fb: 4, 'E#': 5, F: 5, 'F#': 6, Gb: 6, G: 7, 'G#': 8, Ab: 8, A: 9, 'A#': 10, Bb: 10, B: 11, Cb: 11 };
+  // Keys that are written with flats (major and minor).
+  const FLAT_KEYS = new Set(['F', 'Bb', 'Eb', 'Ab', 'Db', 'Gb', 'Cb', 'Dm', 'Gm', 'Cm', 'Fm', 'Bbm', 'Ebm', 'Abm']);
+  /** The 12 major keys and 12 minor keys people pick from (as written on charts). */
+  const KEYS = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'Ab', 'A', 'Bb', 'B'];
+  const MINOR_KEYS = ['Cm', 'C#m', 'Dm', 'Ebm', 'Em', 'Fm', 'F#m', 'Gm', 'G#m', 'Am', 'Bbm', 'Bm'];
+  const CHORD_RE = /^([A-G](?:#|b)?)((?:maj|min|m|M|dim|aug|sus|add|\+|°|ø|\d|\(|\)|#|b|\-)*)(?:\/([A-G](?:#|b)?))?$/;
+  const mod = (n) => ((n % 12) + 12) % 12;
+
+  const isChord = (s) => CHORD_RE.test(String(s || '').trim()) || /^(N\.?C\.?|x|\/|\||%)$/i.test(String(s || '').trim());
+  /** Split 'Am7' → { root: 'A', minor: true, rest: 'm7' }. */
+  function splitKey(k) {
+    const m = /^([A-G](?:#|b)?)(m(?!aj))?/.exec(String(k || '').trim());
+    return m ? { root: m[1], minor: !!m[2] } : null;
+  }
+  /** Name a pitch class the way a chart in `key` would spell it. */
+  function spell(pc, key) {
+    const k = splitKey(key);
+    const flat = k ? FLAT_KEYS.has(k.root + (k.minor ? 'm' : '')) : false;
+    return (flat ? FLATS : SHARPS)[mod(pc)];
+  }
+  /** Move a key name by `n` semitones ('G', 2 → 'A'; 'Em', 1 → 'Fm'). */
+  function transposeKey(key, n) {
+    const k = splitKey(key); if (!k || NOTE[k.root] == null) return key || '';
+    const pc = mod(NOTE[k.root] + (Number(n) || 0));
+    if (k.minor) return MINOR_KEYS.find((x) => NOTE[splitKey(x).root] === pc) || `${SHARPS[pc]}m`;
+    return KEYS.find((x) => NOTE[x] === pc);
+  }
+  /** Semitones from key a to key b (0–11). */
+  const interval = (a, b) => { const x = splitKey(a), y = splitKey(b); return x && y && NOTE[x.root] != null && NOTE[y.root] != null ? mod(NOTE[y.root] - NOTE[x.root]) : 0; };
+  /** Transpose one chord symbol; `toKey` decides sharps vs. flats. Non-chords come back unchanged. */
+  function transposeChord(ch, n, toKey) {
+    const m = CHORD_RE.exec(String(ch || '').trim());
+    if (!m) return ch;
+    const t = (r) => spell(NOTE[r] + (Number(n) || 0), toKey);
+    return t(m[1]) + (m[2] || '') + (m[3] ? `/${t(m[3])}` : '');
+  }
+  const DEG = ['1', 'b2', '2', 'b3', '3', '4', '#4', '5', 'b6', '6', 'b7', '7'];
+  /** Nashville number for a chord in `key` ('Em7' in G → '6m7', 'D/F#' → '5/7'). */
+  function toNashville(ch, key) {
+    const m = CHORD_RE.exec(String(ch || '').trim()); const k = splitKey(key);
+    if (!m || !k || NOTE[k.root] == null) return ch;
+    const d = (r) => DEG[mod(NOTE[r] - NOTE[k.root])];
+    return d(m[1]) + (m[2] || '').replace(/^min/, 'm') + (m[3] ? `/${d(m[3])}` : '');
+  }
+
+  const DIRECTIVE = /^\{\s*([a-z_]+)\s*(?::\s*(.*?))?\s*\}$/i;
+  const SECTION = /^(?:\[)?((?:verse|chorus|pre-?chorus|bridge|intro|outro|tag|ending|interlude|instrumental|refrain|vamp|turnaround|coda|hook)(?:\s*\d+)?(?:\s*\(.*\))?)(?:\])?\s*:?$/i;
+  const ALIAS = { t: 'title', st: 'subtitle', a: 'artist', c: 'comment', ci: 'comment', comment_italic: 'comment', soc: 'start_of_chorus', eoc: 'end_of_chorus', bpm: 'tempo' };
+  /** One lyric line → [{ chord, text }] (text before the first chord has chord ''). */
+  function parseLine(line) {
+    const parts = []; let rest = line, m;
+    const re = /\[([^\]]*)\]/g; let last = 0, chord = '';
+    while ((m = re.exec(line))) {
+      const before = line.slice(last, m.index);
+      if (before || chord || parts.length) parts.push({ chord, text: before });
+      chord = m[1].trim(); last = re.lastIndex;
+    }
+    rest = line.slice(last);
+    if (rest || chord) parts.push({ chord, text: rest });
+    return parts.length ? parts : [{ chord: '', text: line }];
+  }
+  function parse(text) {
+    const meta = {}, lines = []; let chorus = false;
+    String(text || '').replace(/\r\n?/g, '\n').split('\n').forEach((raw) => {
+      const line = raw.replace(/\s+$/, '');
+      const t = line.trim();
+      if (!t) { lines.push({ kind: 'blank', chorus }); return; }
+      const d = DIRECTIVE.exec(t);
+      if (d) {
+        const name = ALIAS[d[1].toLowerCase()] || d[1].toLowerCase(), v = (d[2] || '').trim();
+        if (name === 'start_of_chorus') { chorus = true; lines.push({ kind: 'section', text: v || 'Chorus', chorus }); }
+        else if (name === 'end_of_chorus') chorus = false;
+        else if (name === 'comment') lines.push({ kind: SECTION.test(v) ? 'section' : 'comment', text: v, chorus });
+        else if (['start_of_verse', 'sov', 'start_of_bridge', 'sob'].includes(name)) lines.push({ kind: 'section', text: v || (/b/.test(name) ? 'Bridge' : 'Verse'), chorus });
+        else if (v) meta[name] = v;
+        return;
+      }
+      if (SECTION.test(t) && !/\[[^\]]*\]/.test(t.replace(/^\[([^\]]*)\]$/, (x, inner) => (isChord(inner) ? x : '')))) { lines.push({ kind: 'section', text: SECTION.exec(t)[1], chorus }); return; }
+      const parts = parseLine(line);
+      lines.push({ kind: 'lyric', parts, chorus, chordsOnly: parts.every((p) => !p.text.trim()) });
+    });
+    // Leading/trailing blanks don't matter on a music stand.
+    while (lines.length && lines[0].kind === 'blank') lines.shift();
+    while (lines.length && lines[lines.length - 1].kind === 'blank') lines.pop();
+    return { meta, lines };
+  }
+  /** Every distinct chord in a chart (handy for "chords used" and tests). */
+  const chordsIn = (text) => [...new Set(parse(text).lines.filter((l) => l.kind === 'lyric').flatMap((l) => l.parts.map((p) => p.chord).filter((c) => c && isChord(c))))];
+
+  const escH = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  /**
+   * HTML for a chart. opts: { key (original key), toKey (key to show), capo (shapes = toKey − capo),
+   * nashville (bool), lyricsOnly (bool) }. Chords sit above the syllable they're on.
+   */
+  function render(text, opts) {
+    const o = opts || {}, doc = parse(text);
+    const from = o.key || doc.meta.key || '';
+    const shown = o.toKey || from, capo = Number(o.capo) || 0;
+    const shapeKey = capo ? transposeKey(shown, -capo) : shown;
+    const n = from && shapeKey ? interval(from, shapeKey) : 0;
+    const fmt = (c) => {
+      if (!c || !isChord(c) || !CHORD_RE.test(c)) return escH(c);
+      if (o.nashville && from) return escH(toNashville(transposeChord(c, interval(from, shown), shown), shown));
+      return escH(n ? transposeChord(c, n, shapeKey) : c);
+    };
+    let html = '', inChorus = false;
+    doc.lines.forEach((l) => {
+      if (l.chorus !== inChorus) { html += l.chorus ? '<div class="cp-chorus">' : '</div>'; inChorus = l.chorus; }
+      if (l.kind === 'blank') { html += '<div class="cp-gap"></div>'; return; }
+      if (l.kind === 'section') { html += `<div class="cp-sec">${escH(l.text)}</div>`; return; }
+      if (l.kind === 'comment') { html += `<div class="cp-com">${escH(l.text)}</div>`; return; }
+      if (o.lyricsOnly) { if (!l.chordsOnly) html += `<div class="cp-line"><span class="cp-ly">${escH(l.parts.map((p) => p.text).join(''))}</span></div>`; return; }
+      const hasChords = l.parts.some((p) => p.chord);
+      if (l.chordsOnly) { html += `<div class="cp-line cp-chords-only">${l.parts.map((p) => `<span class="cp-ch">${fmt(p.chord)}</span>`).join('')}</div>`; return; }
+      html += `<div class="cp-line ${hasChords ? '' : 'cp-nochords'}">${l.parts.map((p) => {
+        // keep words whole: a chord's segment breaks only at spaces
+        const txt = p.text || ' ';
+        return `<span class="cp-seg">${hasChords ? `<span class="cp-ch">${p.chord ? fmt(p.chord) : '&nbsp;'}</span>` : ''}<span class="cp-ly">${escH(txt).replace(/ /g, '&nbsp;').replace(/(&nbsp;)(?=\S)/g, ' ')}</span></span>`;
+      }).join('')}</div>`;
+    });
+    if (inChorus) html += '</div>';
+    return html;
+  }
+  /** Plain text with chords above lyrics (for sharing / printing as text). */
+  function toText(text, opts) {
+    const o = opts || {}, doc = parse(text), from = o.key || doc.meta.key || '', to = o.toKey || from, n = from ? interval(from, to) : 0;
+    return doc.lines.map((l) => {
+      if (l.kind === 'blank') return '';
+      if (l.kind !== 'lyric') return l.text.toUpperCase();
+      let ch = '', ly = '';
+      l.parts.forEach((p) => { const c = p.chord ? (n ? transposeChord(p.chord, n, to) : p.chord) : ''; const w = Math.max(p.text.length, c ? c.length + 1 : 0); ch += c.padEnd(w); ly += p.text.padEnd(w); });
+      return l.parts.some((p) => p.chord) ? `${ch.trimEnd()}\n${ly.trimEnd()}` : ly.trimEnd();
+    }).join('\n');
+  }
+  const api = { parse, render, toText, chordsIn, isChord, transposeChord, transposeKey, toNashville, interval, KEYS, MINOR_KEYS, ALL_KEYS: KEYS.concat(MINOR_KEYS), splitKey };
+  if (typeof module !== 'undefined' && module.exports) module.exports = api;
+  if (typeof window !== 'undefined') { window.ChurchPM = window.ChurchPM || {}; window.ChurchPM.ChordPro = api; }
+})(this);
+
+</script>
+  <script>
+/* Planner — starter content for Worship planning (church workspaces only; pure data, no DOM).
+ * Positions, four public-domain hymns with chord charts, and a "Sunday morning" service template.
+ * A new church workspace starts with these; every piece can be edited or deleted. */
+(function (NS) {
+  'use strict';
+  const POSITIONS = [
+    ['pos_wl', 'Worship leader', 'Band'], ['pos_vox', 'Vocals', 'Band'], ['pos_ag', 'Acoustic guitar', 'Band'], ['pos_eg', 'Electric guitar', 'Band'],
+    ['pos_keys', 'Keys', 'Band'], ['pos_bass', 'Bass', 'Band'], ['pos_drums', 'Drums', 'Band'],
+    ['pos_sound', 'Sound', 'Tech'], ['pos_slides', 'Slides / lyrics', 'Tech'], ['pos_lights', 'Lights', 'Tech'], ['pos_stream', 'Livestream', 'Tech'],
+  ];
+  // Public-domain hymns (words and tunes are out of copyright). Chord voicings are simple, singable arrangements.
+  const SONGS = [
+    { id: 'sg_amazing', title: 'Amazing Grace', artist: 'John Newton (words, 1779) · NEW BRITAIN', key: 'G', bpm: 76, meter: '3/4', ccli: '22025', themes: 'grace, salvation',
+      chart: `{title: Amazing Grace}
+{key: G}
+{tempo: 76}
+{time: 3/4}
+
+Intro
+[G] [C] [G] [D]
+
+Verse 1
+A-[G]mazing [G7]grace! How [C]sweet the [G]sound
+That [G]saved a [Em]wretch like [D]me!
+I [G]once was [G7]lost, but [C]now am [G]found;
+Was [Em]blind, but [D]now I [G]see.
+
+Verse 2
+'Twas [G]grace that [G7]taught my [C]heart to [G]fear,
+And [G]grace my [Em]fears re-[D]lieved;
+How [G]precious [G7]did that [C]grace ap-[G]pear
+The [Em]hour I [D]first be-[G]lieved.
+
+Verse 3
+Through [G]many [G7]dangers, [C]toils, and [G]snares,
+I [G]have al-[Em]ready [D]come;
+'Tis [G]grace hath [G7]brought me [C]safe thus [G]far,
+And [Em]grace will [D]lead me [G]home.
+
+Verse 4
+When [G]we've been [G7]there ten [C]thousand [G]years,
+Bright [G]shining [Em]as the [D]sun,
+We've [G]no less [G7]days to [C]sing God's [G]praise
+Than [Em]when we'd [D]first be-[G]gun.` },
+    { id: 'sg_holy', title: 'Holy, Holy, Holy', artist: 'Reginald Heber (words, 1826) · NICAEA', key: 'D', bpm: 92, meter: '4/4', ccli: '1156', themes: 'trinity, worship, holiness',
+      chart: `{title: Holy, Holy, Holy}
+{key: D}
+{tempo: 92}
+
+Verse 1
+[D]Holy, holy, [Bm]holy! [G]Lord God Al-[D]mighty!
+[D]Early in the [Bm]morning our [E]song shall rise to [A]Thee;
+[D]Holy, holy, [Bm]holy! [G]Merciful and [D]mighty!
+[G]God in three [D]Persons, [Em]bless-[A]ed Trini-[D]ty!
+
+Verse 2
+[D]Holy, holy, [Bm]holy! All the [G]saints a-[D]dore Thee,
+[D]Casting down their [Bm]golden crowns a-[E]round the glassy [A]sea;
+[D]Cherubim and [Bm]seraphim [G]falling down be-[D]fore Thee,
+[G]Which wert, and [D]art, and [Em]ever-[A]more shalt [D]be.
+
+Verse 3
+[D]Holy, holy, [Bm]holy! Though the [G]darkness [D]hide Thee,
+[D]Though the eye of [Bm]sinful man Thy [E]glory may not [A]see;
+[D]Only Thou art [Bm]holy; there is [G]none be-[D]side Thee,
+[G]Perfect in [D]power, in [Em]love [A]and puri-[D]ty.
+
+Verse 4
+[D]Holy, holy, [Bm]holy! [G]Lord God Al-[D]mighty!
+[D]All Thy works shall [Bm]praise Thy name, in [E]earth and sky and [A]sea;
+[D]Holy, holy, [Bm]holy! [G]Merciful and [D]mighty!
+[G]God in three [D]Persons, [Em]bless-[A]ed Trini-[D]ty!` },
+    { id: 'sg_vision', title: 'Be Thou My Vision', artist: 'Irish hymn, tr. Mary Byrne & Eleanor Hull · SLANE', key: 'D', bpm: 84, meter: '3/4', ccli: '30639', themes: 'devotion, guidance',
+      chart: `{title: Be Thou My Vision}
+{key: D}
+{tempo: 84}
+{time: 3/4}
+
+Verse 1
+[D]Be Thou my [G]Vi-[D]sion, O [Bm]Lord of my [G]heart;
+[D]Naught be all [G]else to me, [Bm]save that Thou [A]art.
+[Bm]Thou my best [A]thought, by [G]day or by [A]night,
+[G]Waking or [D]sleeping, Thy [G]presence my [A]light.[D]
+
+Verse 2
+[D]Be Thou my [G]Wis-[D]dom, and [Bm]Thou my true [G]Word;
+[D]I ever [G]with Thee and [Bm]Thou with me, [A]Lord;
+[Bm]Thou my great [A]Father, [G]I Thy true [A]son;
+[G]Thou in me [D]dwelling, and [G]I with Thee [A]one.[D]
+
+Verse 3
+[D]Riches I [G]heed [D]not, nor [Bm]man's empty [G]praise,
+[D]Thou mine in-[G]heritance, [Bm]now and al-[A]ways:
+[Bm]Thou and Thou [A]only, [G]first in my [A]heart,
+[G]High King of [D]Heaven, my [G]Treasure Thou [A]art.[D]
+
+Verse 4
+[D]High King of [G]Hea-[D]ven, my [Bm]victory [G]won,
+[D]May I reach [G]Heaven's joys, [Bm]O bright Heaven's [A]Sun!
+[Bm]Heart of my [A]own heart, [G]whatever be-[A]fall,
+[G]Still be my [D]Vision, O [G]Ruler of [A]all.[D]` },
+    { id: 'sg_well', title: 'It Is Well with My Soul', artist: 'Horatio Spafford (words, 1873) · VILLE DU HAVRE', key: 'C', bpm: 72, meter: '4/4', ccli: '25376', themes: 'peace, trust, hope',
+      chart: `{title: It Is Well with My Soul}
+{key: C}
+{tempo: 72}
+
+Verse 1
+When [C]peace like a [F]river at-[C]tendeth my way,
+When [Am]sorrows like [D7]sea billows [G]roll;
+What-[C]ever my [F]lot, Thou hast [C]taught me to [Am]say,
+It is [C]well, it is [G7]well with my [C]soul.
+
+{soc}
+It is [G]well (it is well)
+With my [C]soul (with my soul),
+It is [F]well, it is [G7]well with my [C]soul.
+{eoc}
+
+Verse 2
+Though [C]Satan should [F]buffet, though [C]trials should come,
+Let [Am]this blest as-[D7]surance con-[G]trol,
+That [C]Christ has re-[F]garded my [C]helpless es-[Am]tate,
+And hath [C]shed His own [G7]blood for my [C]soul.
+
+Verse 3
+My [C]sin, oh, the [F]bliss of this [C]glorious thought!
+My [Am]sin, not in [D7]part but the [G]whole,
+Is [C]nailed to the [F]cross, and I [C]bear it no [Am]more,
+Praise the [C]Lord, praise the [G7]Lord, O my [C]soul!
+
+Verse 4
+And, [C]Lord, haste the [F]day when my [C]faith shall be sight,
+The [Am]clouds be rolled [D7]back as a [G]scroll;
+The [C]trump shall re-[F]sound, and the [C]Lord shall des-[Am]cend,
+Even [C]so, it is [G7]well with my [C]soul.` },
+  ];
+  // Items: [type, title, minutes, songId?]
+  const SUNDAY = [
+    ['header', 'Pre-service', 0], ['video', 'Countdown & walk-in music', 5], ['header', 'Worship', 0],
+    ['song', '', 5, 'sg_holy'], ['announcement', 'Welcome & announcements', 4], ['song', '', 5, 'sg_amazing'], ['song', '', 5, 'sg_vision'],
+    ['prayer', 'Prayer', 3], ['offering', 'Offering', 4], ['header', 'The Word', 0], ['sermon', 'Sermon', 35], ['song', '', 5, 'sg_well'], ['prayer', 'Benediction & dismissal', 2],
+  ];
+  const SUNDAY_POS = ['pos_wl', 'pos_vox', 'pos_vox', 'pos_ag', 'pos_keys', 'pos_bass', 'pos_drums', 'pos_sound', 'pos_slides', 'pos_stream'];
+  const itemsOf = (list) => list.map(([type, title, minutes, songId]) => ({ type, title, minutes, songId: songId || '' }));
+
+  /** Positions, songs and the default template for a church workspace that has none yet. Returns true if it added anything. */
+  NS.seedWorship = function seedWorship(st) {
+    let changed = false;
+    if (!Array.isArray(st.positions) || !st.positions.length) { st.positions = POSITIONS.map(([id, name, team]) => ({ id, name, team })); changed = true; }
+    if (!Array.isArray(st.songs) || !st.songs.length) { st.songs = SONGS.map((s) => Object.assign({ attachment: null, notes: '', createdAt: '' }, s)); changed = true; }
+    if (!Array.isArray(st.planTemplates) || !st.planTemplates.length) {
+      st.planTemplates = [{ id: 'tpl_sunday', name: 'Sunday morning', title: 'Sunday Worship', time: '10:00', items: itemsOf(SUNDAY), positions: SUNDAY_POS.slice() }]; changed = true;
+    }
+    return changed;
+  };
+  NS.WORSHIP_SEED = { POSITIONS, SONGS, SUNDAY, SUNDAY_POS, itemsOf };
 })(window.ChurchPM = window.ChurchPM || {});
 
 </script>
@@ -3051,8 +3610,47 @@ window.ChurchPM = window.ChurchPM || {};
       ministries, people, tasks, events, projects, meetings: [], activity,
     };
     addSampleMeetings(data, d);
+    addSampleWorship(data, d);
     return data;
   };
+
+  /* Worship planning: who plays what, three upcoming Sundays (one fully planned), and a couple of blockouts. */
+  function addSampleWorship(data, d) {
+    if (!NS.seedWorship) return;
+    NS.seedWorship(data); data.settings.worshipSeeded = true;
+    const POS = { p_rachel: ['pos_wl', 'pos_vox', 'pos_keys'], p_ben: ['pos_wl', 'pos_ag', 'pos_eg'], p_caleb: ['pos_drums', 'pos_eg'], p_maria: ['pos_vox'], p_emily: ['pos_vox', 'pos_keys'],
+      p_marcus: ['pos_bass', 'pos_ag'], p_jordan: ['pos_sound', 'pos_stream', 'pos_slides'], p_brad: ['pos_sound', 'pos_lights'], p_hannah: ['pos_slides', 'pos_stream'], p_tom: ['pos_drums'], p_dorothy: ['pos_vox'] };
+    data.people.forEach((p) => { p.positions = POS[p.id] || []; });
+    const W = NS.WORSHIP_SEED, sunday = data.events.find((e) => e.type === 'service' && e.recurring === 'weekly');
+    const lead = { sermon: 'p_david', prayer: 'p_grace', announcement: 'p_hayden', offering: 'p_hayden', song: 'p_rachel' };
+    const KEYS = { sg_holy: 'D', sg_amazing: 'G', sg_vision: 'D', sg_well: 'C' };
+    let n = 0;
+    const plan = (day, team, songs, sermon) => {
+      let k = 0;
+      const items = W.itemsOf(W.SUNDAY).map((i) => {
+        const it = Object.assign({ id: `it_${++n}`, notes: '', personId: lead[i.type] || '', key: '' }, i);
+        if (it.type === 'song') { it.songId = songs[k] || it.songId; k += 1; it.key = KEYS[it.songId] || ''; }
+        if (it.type === 'sermon') { it.title = sermon; it.notes = 'Pastor David'; }
+        return it;
+      });
+      return { id: `pl_${day}`, date: d(day), time: '09:00', title: 'Sunday Worship', ministryId: 'm_worship', eventId: sunday ? sunday.id : '', ownsEvent: false, notes: '',
+        items, team: team.map(([positionId, personId, status, note], i) => ({ id: `sl_${day}_${i}`, positionId, personId, status, note: note || '', at: status === 'pending' ? '' : new Date(Date.now() - 2 * 864e5).toISOString() })) };
+    };
+    data.plans = [
+      plan(6, [['pos_wl', 'p_rachel', 'accepted'], ['pos_vox', 'p_maria', 'accepted'], ['pos_vox', 'p_emily', 'pending'], ['pos_ag', 'p_ben', 'accepted'], ['pos_keys', '', 'pending'], ['pos_bass', 'p_marcus', 'accepted'],
+        ['pos_drums', 'p_caleb', 'declined', 'College retreat this weekend'], ['pos_sound', 'p_jordan', 'accepted'], ['pos_slides', 'p_hannah', 'accepted'], ['pos_stream', 'p_brad', 'pending']], ['sg_holy', 'sg_amazing', 'sg_vision', 'sg_well'], 'Grace That Holds — Romans 5:1-11'),
+      plan(13, [['pos_wl', 'p_ben', 'pending'], ['pos_vox', 'p_rachel', 'accepted'], ['pos_vox', 'p_maria', 'pending'], ['pos_ag', 'p_marcus', 'pending'], ['pos_keys', 'p_emily', 'pending'], ['pos_bass', '', 'pending'],
+        ['pos_drums', 'p_caleb', 'pending'], ['pos_sound', 'p_jordan', 'pending'], ['pos_slides', 'p_hannah', 'pending'], ['pos_stream', '', 'pending']], ['sg_vision', 'sg_holy', 'sg_amazing', 'sg_well'], 'Be Still — Psalm 46'),
+      plan(20, [['pos_wl', 'p_rachel', 'pending'], ['pos_vox', '', 'pending'], ['pos_ag', '', 'pending'], ['pos_keys', '', 'pending'], ['pos_bass', '', 'pending'], ['pos_drums', '', 'pending'], ['pos_sound', '', 'pending'], ['pos_slides', '', 'pending']],
+        ['sg_amazing', 'sg_well', 'sg_holy', 'sg_vision'], 'Thanksgiving Sunday'),
+    ];
+    data.plans[0].items.find((i) => i.type === 'song' && i.songId === 'sg_vision').key = 'Eb';
+    data.plans[0].notes = 'Communion this week — keep the last song soft.';
+    data.blockouts = [
+      { id: 'bo_1', personId: 'p_caleb', from: d(5), to: d(6), reason: 'College retreat' },
+      { id: 'bo_2', personId: 'p_marcus', from: d(19), to: d(21), reason: 'Family trip' },
+    ];
+  }
 
   /* Two past meetings, run through the real extractor and applied exactly like the Meetings screen does. */
   const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -3370,6 +3968,7 @@ window.ChurchPM = window.ChurchPM || {};
       workload: true,                 // hours vs. capacity bars, overload suggestions
       talk: true,                     // "Talk it out": anyone can speak or type a brain-dump and file it
       projects: true,                 // Projects: optional groupings of tasks with their own members and progress
+      worship: false,                 // Worship planning (church only): service orders, band/tech scheduling, songs + Music Stand
     },
     roles: null,                      // role templates (starter tasks etc.); null = the preset list for orgType
   };
@@ -3407,7 +4006,7 @@ window.ChurchPM = window.ChurchPM || {};
     ALL_CHURCH.name = c.labels.allChurch || 'All Church';
   }
   const config = () => state.config;
-  const feature = (k) => !!(state && state.config.features[k]);
+  const feature = (k) => !!(state && state.config.features[k] && (k !== 'worship' || state.config.orgType === 'church'));
   const label = (k) => (state && state.config.labels[k]) || DEFAULT_CONFIG.labels[k] || k;
   /** The organization's name, or the neutral product name until one is set. */
   const churchName = () => (state && state.config.branding.churchName) || 'Planner';
@@ -3464,7 +4063,7 @@ window.ChurchPM = window.ChurchPM || {};
     const base = { version: 1, settings: { churchName: 'Our Church', weekStart: 1, nearThreshold: 0.85 }, ministries: [], people: [], tasks: [], events: [] };
     const out = Object.assign(base, s || {});
     out.settings = Object.assign({}, base.settings, out.settings || {});
-    ['ministries', 'people', 'tasks', 'events', 'meetings', 'projects', 'activity'].forEach((k) => { if (!Array.isArray(out[k])) out[k] = []; });
+    ['ministries', 'people', 'tasks', 'events', 'meetings', 'projects', 'activity', 'positions', 'songs', 'plans', 'planTemplates', 'blockouts'].forEach((k) => { if (!Array.isArray(out[k])) out[k] = []; });
     out.tasks.forEach((t) => { t.doneDates = Array.isArray(t.doneDates) ? t.doneDates : []; t.recurring = t.recurring || 'none'; t.checklist = Array.isArray(t.checklist) ? t.checklist : []; t.comments = Array.isArray(t.comments) ? t.comments : []; t.estHours = Number(t.estHours) || 0; t.help = t.help || null; t.projectId = t.projectId || ''; });
     out.events.forEach((e) => { e.recurring = e.recurring || 'none'; });
     out.projects.forEach(normProject);
@@ -3484,9 +4083,23 @@ window.ChurchPM = window.ChurchPM || {};
     if (!out.config) out.config = { setupDone: !!(out.people.length || out.tasks.length), branding: { churchName: out.settings.churchName && out.settings.churchName !== 'Our Church' ? out.settings.churchName : '' } };
     out.config = mergeConfig(out.config);
     delete out.settings.churchName;
+    normWorship(out);
     return out;
   }
 
+  /** Worship planning data (positions, songs, service plans, templates, blockouts). Church workspaces get starter content once. */
+  function normWorship(out) {
+    out.people.forEach((p) => { p.positions = Array.isArray(p.positions) ? p.positions : []; });
+    if (out.config.orgType === 'church' && !out.settings.worshipSeeded && NS.seedWorship) { NS.seedWorship(out); out.settings.worshipSeeded = true; }
+    out.songs.forEach((x) => { x.title = x.title || 'Untitled song'; x.chart = x.chart || ''; x.key = x.key || ''; x.attachment = x.attachment || null; });
+    out.plans.forEach((x) => {
+      x.items = Array.isArray(x.items) ? x.items : []; x.team = Array.isArray(x.team) ? x.team : [];
+      x.items.forEach((i) => { i.id = i.id || U.uid('it'); i.minutes = Number(i.minutes) || 0; i.type = i.type || 'other'; });
+      x.team.forEach((t) => { t.id = t.id || U.uid('sl'); t.status = ['pending', 'accepted', 'declined'].includes(t.status) ? t.status : 'pending'; });
+      x.time = x.time || '10:00'; x.title = x.title || 'Service';
+    });
+    out.planTemplates.forEach((x) => { x.items = Array.isArray(x.items) ? x.items : []; x.positions = Array.isArray(x.positions) ? x.positions : []; });
+  }
   const defaultVerses = (type) => ((type && type !== 'church' ? NS.DEFAULT_MESSAGES : NS.DEFAULT_VERSES) || []).map((v) => Object.assign({}, v));
   /** True while the banner list is still one of the untouched built-in sets (so it can follow an org-type change). */
   const versesUntouched = (vs) => [NS.DEFAULT_VERSES, NS.DEFAULT_MESSAGES].some((d) => d && vs.length === d.length && vs.every((v, i) => v.ref === d[i].ref && v.text === d[i].text));
@@ -3561,6 +4174,7 @@ window.ChurchPM = window.ChurchPM || {};
     const c = mergeConfig(Object.assign({}, draft.config, { setupDone: true }));
     if (c.orgType !== orgType() && versesUntouched(state.verses || [])) state.verses = defaultVerses(c.orgType);
     state.config = c;
+    if (c.orgType === 'church' && !state.settings.worshipSeeded && NS.seedWorship) { NS.seedWorship(state); state.settings.worshipSeeded = true; }
     if (Array.isArray(draft.ministries)) {
       const keep = draft.ministries.filter((m) => String(m.name || '').trim());
       state.ministries = keep.map((m) => ({ id: m.id || U.uid('m'), name: m.name.trim(), color: m.color || '#64748b' }));
@@ -3657,7 +4271,7 @@ window.ChurchPM = window.ChurchPM || {};
   function subscribe(fn) { listeners.add(fn); return () => listeners.delete(fn); }
 
   /* ---------- generic CRUD ---------- */
-  const PREFIX = { people: 'p', tasks: 't', events: 'e', ministries: 'm', verses: 'v', meetings: 'mt', projects: 'pr' };
+  const PREFIX = { people: 'p', tasks: 't', events: 'e', ministries: 'm', verses: 'v', meetings: 'mt', projects: 'pr', positions: 'pos', songs: 'sg', plans: 'pl', planTemplates: 'tpl', blockouts: 'bo' };
   function upsert(col, item) {
     const list = state[col];
     if (!item.id) item.id = U.uid(PREFIX[col]);
@@ -3985,12 +4599,15 @@ window.ChurchPM = window.ChurchPM || {};
     ['record_meetings', 'Record meetings', 'Record meetings and turn them into tasks'],
     ['edit_settings', 'Edit settings', 'Name, look, groups, features, export and reset'],
     ['private_notes', 'See private notes', 'Private notes on people’s profiles'],
+    ['schedule_worship', 'Schedule worship team', 'Plan services, edit songs and schedule the band and tech team (church workspaces)'],
   ];
+  /** The permissions that apply to this workspace (worship scheduling only where Worship planning is on). */
+  const permList = () => PERMS.filter((x) => x[0] !== 'schedule_worship' || feature('worship'));
   const PERM_KEYS = PERMS.map((x) => x[0]);
   const LEVELS = {
     owner: { label: 'Owner', say: 'Can do everything (owner)', desc: 'Everything, including other owners and deleting the workspace.', perms: PERM_KEYS },
     admin: { label: 'Admin', say: 'Can manage everything', desc: 'Everything except changing owners.', perms: PERM_KEYS },
-    manager: { label: 'Manager', say: 'Can manage their team', desc: 'Hands out tasks, adds people and edits the calendar for their team.', perms: ['manage_people', 'invite', 'assign_others', 'edit_calendar', 'see_workload', 'record_meetings'] },
+    manager: { label: 'Manager', say: 'Can manage their team', desc: 'Hands out tasks, adds people and edits the calendar for their team.', perms: ['manage_people', 'invite', 'assign_others', 'edit_calendar', 'see_workload', 'record_meetings', 'schedule_worship'] },
     member: { label: 'Member', say: 'Can do their own tasks', desc: 'Sees and checks off their own tasks; can view the calendar.', perms: [] },
     viewer: { label: 'Viewer', say: 'Can only view', desc: 'Read-only: the calendar and their projects.', perms: [] },
     custom: { label: 'Custom', say: 'Custom…', desc: 'You pick exactly what they can do under Advanced.', perms: null },
@@ -4072,6 +4689,14 @@ window.ChurchPM = window.ChurchPM || {};
       case 'calendar:view': return has.has('view_calendar');
       case 'talk': return has.has('own_tasks');
       case 'workspace:delete': return lvl === 'owner';
+      // Worship planning: everyone sees services and their own schedule; schedulers plan, edit songs and schedule people.
+      case 'worship:view': return has.has('view_calendar');
+      case 'worship:schedule': return has.has('schedule_worship');
+      case 'plan:create': return has.has('schedule_worship');
+      case 'plan:edit': return has.has('schedule_worship') && (!target || !target.ministryId || inScope(p, target));
+      case 'song:edit': return has.has('schedule_worship');
+      case 'plan:respond': return !!target && ((target.personId === p.id && has.has('own_tasks')) || has.has('schedule_worship'));
+      case 'blockout:edit': return !!target && ((target.id === p.id && has.has('own_tasks')) || scoped('schedule_worship') || scoped('manage_people'));
       default: return scoped(action);
     }
   }
@@ -4176,7 +4801,7 @@ window.ChurchPM = window.ChurchPM || {};
   function clearAll() {
     // Keeps the owner who is signed in on this device, so nobody locks themselves out.
     const keep = state.people.filter((p) => p.access.userId === D().me().id && p.access.level === 'owner').map((p) => Object.assign({}, p, { access: Object.assign({}, p.access) }));
-    state = normalize({ settings: Object.assign({}, state.settings, { leaderId: keep[0] ? keep[0].id : '' }), ministries: state.ministries.map((m) => Object.assign({}, m)), verses: state.verses, people: keep, tasks: [], events: [], meetings: [], projects: [], config: state.config });
+    state = normalize({ settings: Object.assign({}, state.settings, { leaderId: keep[0] ? keep[0].id : '' }), ministries: state.ministries.map((m) => Object.assign({}, m)), verses: state.verses, people: keep, tasks: [], events: [], meetings: [], projects: [], positions: state.positions, songs: state.songs, planTemplates: state.planTemplates, plans: [], blockouts: [], config: state.config });
     applyConfig(); save();
   }
   function updateSettings(patch) { Object.assign(state.settings, patch); save(); }
@@ -4185,7 +4810,7 @@ window.ChurchPM = window.ChurchPM || {};
     PERSON_TYPES, STATUSES, PRIORITIES, EVENT_TYPES, OVERTIME_LIMIT, ALL_CHURCH,
     load, save, subscribe, snapshot, restore, get state() { return state; },
     workspaceId, workspaces, switchWorkspace, createWorkspace, deleteWorkspace, sampleState, notify,
-    PERMS, PERM_KEYS, LEVELS, STATUS_LABEL, can, permsOf, inScope, isScoped, accessError, setAccess, invite, resendInvite, revokeAccess, acceptInvite, members, levelLabel, accessLabel, scopeLabel, normAccess,
+    PERMS, PERM_KEYS, LEVELS, permList, STATUS_LABEL, can, permsOf, inScope, isScoped, accessError, setAccess, invite, resendInvite, revokeAccess, acceptInvite, members, levelLabel, accessLabel, scopeLabel, normAccess,
     project, projectTasks, projectStats, projectsFor,
     upsert, remove, get, ministry, person,
     REPEATS, repeats, repeatLabel, addMonthsISO, occurrences, taskOccurrences, eventOccurrences, occStatus, nextOccurrence, setOccurrenceStatus, overdue,
@@ -4195,6 +4820,269 @@ window.ChurchPM = window.ChurchPM || {};
     exportJSON, importJSON, resetToSample, resetToTemplate, clearAll, updateSettings,
     DEFAULT_CONFIG, DEFAULT_MINISTRIES, LABEL_PRESETS, config, feature, label, churchName, enabledTypes, updateConfig, completeSetup, isEmpty, freshState,
     presetConfig, mergeConfig, orgType, org, isChurch, copy, roles, role, groupForRole, starterTasksFor, addStarterTasks, starterDate,
+  };
+})(window.ChurchPM);
+
+</script>
+  <script>
+/* Planner — Worship planning data (no DOM): service plans (order of service + team), positions,
+ * the song library, templates and blockout dates. Lives in the workspace state next to tasks and
+ * events, so it saves, exports, imports and undoes with everything else.
+ *
+ *   state.positions      [{ id, name, team: 'Band' | 'Tech' | … }]
+ *   person.positions     [positionId]        who can fill which spot
+ *   state.songs          [{ id, title, artist, key, bpm, meter, ccli, themes, chart (ChordPro), notes, attachment: { name, type, size } | null }]
+ *   state.plans          [{ id, date, time, title, ministryId, eventId, ownsEvent, notes,
+ *                           items: [{ id, type, title, minutes, notes, personId, songId, key }],
+ *                           team:  [{ id, positionId, personId, status: 'pending'|'accepted'|'declined', note, at }] }]
+ *   state.planTemplates  [{ id, name, title, time, items, positions: [positionId] }]
+ *   state.blockouts      [{ id, personId, from, to, reason }]
+ */
+(function (NS) {
+  'use strict';
+  const U = NS.U, S = NS.Store;
+  const st = () => S.state;
+
+  const ITEM_TYPES = {
+    song: { label: 'Song', icon: 'music' }, header: { label: 'Header', icon: 'tag' }, prayer: { label: 'Prayer', icon: 'hand' },
+    sermon: { label: 'Sermon', icon: 'bible' }, announcement: { label: 'Announcement', icon: 'bell' }, offering: { label: 'Offering', icon: 'heart' },
+    video: { label: 'Video', icon: 'eye' }, reading: { label: 'Scripture reading', icon: 'bible' }, other: { label: 'Other', icon: 'list' },
+  };
+  const STATUS = { pending: 'Waiting', accepted: 'Confirmed', declined: 'Declined' };
+
+  /* ---------- lookups ---------- */
+  const positions = () => st().positions;
+  const position = (id) => positions().find((x) => x.id === id) || null;
+  const teams = () => [...new Set(positions().map((x) => x.team || 'Team'))];
+  const songs = () => st().songs;
+  const song = (id) => (id ? S.get('songs', id) : null);
+  const plan = (id) => (id ? S.get('plans', id) : null);
+  const plans = () => st().plans.slice().sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
+  const upcoming = (from) => { const f = from || U.todayISO(); return plans().filter((p) => p.date >= f); };
+  const past = (before) => { const b = before || U.todayISO(); return plans().filter((p) => p.date < b).reverse(); };
+  const templates = () => st().planTemplates;
+  const peopleFor = (posId) => st().people.filter((p) => (p.positions || []).includes(posId));
+  const itemTitle = (it) => { if (it.type === 'song') { const s = song(it.songId); return s ? s.title : it.title || 'Song'; } return it.title || (ITEM_TYPES[it.type] || ITEM_TYPES.other).label; };
+
+  /* ---------- times: each item starts when the one before it ends ---------- */
+  const toMin = (t) => { const [h, m] = String(t || '0:0').split(':').map(Number); return (h || 0) * 60 + (m || 0); };
+  const fromMin = (n) => `${U.pad(Math.floor(((n % 1440) + 1440) % 1440 / 60))}:${U.pad(((n % 60) + 60) % 60)}`;
+  /** [{ item, start: 'HH:MM', minutes }] plus total minutes and end time. */
+  function timeline(pl) {
+    let t = toMin(pl.time || '10:00');
+    const rows = pl.items.map((item) => { const r = { item, start: fromMin(t), minutes: item.minutes || 0 }; t += item.minutes || 0; return r; });
+    const total = pl.items.reduce((n, i) => n + (i.minutes || 0), 0);
+    return { rows, total, end: fromMin(toMin(pl.time || '10:00') + total) };
+  }
+  const fmtLen = (m) => (m >= 60 ? `${Math.floor(m / 60)} h${m % 60 ? ` ${m % 60} min` : ''}` : `${m} min`);
+
+  /* ---------- the calendar: a plan sits on that day's service event (or makes its own) ---------- */
+  function serviceOn(date) {
+    const occ = S.eventOccurrences(date, date, (e) => e.type === 'service');
+    return occ.length ? occ[0].event : null;
+  }
+  const planFor = (eventId, date) => st().plans.find((p) => p.eventId === eventId && p.date === date) || null;
+  const plansOn = (date) => st().plans.filter((p) => p.date === date);
+
+  /** New plan. opts: { date, time, title, templateId, ministryId, copyFromId }. Returns the plan (saved). */
+  function createPlan(opts) {
+    const o = opts || {}, tpl = templates().find((t) => t.id === o.templateId) || null, src = plan(o.copyFromId);
+    const date = o.date || U.todayISO();
+    const ev = o.eventId ? S.get('events', o.eventId) : serviceOn(date);
+    const worshipMin = (st().ministries.find((m) => /worship/i.test(m.name)) || {}).id || '';
+    const p = {
+      id: U.uid('pl'), date, time: o.time || (ev && ev.start) || (tpl && tpl.time) || (src && src.time) || '10:00',
+      title: o.title || (tpl && tpl.title) || (src && src.title) || (ev && ev.title) || 'Sunday Worship', ministryId: o.ministryId != null ? o.ministryId : (ev ? ev.ministryId : '') || worshipMin,
+      eventId: '', ownsEvent: false, notes: '', items: [], team: [], createdAt: new Date().toISOString(),
+    };
+    const items = src ? src.items : tpl ? tpl.items : [];
+    p.items = items.map((i) => ({ id: U.uid('it'), type: i.type, title: i.title || '', minutes: Number(i.minutes) || 0, notes: i.notes || '', personId: src ? i.personId || '' : '', songId: i.songId || '', key: i.key || (song(i.songId) || {}).key || '' }));
+    const pos = src ? src.team.map((x) => x.positionId) : tpl ? tpl.positions : [];
+    p.team = pos.filter(position).map((positionId) => ({ id: U.uid('sl'), positionId, personId: '', status: 'pending', note: '', at: '' }));
+    if (ev) p.eventId = ev.id;
+    else {
+      const e = { id: U.uid('e'), title: p.title, ministryId: p.ministryId, type: 'service', date, start: p.time, end: fromMin(toMin(p.time) + Math.max(60, timeline(p).total)), location: '', leadId: '', recurring: 'none', repeatUntil: '', description: 'Service plan in Worship → Services.' };
+      st().events.push(e); p.eventId = e.id; p.ownsEvent = true;
+    }
+    st().plans.push(p); S.save();
+    return p;
+  }
+  function deletePlan(id) {
+    const p = plan(id); if (!p) return;
+    if (p.ownsEvent && p.eventId) st().events = st().events.filter((e) => e.id !== p.eventId);
+    st().plans = st().plans.filter((x) => x.id !== id); S.save();
+  }
+  /** Change date/time/title (keeps a plan-owned calendar event in step). */
+  function updatePlan(id, patch) {
+    const p = plan(id); if (!p) return null;
+    Object.assign(p, patch);
+    const e = p.eventId && S.get('events', p.eventId);
+    if (e && p.ownsEvent) Object.assign(e, { title: p.title, date: p.date, start: p.time, ministryId: p.ministryId });
+    else if (e && patch.date && !S.occurrences(e, p.date, p.date).length) { // moved off its recurring service: link to that day's service, or make one
+      const ev = serviceOn(p.date);
+      if (ev) p.eventId = ev.id;
+      else { const ne = { id: U.uid('e'), title: p.title, ministryId: p.ministryId, type: 'service', date: p.date, start: p.time, end: fromMin(toMin(p.time) + Math.max(60, timeline(p).total)), location: '', leadId: '', recurring: 'none', repeatUntil: '', description: 'Service plan in Worship → Services.' }; st().events.push(ne); p.eventId = ne.id; p.ownsEvent = true; }
+    }
+    S.save(); return p;
+  }
+
+  /* ---------- order of service ---------- */
+  function addItem(planId, item, at) {
+    const p = plan(planId); if (!p) return null;
+    const s = song(item.songId);
+    const it = { id: U.uid('it'), type: item.type || 'other', title: item.title || '', minutes: Number(item.minutes) || 0, notes: item.notes || '', personId: item.personId || '', songId: item.songId || '', key: item.key || (s ? s.key : '') };
+    if (at == null || at < 0 || at > p.items.length) p.items.push(it); else p.items.splice(at, 0, it);
+    S.save(); return it;
+  }
+  function updateItem(planId, itemId, patch) { const p = plan(planId), it = p && p.items.find((x) => x.id === itemId); if (!it) return null; Object.assign(it, patch); if ('minutes' in patch) it.minutes = Number(it.minutes) || 0; S.save(); return it; }
+  function removeItem(planId, itemId) { const p = plan(planId); if (!p) return; p.items = p.items.filter((x) => x.id !== itemId); S.save(); }
+  function moveItem(planId, from, to) {
+    const p = plan(planId); if (!p || from === to || from < 0 || from >= p.items.length) return;
+    const [it] = p.items.splice(from, 1); p.items.splice(Math.max(0, Math.min(to, p.items.length)), 0, it); S.save();
+  }
+  /** Song items in order, for the Music Stand: [{ item, song, key }]. */
+  const setList = (pl) => (pl ? pl.items.filter((i) => i.type === 'song' && song(i.songId)).map((i) => ({ item: i, song: song(i.songId), key: i.key || song(i.songId).key })) : []);
+  function saveAsTemplate(planId, name) {
+    const p = plan(planId); if (!p) return null;
+    const t = { id: U.uid('tpl'), name: String(name || p.title).trim() || 'Template', title: p.title, time: p.time, items: p.items.map((i) => ({ type: i.type, title: i.title, minutes: i.minutes, notes: i.notes, songId: i.songId, key: i.key })), positions: p.team.map((x) => x.positionId) };
+    st().planTemplates.push(t); S.save(); return t;
+  }
+
+  /* ---------- the team: slots per position, accept / decline ---------- */
+  function addSlot(planId, positionId, personId) {
+    const p = plan(planId); if (!p || !position(positionId)) return null;
+    const sl = { id: U.uid('sl'), positionId, personId: '', status: 'pending', note: '', at: '' };
+    p.team.push(sl);
+    if (personId) assign(planId, sl.id, personId, true);
+    S.save(); return sl;
+  }
+  function removeSlot(planId, slotId) { const p = plan(planId); if (!p) return; p.team = p.team.filter((x) => x.id !== slotId); S.save(); }
+  const slot = (pl, slotId) => (pl ? pl.team.find((x) => x.id === slotId) : null);
+  /** Put someone in a slot (status back to "waiting"). They get a request in their bell. */
+  function assign(planId, slotId, personId, quiet) {
+    const p = plan(planId), sl = slot(p, slotId); if (!sl) return null;
+    const prev = sl.personId;
+    sl.personId = personId || ''; sl.status = 'pending'; sl.note = ''; sl.at = '';
+    if (personId && personId !== prev && personId !== (NS.Session && NS.Session.personId)) S.logActivity('scheduled', { to: [personId], planId, slotId, date: p.date, title: `${(position(sl.positionId) || {}).name || 'Serve'} · ${p.title}` });
+    if (!quiet) S.save();
+    return sl;
+  }
+  /** The person answers. Schedulers (plan's group) hear about declines and accepts. */
+  function respond(planId, slotId, status, note) {
+    const p = plan(planId), sl = slot(p, slotId); if (!sl || !STATUS[status]) return null;
+    sl.status = status; sl.note = String(note || '').trim(); sl.at = new Date().toISOString();
+    const by = sl.personId, to = schedulers(p).filter((id) => id !== by);
+    if (to.length) S.logActivity('responded', { to, planId, slotId, date: p.date, status, who: by, title: `${(position(sl.positionId) || {}).name || ''} · ${p.title}` });
+    S.save(); return sl;
+  }
+  /** Who plans this service: active members with "Schedule worship team" whose scope covers it. */
+  const schedulers = (pl) => st().people.filter((x) => x.access && x.access.status === 'active' && S.can(x, 'plan:edit', pl)).map((x) => x.id);
+  /** Everything someone is scheduled for from `from` on: [{ plan, slot, position }]. */
+  function assignmentsFor(personId, from, to) {
+    const out = [];
+    plans().forEach((p) => { if (p.date < (from || '') || (to && p.date > to)) return; p.team.forEach((sl) => { if (sl.personId === personId) out.push({ plan: p, slot: sl, position: position(sl.positionId) }); }); });
+    return out;
+  }
+  /** Service items someone leads (sermon, prayer…) from `from` on. */
+  function itemsFor(personId, from) {
+    const out = [];
+    plans().forEach((p) => { if (p.date < (from || '')) return; p.items.forEach((i) => { if (i.personId === personId) out.push({ plan: p, item: i }); }); });
+    return out;
+  }
+
+  /* ---------- availability: blockouts, time off on the calendar, double-booking ---------- */
+  const blockoutsFor = (personId) => st().blockouts.filter((b) => b.personId === personId).sort((a, b) => a.from.localeCompare(b.from));
+  function addBlockout(personId, from, to, reason) {
+    const b = { id: U.uid('bo'), personId, from, to: to && to >= from ? to : from, reason: String(reason || '').trim() };
+    st().blockouts.push(b); S.save(); return b;
+  }
+  function removeBlockout(id) { st().blockouts = st().blockouts.filter((b) => b.id !== id); S.save(); }
+  const blockedOn = (personId, date) => st().blockouts.find((b) => b.personId === personId && b.from <= date && b.to >= date) || null;
+  function outOn(personId, date) {
+    return S.eventOccurrences(U.addISO(date, -31), date, (e) => e.type === 'out' && e.leadId === personId)
+      .find((o) => { const span = o.event.endDate ? Math.max(0, U.daysBetween(o.event.date, o.event.endDate)) : 0; return U.addISO(o.date, span) >= date; }) || null;
+  }
+  /**
+   * Why someone might not be right for a slot: [{ kind: 'blockout'|'out'|'double'|'declined', text }].
+   * Warnings only — a scheduler can still put them there.
+   */
+  function conflicts(personId, date, planId, slotId) {
+    if (!personId) return [];
+    const out = [], b = blockedOn(personId, date), o = outOn(personId, date);
+    if (b) out.push({ kind: 'blockout', text: `Blocked out ${b.from === b.to ? U.fmtDay(b.from) : `${U.fmtDate(b.from)}–${U.fmtDate(b.to)}`}${b.reason ? ` (${b.reason})` : ''}` });
+    if (o) out.push({ kind: 'out', text: `On the calendar as out: ${o.event.title}` });
+    const same = [];
+    plansOn(date).forEach((p) => p.team.forEach((sl) => { if (sl.personId === personId && sl.id !== slotId && sl.status !== 'declined') same.push(`${(position(sl.positionId) || {}).name}${p.id !== planId ? ` (${p.title})` : ''}`); }));
+    if (same.length) out.push({ kind: 'double', text: `Also on ${same.join(', ')} that day` });
+    const p = plan(planId), sl = slot(p, slotId);
+    if (sl && sl.personId === personId && sl.status === 'declined') out.push({ kind: 'declined', text: `Declined${sl.note ? `: “${sl.note}”` : ''}` });
+    return out;
+  }
+  /** How many times someone served in the last 8 weeks (so you can spread the load). */
+  function recentCount(personId, date) {
+    const from = U.addISO(date || U.todayISO(), -56), to = date || U.todayISO();
+    return st().plans.filter((p) => p.date >= from && p.date < to && p.team.some((sl) => sl.personId === personId && sl.status !== 'declined')).length;
+  }
+  /** Candidates for a slot, best first: plays that position, free that day, served least lately. */
+  function candidates(pl, sl) {
+    const list = peopleFor(sl.positionId);
+    return list.map((p) => ({ person: p, conflicts: conflicts(p.id, pl.date, pl.id, sl.id), recent: recentCount(p.id, pl.date) }))
+      .sort((a, b) => (a.conflicts.length - b.conflicts.length) || (a.recent - b.recent) || a.person.name.localeCompare(b.person.name));
+  }
+  function setPositions(personId, ids) { const p = S.person(personId); if (!p) return; p.positions = ids.filter(position); S.save(); }
+
+  /* ---------- positions & songs ---------- */
+  function savePosition(x) { const p = x.id ? position(x.id) : null; if (p) Object.assign(p, x); else st().positions.push(Object.assign({ id: U.uid('pos'), team: 'Band' }, x)); S.save(); }
+  function removePosition(id) {
+    st().positions = st().positions.filter((x) => x.id !== id);
+    st().people.forEach((p) => { p.positions = (p.positions || []).filter((x) => x !== id); });
+    st().plans.forEach((p) => { p.team = p.team.filter((x) => x.positionId !== id); });
+    st().planTemplates.forEach((t) => { t.positions = t.positions.filter((x) => x !== id); });
+    S.save();
+  }
+  function saveSong(x) {
+    const cur = x.id ? song(x.id) : null;
+    if (cur) Object.assign(cur, x); else st().songs.push(Object.assign({ id: U.uid('sg'), title: 'Untitled song', artist: '', key: '', bpm: '', meter: '', ccli: '', themes: '', chart: '', notes: '', attachment: null, createdAt: new Date().toISOString() }, x));
+    S.save(); return cur || st().songs[st().songs.length - 1];
+  }
+  function removeSong(id) { st().songs = st().songs.filter((x) => x.id !== id); if (NS.FileStore) NS.FileStore.del(`song:${id}`).catch(() => {}); S.save(); }
+  /** When each song was last / next used (cached per save). */
+  let usageGen = -1, usage = null;
+  function songUsage() {
+    const g = st().plans.length + ':' + st().plans.reduce((n, p) => n + p.items.length, 0) + ':' + S.state.activity.length;
+    if (usage && usageGen === g && usage.st === st()) return usage.map;
+    const map = new Map(), today = U.todayISO();
+    plans().forEach((p) => p.items.forEach((i) => {
+      if (i.type !== 'song' || !i.songId) return;
+      const u = map.get(i.songId) || { count: 0, last: '', next: '' };
+      if (p.date < today) { u.count += 1; u.last = p.date; } else if (!u.next) u.next = p.date;
+      map.set(i.songId, u);
+    }));
+    usage = { map, st: st() }; usageGen = g; return map;
+  }
+
+  /* ---------- plain-text run sheet (share / copy) ---------- */
+  function runSheetText(pl) {
+    const tl = timeline(pl), P = (id) => (S.person(id) || {}).name || '';
+    const lines = [`${pl.title} — ${U.fmtDate(pl.date, { weekday: 'long', month: 'long', day: 'numeric' })}, ${U.fmtTime(pl.time)}`, ''];
+    tl.rows.forEach(({ item, start }) => {
+      if (item.type === 'header') { lines.push('', `== ${itemTitle(item).toUpperCase()} ==`); return; }
+      const extra = [item.type === 'song' && item.key ? `Key ${item.key}` : '', item.minutes ? `${item.minutes} min` : '', P(item.personId)].filter(Boolean).join(' · ');
+      lines.push(`${U.fmtTime(start).padEnd(9)}${itemTitle(item)}${extra ? `  (${extra})` : ''}${item.notes ? `\n         ${item.notes}` : ''}`);
+    });
+    lines.push('', `Total ${fmtLen(tl.total)} · ends about ${U.fmtTime(tl.end)}`);
+    const team = pl.team.filter((x) => x.personId);
+    if (team.length) { lines.push('', 'TEAM'); team.forEach((x) => lines.push(`${(position(x.positionId) || {}).name}: ${P(x.personId)}${x.status === 'accepted' ? '' : ` (${STATUS[x.status].toLowerCase()})`}`)); }
+    return lines.join('\n');
+  }
+
+  NS.Worship = {
+    ITEM_TYPES, STATUS, positions, position, teams, songs, song, plan, plans, upcoming, past, templates, peopleFor, itemTitle,
+    timeline, fmtLen, toMin, fromMin, serviceOn, planFor, plansOn, createPlan, deletePlan, updatePlan,
+    addItem, updateItem, removeItem, moveItem, setList, saveAsTemplate,
+    addSlot, removeSlot, slot, assign, respond, schedulers, assignmentsFor, itemsFor,
+    blockoutsFor, addBlockout, removeBlockout, blockedOn, outOn, conflicts, recentCount, candidates, setPositions,
+    savePosition, removePosition, saveSong, removeSong, songUsage, runSheetText,
   };
 })(window.ChurchPM);
 
@@ -4262,6 +5150,8 @@ window.ChurchPM = window.ChurchPM || {};
 
   const p = (d) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
   const ICONS = {
+    music: p('<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>'),
+    grip: p('<circle cx="9" cy="6" r="1"/><circle cx="15" cy="6" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="9" cy="18" r="1"/><circle cx="15" cy="18" r="1"/>'),
     bell: p('<path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>'),
     chat: p('<path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.5 8.6 8.6 0 0 1-3.9-.9L3 21l1.9-5.6a8.4 8.4 0 0 1-.9-3.9A8.5 8.5 0 0 1 12.5 3 8.4 8.4 0 0 1 21 11.5z"/>'),
     install: p('<rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11.5l3 3 3-3M10.5 18.5h3"/>'),
@@ -5055,7 +5945,7 @@ window.ChurchPM = window.ChurchPM || {};
       [S.label('ministry'), esc(S.ministry(ev.ministryId).name)],
     ];
     if (lead) kv.push(['Lead', esc(lead.name)]);
-    UI.openModal({ title: esc(ev.title), size: 'sm', body: `${fromMeeting(ev)}<dl class="kv" style="margin-top:4px">${kv.map(([l, v]) => `<dt>${esc(l)}</dt><dd>${v}</dd>`).join('')}</dl>${ev.description ? `<p style="color:var(--text-2);margin:18px 0 0">${esc(ev.description)}</p>` : ''}` });
+    UI.openModal({ title: esc(ev.title), size: 'sm', body: `${fromMeeting(ev)}<dl class="kv" style="margin-top:4px">${kv.map(([l, v]) => `<dt>${esc(l)}</dt><dd>${v}</dd>`).join('')}</dl>${NS.WorshipUI ? NS.WorshipUI.eventLink(ev, date || ev.date) : ''}${ev.description ? `<p style="color:var(--text-2);margin:18px 0 0">${esc(ev.description)}</p>` : ''}` });
   }
 
   /* ---------------- STAFF: ask for help ---------------- */
@@ -5207,7 +6097,7 @@ window.ChurchPM = window.ChurchPM || {};
       <details class="adv" data-adv ${a.level === 'custom' || where === 'some' ? 'open' : ''}><summary>Advanced: exact permissions${groups.length + projs.length ? ` and several ${esc(S.label('ministries').toLowerCase())}` : ''}</summary>
         <fieldset class="perm-list"><legend>What they can do <span class="muted">— ticking a box makes it “Custom”</span></legend>
           <div class="perm-row base">${icon('check')}<span><b>Their own tasks & the team calendar</b><small>Every member; viewers are read-only</small></span></div>
-          ${S.PERMS.map(([k, label, desc]) => `<label class="perm-row ${mine.has(k) ? '' : 'off'}" title="${mine.has(k) ? '' : 'You can’t give this because you don’t have it'}"><input type="checkbox" name="perm" value="${k}" ${checked.has(k) ? 'checked' : ''} ${mine.has(k) ? '' : 'disabled'}><span><b>${esc(label)}</b><small>${esc(desc)}</small></span></label>`).join('')}
+          ${S.permList().map(([k, label, desc]) => `<label class="perm-row ${mine.has(k) ? '' : 'off'}" title="${mine.has(k) ? '' : 'You can’t give this because you don’t have it'}"><input type="checkbox" name="perm" value="${k}" ${checked.has(k) ? 'checked' : ''} ${mine.has(k) ? '' : 'disabled'}><span><b>${esc(label)}</b><small>${esc(desc)}</small></span></label>`).join('')}
         </fieldset>
         <fieldset class="scope" data-picks ${where === 'some' ? '' : 'hidden'}><legend>Only these ${esc(S.label('ministries').toLowerCase())} and projects</legend>
           <div class="scope-picks">
@@ -5739,6 +6629,7 @@ window.ChurchPM = window.ChurchPM || {};
         ${S.feature('workload') ? `<div class="card ring-card">${UI.ring(w)}<div class="ring-info"><h3>${copy.head}</h3><p>${copy.note}</p>
           ${w.done ? `<p class="note muted">${U.hrs(w.done)} done so far</p>` : ''}</div></div>` : ''}
         ${can('talk') ? V.talkCard(p.id) : ''}
+        ${NS.WorshipUI ? NS.WorshipUI.upcomingFor(p) : ''}
         ${NS.Pwa.card()}
         ${viewer ? `<div class="card note-card">${icon('eye')}<span>You have <b>view-only</b> access to ${esc(S.churchName())}. Ask an owner or admin if you need to check off tasks.</span></div>` : ''}
         ${projHtml}
@@ -5912,7 +6803,7 @@ window.ChurchPM = window.ChurchPM || {};
     };
     const matrix = `<details class="card card-pad level-help"><summary><b>What each level can do</b></summary><div style="overflow:auto"><table class="perm-matrix"><thead><tr><th></th>${['owner', 'admin', 'manager', 'member', 'viewer'].map((k) => `<th>${esc(S.LEVELS[k].label)}</th>`).join('')}</tr></thead><tbody>
       <tr><td>Own tasks & check them off</td>${['owner', 'admin', 'manager', 'member', 'viewer'].map((k) => `<td>${k === 'viewer' ? '—' : icon('check')}</td>`).join('')}</tr>
-      ${S.PERMS.map(([k, label]) => `<tr><td>${esc(label)}</td>${['owner', 'admin', 'manager', 'member', 'viewer'].map((l) => `<td>${S.LEVELS[l].perms.includes(k) ? icon('check') : '—'}</td>`).join('')}</tr>`).join('')}
+      ${S.permList().map(([k, label]) => `<tr><td>${esc(label)}</td>${['owner', 'admin', 'manager', 'member', 'viewer'].map((l) => `<td>${S.LEVELS[l].perms.includes(k) ? icon('check') : '—'}</td>`).join('')}</tr>`).join('')}
       <tr><td>Change owners · delete workspace</td><td>${icon('check')}</td><td>—</td><td>—</td><td>—</td><td>—</td></tr></tbody></table></div>
       <p class="hint">Managers usually get “Limit to” a few ${esc(S.label('ministries').toLowerCase())} or projects. <b>Custom</b> lets you tick exactly what someone can do.</p></details>`;
     return {
@@ -6062,6 +6953,7 @@ window.ChurchPM = window.ChurchPM || {};
             <li><b>Meetings</b> records a meeting (or a quick voice note), writes a transcript, and suggests tasks, calendar notes, time off and changes. You review and apply them; nothing is added on its own. Audio stays in this browser.</li>
             <li><b>Roles</b> (${esc(S.roles().map((r) => r.label).slice(0, 4).join(', '))}…) suggest a ${esc(S.label('ministry').toLowerCase())}, a title and repeating starter tasks when you add someone. You choose which starter tasks to keep.</li>
             <li><b>Talk it out</b> (mic on Home and My week) lets anyone say or type what’s on their mind; it becomes tasks with dates and hours, calendar items and notes, filed by keywords and the person’s role, and nothing is added until they approve it.</li>
+            ${S.feature('worship') ? '<li><b>Worship</b> plans each service: the order (drag to reorder, times add up), songs in the key you’ll play, and who’s on the band and tech team. People accept or decline in their bell and My schedule, add blockout dates, and open the set in <b>Music Stand</b> to transpose, set a capo or auto-scroll. Anyone with “Schedule worship team” can plan.</li>' : ''}
             <li><b>Workspaces</b> (top left) keep separate teams apart — e.g. your church and a counseling practice you help with. Each has its own people, tasks, calendar and look.</li>
             <li><b>Members & access</b> (Team) — invite people with a link or code, pick a level (Owner, Admin, Manager, Member, Viewer or Custom) and optionally limit it to some ${esc(S.label('ministries').toLowerCase())} or projects.</li>
             <li><b>Signed in as</b> (top right) lets you try the app as any active member. In this local demo there are no passwords.</li>
@@ -6109,12 +7001,777 @@ window.ChurchPM = window.ChurchPM || {};
 
 </script>
   <script>
+/* Planner — Worship planning screens (church workspaces, Settings → Features → Worship planning).
+ *
+ *   Worship (nav)  → Services · Schedule · Songs · My schedule   (#/worship?tab=…)
+ *   Service plan   → #/plan?id=…   order of service (drag to reorder, running times), the team, print/share
+ *   Song           → #/song?id=…   details, chord chart, attachment, where it's been used
+ *   Music Stand    → full-screen chart reader over any page (transpose, capo, size, auto-scroll, Nashville numbers)
+ *
+ * Data lives in worship-store.js (NS.Worship); charts are parsed by chordpro.js (NS.ChordPro).
+ * Who may do what is decided by Store.can: worship:view, plan:create, plan:edit, song:edit,
+ * plan:respond, blockout:edit (the "Schedule worship team" permission). */
+(function (NS) {
+  'use strict';
+  const U = NS.U, S = NS.Store, UI = NS.UI, F = NS.Forms, V = NS.Views, W = NS.Worship, CP = NS.ChordPro, icon = UI.icon, esc = U.esc;
+  const Session = NS.Session;
+  const can = (a, t) => Session.can(a, t);
+  const me = () => Session.me();
+  const first = (p) => (p ? UI.firstName(p) : '');
+  const plural = (n, w) => `${n} ${w}${n === 1 ? '' : 's'}`;
+  const empty = (title, msg, btn) => `<div class="empty"><strong>${esc(title)}</strong>${msg || ''}${btn ? `<div style="margin-top:14px">${btn}</div>` : ''}</div>`;
+  const dayBox = (iso) => `<div class="w-date"><small>${esc(U.fmtDate(iso, { weekday: 'short' }))}</small><b>${esc(U.fmtDate(iso, { day: 'numeric' }))}</b><small>${esc(U.fmtDate(iso, { month: 'short' }))}</small></div>`;
+  const longDate = (iso) => U.fmtDate(iso, { weekday: 'long', month: 'long', day: 'numeric' });
+  const STATUS_PILL = { pending: 'warn', accepted: 'ok', declined: 'bad' };
+  const statusPill = (s) => `<span class="pill ${STATUS_PILL[s.status]} w-st">${esc(W.STATUS[s.status])}</span>`;
+  const keyOpts = (sel) => `<optgroup label="Major">${CP.KEYS.map((k) => F.opt(k, k, sel)).join('')}</optgroup><optgroup label="Minor">${CP.MINOR_KEYS.map((k) => F.opt(k, k, sel)).join('')}</optgroup>`;
+  const pageSize = 25;
+
+  /* ================= the Worship page ================= */
+  const TABS = [['services', 'calendar', 'Services'], ['schedule', 'people', 'Schedule'], ['songs', 'music', 'Songs'], ['mine', 'sun', 'My schedule']];
+  V.worship = (ui, q) => {
+    const sched = can('worship:schedule');
+    let tab = (q && q.get && q.get('tab')) || ui.worshipTab || (sched ? 'services' : 'mine');
+    if (!TABS.some((t) => t[0] === tab)) tab = 'services';
+    if (q && q.get && q.get('tab') && q.get('tab') !== ui.worshipTab) { ui.worshipTab = tab; try { history.replaceState(null, '', '#/worship'); } catch (e) { /* ignore */ } }
+    const pend = me() ? W.assignmentsFor(me().id, U.todayISO()).filter((a) => a.slot.status === 'pending').length : 0;
+    const tabs = `<div class="seg w-tabs" role="tablist" aria-label="Worship">${TABS.map(([k, ic, l]) => `<button type="button" role="tab" data-action="set" data-key="worshipTab" data-val="${k}" aria-selected="${tab === k}" aria-pressed="${tab === k}">${icon(ic)}<span>${l}</span>${k === 'mine' && pend ? ` <span class="count">${pend}</span>` : ''}</button>`).join('')}</div>`;
+    const v = ({ services: servicesTab, schedule: scheduleTab, songs: songsTab, mine: mineTab })[tab](ui);
+    return { title: 'Worship', sub: v.sub, actions: v.actions || '', html: tabs + v.html };
+  };
+
+  /* ---- Services: upcoming plans ---- */
+  function planCard(p) {
+    const tl = W.timeline(p), set = W.setList(p), filled = p.team.filter((s) => s.personId), ok = p.team.filter((s) => s.status === 'accepted' && s.personId);
+    const declined = p.team.filter((s) => s.status === 'declined').length, open = p.team.length - filled.length;
+    const mine = me() && p.team.find((s) => s.personId === me().id);
+    return `<a class="card w-plan-card" href="#/plan?id=${encodeURIComponent(p.id)}" data-plan="${esc(p.id)}">${dayBox(p.date)}
+      <div class="grow"><div class="t">${esc(p.title)} <span class="muted">· ${esc(U.fmtTime(p.time))}</span>${p.date === U.todayISO() ? ' <span class="pill ok">Today</span>' : ''}</div>
+        <div class="s">${set.length ? esc(set.map((x) => x.song.title).join(' · ')) : '<span class="muted">No songs yet</span>'}</div>
+        <div class="w-meta"><span>${icon('clock')}${esc(W.fmtLen(tl.total))}</span>${p.team.length ? `<span>${icon('people')}${ok.length}/${p.team.length} confirmed</span>` : ''}${open ? `<span class="pill warn">${open} open</span>` : ''}${declined ? `<span class="pill bad">${declined} declined</span>` : ''}${mine ? `<span class="pill ${STATUS_PILL[mine.status]}">You: ${esc((W.position(mine.positionId) || {}).name || '')}</span>` : ''}</div></div>
+      <span class="w-go">${icon('right')}</span></a>`;
+  }
+  function servicesTab(ui) {
+    const up = W.upcoming(), past = W.past(), canNew = can('plan:create');
+    const shown = Math.max(pageSize, Number(ui.wPastN) || 0);
+    return {
+      sub: up.length ? `${plural(up.length, 'upcoming service')}${up[0] ? ` · next ${U.relDay(up[0].date).toLowerCase()}` : ''}` : 'Plan your services: order, songs and team',
+      actions: canNew ? `<button class="btn btn-primary" data-action="w-new-plan">${icon('plus')}<span class="lbl">New service</span></button>` : '',
+      html: `${up.length ? `<div class="w-plans">${up.map(planCard).join('')}</div>` : `<div class="card">${empty('No upcoming services planned', '<p>Make a plan for a Sunday: the order of service, the songs and keys, and who’s on the team.</p>', canNew ? `<button class="btn btn-primary" data-action="w-new-plan">${icon('plus')}New service</button>` : '')}</div>`}
+        ${canNew ? `<div class="sec-title">Templates</div><div class="card nlist">${W.templates().map((t) => `<div class="nrow"><span class="n-ico tone">${icon('list')}</span><div class="grow"><div class="t">${esc(t.name)}</div><div class="s">${plural(t.items.filter((i) => i.type !== 'header').length, 'item')} · ${plural(t.positions.length, 'position')} · ${esc(W.fmtLen(t.items.reduce((n, i) => n + (Number(i.minutes) || 0), 0)))}</div></div>
+          <button class="btn btn-sm" data-action="w-new-plan" data-tpl="${esc(t.id)}">${icon('plus')}<span class="lbl">Use</span></button><button class="btn btn-ghost icon-btn" data-action="w-del-template" data-id="${esc(t.id)}" aria-label="Delete template ${esc(t.name)}" title="Delete template">${icon('trash')}</button></div>`).join('') || '<div class="nrow"><div class="grow s muted">Open a service and choose “Save as template” to reuse its order and positions.</div></div>'}</div>` : ''}
+        ${past.length ? `<details class="done-list"><summary>Past services (${past.length})</summary><div class="w-plans past">${past.slice(0, shown).map(planCard).join('')}</div>
+          ${past.length > shown ? `<button class="btn btn-sm" data-action="set" data-key="wPastN" data-val="${shown + pageSize}" style="margin-top:10px">Show more</button>` : ''}</details>` : ''}`,
+    };
+  }
+
+  /* ---- Schedule: positions × upcoming services, who plays what, blockouts ---- */
+  function scheduleTab(ui) {
+    const sched = can('worship:schedule');
+    const N = window.innerWidth < 700 ? 2 : 4, off = Math.max(0, Number(ui.wSchedOff) || 0);
+    const all = W.upcoming(), cols = all.slice(off, off + N);
+    const teams = W.teams();
+    const cell = (p, pos) => {
+      const slots = p.team.filter((s) => s.positionId === pos.id);
+      if (!slots.length) return `<td class="w-cell none">${can('plan:edit', p) ? `<button class="w-add" data-action="w-add-slot" data-plan="${esc(p.id)}" data-pos="${esc(pos.id)}" aria-label="Add ${esc(pos.name)} to ${esc(U.fmtDay(p.date))}">+</button>` : ''}</td>`;
+      return `<td class="w-cell">${slots.map((s) => {
+        const who = S.person(s.personId), cf = s.personId ? W.conflicts(s.personId, p.date, p.id, s.id).filter((c) => c.kind !== 'declined') : [];
+        return `<button class="w-chip st-${s.personId ? s.status : 'open'}" data-action="w-slot" data-plan="${esc(p.id)}" data-slot="${esc(s.id)}" title="${esc(cf.map((c) => c.text).join('\n'))}">${who ? `${UI.avatar(who, 'xs')}<span>${esc(first(who))}</span>` : `<span>${sched ? '+ Fill' : 'Open'}</span>`}${cf.length ? `<i class="w-warn" aria-label="Conflict">${icon('alert')}</i>` : ''}</button>`;
+      }).join('')}</td>`;
+    };
+    const grid = cols.length ? `<div class="card w-grid-wrap"><div class="w-grid-nav"><button class="btn btn-ghost icon-btn" data-action="set" data-key="wSchedOff" data-val="${Math.max(0, off - N)}" ${off ? '' : 'disabled'} aria-label="Earlier services">${icon('left')}</button><span>${esc(U.fmtDate(cols[0].date))} – ${esc(U.fmtDate(cols[cols.length - 1].date))}</span><button class="btn btn-ghost icon-btn" data-action="set" data-key="wSchedOff" data-val="${off + N}" ${off + N < all.length ? '' : 'disabled'} aria-label="Later services">${icon('right')}</button></div>
+      <div class="w-grid-scroll"><table class="w-grid"><thead><tr><th scope="col">Position</th>${cols.map((p) => `<th scope="col"><a href="#/plan?id=${encodeURIComponent(p.id)}">${esc(U.fmtDate(p.date, { weekday: 'short', month: 'short', day: 'numeric' }))}</a><small>${esc(p.title)} · ${esc(U.fmtTime(p.time))}</small></th>`).join('')}</tr></thead>
+      <tbody>${teams.map((t) => `<tr class="w-team-row"><th colspan="${cols.length + 1}">${esc(t)}</th></tr>${W.positions().filter((x) => (x.team || 'Team') === t).map((pos) => `<tr><th scope="row">${esc(pos.name)}</th>${cols.map((p) => cell(p, pos)).join('')}</tr>`).join('')}`).join('')}</tbody></table></div>
+      <div class="w-legend"><span class="w-chip st-accepted">Confirmed</span><span class="w-chip st-pending">Waiting</span><span class="w-chip st-declined">Declined</span><span class="w-chip st-open">Open</span><span>${icon('alert')} conflict</span></div></div>`
+      : `<div class="card">${empty('Nothing to schedule yet', '<p>Create a service first; its positions show up here week by week.</p>', can('plan:create') ? `<button class="btn btn-primary" data-action="w-new-plan">${icon('plus')}New service</button>` : '')}</div>`;
+    const roster = `<div class="sec-title">Who plays what${sched ? ` <button class="btn btn-ghost btn-sm" data-action="w-new-position">${icon('plus')}New position</button>` : ''}</div>
+      <div class="card nlist w-roster">${W.positions().map((pos) => { const ppl = W.peopleFor(pos.id); return `<div class="nrow" ${sched ? `data-action="w-position" data-id="${esc(pos.id)}" tabindex="0"` : ''}><span class="n-ico tone">${icon(pos.team === 'Tech' ? 'eye' : 'music')}</span><div class="grow"><div class="t">${esc(pos.name)} <span class="muted">· ${esc(pos.team || '')}</span></div><div class="s">${ppl.length ? ppl.map((p) => esc(p.name)).slice(0, 8).join(', ') + (ppl.length > 8 ? ` +${ppl.length - 8}` : '') : '<span class="muted">Nobody yet</span>'}</div></div>${sched ? `<span class="btn btn-ghost btn-sm">${icon('edit')}<span class="lbl">People</span></span>` : ''}</div>`; }).join('')}</div>`;
+    const today = U.todayISO();
+    const bos = S.state.blockouts.filter((b) => b.to >= today && (sched || (me() && b.personId === me().id))).sort((a, b) => a.from.localeCompare(b.from));
+    const block = `<div class="sec-title">Blockout dates <button class="btn btn-ghost btn-sm" data-action="w-blockout">${icon('plus')}Add</button></div>
+      <div class="card nlist">${bos.length ? bos.slice(0, 60).map(boRow).join('') : '<div class="nrow"><div class="grow s muted">Nobody has blocked out any upcoming dates.</div></div>'}</div>`;
+    return { sub: 'Who’s serving when — tap a name to change it', actions: sched ? `<button class="btn" data-action="w-new-position">${icon('plus')}<span class="lbl">Position</span></button>` : '', html: grid + roster + block };
+  }
+  const boRow = (b) => { const p = S.person(b.personId); return `<div class="nrow"><span class="n-ico">${UI.avatar(p, 'sm')}</span><div class="grow"><div class="t">${esc(p ? p.name : 'Someone')}</div><div class="s">${esc(b.from === b.to ? U.fmtDay(b.from) : `${U.fmtDay(b.from)} – ${U.fmtDay(b.to)}`)}${b.reason ? ` · ${esc(b.reason)}` : ''}</div></div>${can('blockout:edit', p) ? `<button class="btn btn-ghost icon-btn" data-action="w-del-blockout" data-id="${esc(b.id)}" aria-label="Remove blockout" title="Remove">${icon('trash')}</button>` : ''}</div>`; };
+
+  /* ---- Songs ---- */
+  function songsTab(ui) {
+    const qy = String(ui.wSongQ || '').toLowerCase().trim(), usage = W.songUsage();
+    let list = W.songs().filter((s) => !qy || `${s.title} ${s.artist} ${s.themes || ''} ${s.ccli || ''} ${s.key}`.toLowerCase().includes(qy));
+    const sort = ui.wSongSort || 'title';
+    list = list.slice().sort((a, b) => (sort === 'used' ? ((usage.get(b.id) || {}).last || '').localeCompare((usage.get(a.id) || {}).last || '') : 0) || a.title.localeCompare(b.title));
+    const n = Math.max(50, Number(ui.wSongN) || 0);
+    const row = (s) => { const u = usage.get(s.id) || {}; return `<a class="nrow w-song-row" href="#/song?id=${encodeURIComponent(s.id)}"><span class="w-key">${esc(s.key || '—')}</span><div class="grow"><div class="t">${esc(s.title)}${s.attachment ? ` <span class="muted" title="Has an attachment">${icon('link')}</span>` : ''}</div><div class="s">${esc(s.artist || '')}${s.bpm ? ` · ${esc(s.bpm)} BPM` : ''}${s.ccli ? ` · CCLI ${esc(s.ccli)}` : ''}</div></div><div class="w-used hide-sm">${u.next ? `<span class="pill ok">Next ${esc(U.fmtDate(u.next))}</span>` : u.last ? `<span class="muted">Last ${esc(U.fmtDate(u.last))}</span>` : '<span class="muted">Not used yet</span>'}</div></a>`; };
+    return {
+      sub: `${plural(W.songs().length, 'song')} in your library`,
+      actions: can('song:edit') ? `<button class="btn btn-primary" data-action="w-new-song">${icon('plus')}<span class="lbl">Add song</span></button>` : '',
+      html: `<div class="toolbar"><div class="search">${icon('search')}<label class="sr-only" for="w-song-q">Search songs</label><input class="input" id="w-song-q" data-w-filter="wSongQ" type="search" placeholder="Search title, artist, theme or CCLI #" value="${esc(ui.wSongQ || '')}"></div>
+        <div class="seg" role="group" aria-label="Sort">${[['title', 'A–Z'], ['used', 'Recently used']].map(([k, l]) => `<button type="button" data-action="set" data-key="wSongSort" data-val="${k}" aria-pressed="${sort === k}">${l}</button>`).join('')}</div></div>
+        <div class="card nlist">${list.length ? list.slice(0, n).map(row).join('') : `<div class="nrow"><div class="grow s muted">No songs match “${esc(ui.wSongQ || '')}”.</div></div>`}</div>
+        ${list.length > n ? `<button class="btn btn-sm" data-action="set" data-key="wSongN" data-val="${n + 50}" style="margin-top:10px">Show more (${list.length - n})</button>` : ''}`,
+    };
+  }
+
+  /* ---- My schedule (anyone's, for schedulers) ---- */
+  function mineTab(ui) {
+    const sched = can('worship:schedule');
+    const who = (sched && ui.wWho && S.person(ui.wWho)) || me();
+    if (!who) return { sub: '', html: `<div class="card">${empty('Pick who you are', '<p>Use “Signed in as” (top right) to see a person’s schedule.</p>')}</div>` };
+    const self = me() && who.id === me().id, today = U.todayISO();
+    const asg = W.assignmentsFor(who.id, today), lead = W.itemsFor(who.id, today);
+    const pend = asg.filter((a) => a.slot.status === 'pending'), conf = asg.filter((a) => a.slot.status === 'accepted'), dec = asg.filter((a) => a.slot.status === 'declined');
+    const picker = sched ? `<div class="toolbar"><label class="w-who"><span>Schedule for</span><select class="input" data-w-filter="wWho">${F.opt('', `${me() ? me().name : 'Me'} (me)`, '')}${S.state.people.filter((p) => p.positions.length && (!me() || p.id !== me().id)).sort((a, b) => a.name.localeCompare(b.name)).map((p) => F.opt(p.id, p.name, ui.wWho)).join('')}</select></label></div>` : '';
+    const arow = (a, actions) => `<div class="nrow w-asg">${dayBox(a.plan.date)}<div class="grow"><div class="t">${esc((a.position || {}).name || 'Serving')} · ${esc(a.plan.title)}</div><div class="s">${esc(U.relDay(a.plan.date))} · ${esc(U.fmtTime(a.plan.time))}${a.slot.note ? ` · “${esc(a.slot.note)}”` : ''}</div>
+      ${actions ? `<div class="w-acts">${actions}</div>` : ''}</div><a class="btn btn-ghost icon-btn" href="#/plan?id=${encodeURIComponent(a.plan.id)}" aria-label="Open service">${icon('right')}</a></div>`;
+    const respondBtns = (a) => (can('plan:respond', a.slot) ? `<button class="btn btn-sm btn-primary" data-action="w-respond" data-plan="${esc(a.plan.id)}" data-slot="${esc(a.slot.id)}" data-val="accepted">${icon('check')}Accept</button><button class="btn btn-sm" data-action="w-respond" data-plan="${esc(a.plan.id)}" data-slot="${esc(a.slot.id)}" data-val="declined">${icon('x')}Decline</button>` : '');
+    const standBtn = (a) => (W.setList(a.plan).length ? `<button class="btn btn-sm" data-action="w-stand" data-plan="${esc(a.plan.id)}">${icon('music')}Music Stand</button>` : '');
+    const bos = W.blockoutsFor(who.id).filter((b) => b.to >= today);
+    return {
+      sub: self ? (pend.length ? `${plural(pend.length, 'request')} waiting for your answer` : conf.length ? `Next: ${U.relDay(conf[0].plan.date)}` : 'You’re not scheduled yet') : `${who.name}’s schedule`,
+      html: `${picker}
+        ${pend.length ? `<div class="sec-title">Waiting for ${self ? 'your' : 'their'} answer · ${pend.length}</div><div class="card nlist w-pending">${pend.map((a) => arow(a, respondBtns(a))).join('')}</div>` : ''}
+        <div class="sec-title">Scheduled</div><div class="card nlist">${conf.length ? conf.map((a) => arow(a, `${standBtn(a)}${can('plan:respond', a.slot) ? `<button class="btn btn-sm btn-ghost" data-action="w-respond" data-plan="${esc(a.plan.id)}" data-slot="${esc(a.slot.id)}" data-val="declined">Can’t make it</button>` : ''}`)).join('') : `<div class="all-good">${icon('calendar')}<span>${pend.length ? 'Nothing confirmed yet.' : 'Nothing scheduled.'}</span></div>`}</div>
+        ${lead.length ? `<div class="sec-title">${self ? 'You’re leading' : 'Leading'}</div><div class="card nlist">${lead.slice(0, 20).map((x) => `<a class="nrow" href="#/plan?id=${encodeURIComponent(x.plan.id)}">${dayBox(x.plan.date)}<div class="grow"><div class="t">${esc(W.itemTitle(x.item))}</div><div class="s">${esc(x.plan.title)} · ${esc((W.ITEM_TYPES[x.item.type] || {}).label || '')}${x.item.minutes ? ` · ${x.item.minutes} min` : ''}</div></div></a>`).join('')}</div>` : ''}
+        ${dec.length ? `<details class="done-list"><summary>Declined (${dec.length})</summary><div class="card nlist">${dec.map((a) => arow(a, respondBtns(a))).join('')}</div></details>` : ''}
+        <div class="sec-title">${self ? 'I can play' : 'Plays'}</div><div class="card card-pad w-chips-line">${who.positions.length ? who.positions.map((id) => `<span class="pill">${esc((W.position(id) || {}).name || '')}</span>`).join('') : '<span class="muted">No positions yet — a worship leader adds you under Schedule → Who plays what.</span>'}</div>
+        <div class="sec-title">Blockout dates ${can('blockout:edit', who) ? `<button class="btn btn-ghost btn-sm" data-action="w-blockout" data-id="${esc(who.id)}">${icon('plus')}Add</button>` : ''}</div>
+        <div class="card nlist">${bos.length ? bos.map(boRow).join('') : `<div class="nrow"><div class="grow s muted">${self ? 'Going to be away? Add the dates so nobody schedules you.' : 'No upcoming blockouts.'}</div></div>`}</div>`,
+    };
+  }
+
+  /* ================= one service plan ================= */
+  V.plan = (ui, q) => {
+    const p = W.plan(q && q.get ? q.get('id') : '');
+    if (!p) return { title: 'Service', html: `<div class="card">${empty('Service not found', '<p>It may have been deleted.</p>', '<a class="btn" href="#/worship">All services</a>')}</div>` };
+    const edit = can('plan:edit', p), tl = W.timeline(p), set = W.setList(p);
+    const myslots = me() ? p.team.filter((s) => s.personId === me().id) : [];
+    const banner = myslots.map((s) => { const pos = W.position(s.positionId) || {}; return `<div class="w-banner st-${s.status}">${icon(s.status === 'accepted' ? 'check' : s.status === 'declined' ? 'x' : 'bell')}<div class="grow"><b>${s.status === 'pending' ? `You’re asked to serve on ${esc(pos.name)}` : s.status === 'accepted' ? `You’re on ${esc(pos.name)}` : `You declined ${esc(pos.name)}`}</b><small>${esc(longDate(p.date))} · ${esc(U.fmtTime(p.time))}</small></div>
+      ${can('plan:respond', s) ? (s.status === 'pending' ? `<button class="btn btn-sm btn-primary" data-action="w-respond" data-plan="${esc(p.id)}" data-slot="${esc(s.id)}" data-val="accepted">Accept</button><button class="btn btn-sm" data-action="w-respond" data-plan="${esc(p.id)}" data-slot="${esc(s.id)}" data-val="declined">Decline</button>` : `<button class="btn btn-sm btn-ghost" data-action="w-respond" data-plan="${esc(p.id)}" data-slot="${esc(s.id)}" data-val="${s.status === 'accepted' ? 'declined' : 'accepted'}">${s.status === 'accepted' ? 'Can’t make it' : 'I can make it'}</button>`) : ''}</div>`; }).join('');
+    const handle = (item) => (edit ? `<button type="button" class="so-handle" aria-label="Move ${esc(W.itemTitle(item))} (drag, or arrow keys)" title="Drag to reorder">${icon('grip')}</button>` : '');
+    const row = ({ item, start }, i) => {
+      const t = W.ITEM_TYPES[item.type] || W.ITEM_TYPES.other, who = S.person(item.personId), sg = item.type === 'song' ? W.song(item.songId) : null;
+      if (item.type === 'header') return `<li class="so-row so-header" data-i="${i}" data-id="${esc(item.id)}">${handle(item)}<div class="grow so-main" ${edit ? `data-action="w-item" data-plan="${esc(p.id)}" data-id="${esc(item.id)}" tabindex="0"` : ''}><b>${esc(W.itemTitle(item))}</b></div></li>`;
+      return `<li class="so-row t-${esc(item.type)}" data-i="${i}" data-id="${esc(item.id)}">${handle(item)}
+        <span class="so-time">${esc(U.fmtTime(start))}</span><span class="so-ico" title="${esc(t.label)}">${icon(t.icon)}</span>
+        <div class="grow so-main" ${edit || sg ? `data-action="${edit ? 'w-item' : 'w-song-open'}" data-plan="${esc(p.id)}" data-id="${esc(edit ? item.id : item.songId)}" tabindex="0"` : ''}><div class="t">${esc(W.itemTitle(item))}${sg && item.key ? ` <span class="w-key sm">${esc(item.key)}</span>` : ''}</div>
+          <div class="s">${esc(t.label)}${sg && sg.artist ? ` · ${esc(sg.artist)}` : ''}${item.notes ? ` · ${esc(item.notes)}` : ''}</div></div>
+        ${who ? `<span class="so-who" title="${esc(who.name)}">${UI.avatar(who, 'xs')}<span class="hide-sm">${esc(first(who))}</span></span>` : ''}
+        ${edit ? `<label class="so-min"><span class="sr-only">Minutes for ${esc(W.itemTitle(item))}</span><input class="input" type="number" min="0" max="240" inputmode="numeric" value="${item.minutes}" data-w-min="${esc(item.id)}" data-plan="${esc(p.id)}"><small>min</small></label>` : `<span class="so-len">${item.minutes ? `${item.minutes} min` : ''}</span>`}</li>`;
+    };
+    const teams = W.teams().filter((t) => p.team.some((s) => (W.position(s.positionId) || {}).team === t));
+    const slotRow = (s) => {
+      const pos = W.position(s.positionId) || { name: '?' }, who = S.person(s.personId), cf = s.personId ? W.conflicts(s.personId, p.date, p.id, s.id).filter((c) => c.kind !== 'declined') : [];
+      return `<div class="nrow w-slot" ${edit ? `data-action="w-slot" data-plan="${esc(p.id)}" data-slot="${esc(s.id)}" tabindex="0"` : ''}><span class="n-ico">${who ? UI.avatar(who, 'sm') : `<span class="w-empty-av">${icon('plus')}</span>`}</span>
+        <div class="grow"><div class="t">${who ? esc(who.name) : `<span class="muted">${edit ? 'Pick someone' : 'Open'}</span>`}</div><div class="s">${esc(pos.name)}${cf.length ? ` · <span class="txt-warn">${icon('alert')}${esc(cf[0].text)}</span>` : ''}${s.status === 'declined' && s.note ? ` · “${esc(s.note)}”` : ''}</div></div>${who ? statusPill(s) : ''}</div>`;
+    };
+    const ev = p.eventId && S.get('events', p.eventId);
+    const conf = p.team.filter((s) => s.personId && s.status === 'accepted').length;
+    return {
+      title: p.title, sub: `${longDate(p.date)} · ${U.fmtTime(p.time)}–${U.fmtTime(tl.end)}`,
+      actions: `${set.length ? `<button class="btn btn-primary" data-action="w-stand" data-plan="${esc(p.id)}">${icon('music')}<span class="lbl">Music Stand</span></button>` : ''}<button class="btn" data-action="w-print" data-plan="${esc(p.id)}" aria-label="Print run sheet" title="Print run sheet">${icon('print')}<span class="lbl hide-sm">Print</span></button><button class="btn" data-action="w-share" data-plan="${esc(p.id)}" aria-label="Share run sheet" title="Share run sheet">${icon('send')}<span class="lbl hide-sm">Share</span></button>${edit ? `<button class="btn btn-ghost icon-btn" data-action="w-plan-menu" data-plan="${esc(p.id)}" aria-label="More: edit details, template, delete" title="Edit details, template, delete">${icon('edit')}</button>` : ''}`,
+      html: `<div class="w-plan">${banner}
+        <div class="w-plan-cols"><section><div class="sec-title">Order of service <span class="muted w-total">${esc(W.fmtLen(tl.total))} · ends ${esc(U.fmtTime(tl.end))}</span></div>
+          <div class="card"><ol class="so-list" data-plan="${esc(p.id)}" aria-label="Order of service">${tl.rows.map(row).join('') || `<li class="so-empty">${empty('Nothing in the order yet', edit ? '<p>Add songs, a welcome, prayer, the sermon… Times add up as you go.</p>' : '')}</li>`}</ol>
+          ${edit ? `<div class="so-add"><button class="btn btn-sm" data-action="w-item" data-plan="${esc(p.id)}" data-type="song">${icon('music')}Song</button><button class="btn btn-sm" data-action="w-item" data-plan="${esc(p.id)}" data-type="other">${icon('plus')}Item</button><button class="btn btn-sm btn-ghost" data-action="w-item" data-plan="${esc(p.id)}" data-type="header">${icon('tag')}Header</button></div>` : ''}
+          <div class="so-foot"><span>${plural(set.length, 'song')}</span><b>Total ${esc(W.fmtLen(tl.total))}</b></div></div>
+          ${p.notes || edit ? `<div class="sec-title">Notes</div><div class="card card-pad">${edit ? `<label class="sr-only" for="w-notes">Notes for the team</label><textarea class="input" id="w-notes" data-w-notes="${esc(p.id)}" rows="2" placeholder="Anything the whole team should know (communion, baptism, special song…)">${esc(p.notes)}</textarea>` : `<p style="margin:0;color:var(--text-2)">${esc(p.notes)}</p>`}</div>` : ''}</section>
+        <aside><div class="sec-title">Team <span class="muted">${conf}/${p.team.length} confirmed</span></div>
+          ${teams.map((t) => `<div class="w-team-h">${esc(t)}</div><div class="card nlist">${p.team.filter((s) => ((W.position(s.positionId) || {}).team || '') === t).map(slotRow).join('')}</div>`).join('') || '<div class="card nlist"><div class="nrow"><div class="grow s muted">No positions on this service yet.</div></div></div>'}
+          ${edit ? `<div class="w-team-add"><button class="btn btn-sm" data-action="w-add-slot" data-plan="${esc(p.id)}">${icon('plus')}Add position</button>${p.team.some((s) => !s.personId) ? `<button class="btn btn-sm btn-ghost" data-action="w-autofill" data-plan="${esc(p.id)}">${icon('people')}Fill open spots</button>` : ''}</div>` : ''}
+          ${ev ? `<p class="hint w-cal">${icon('calendar')}On the calendar as <button type="button" class="linkish" data-action="view-event" data-id="${esc(ev.id)}" data-date="${esc(p.date)}">${esc(ev.title)}</button></p>` : ''}</aside></div></div>`,
+    };
+  };
+
+  /* ================= one song ================= */
+  V.song = (ui, q) => {
+    const s = W.song(q && q.get ? q.get('id') : '');
+    if (!s) return { title: 'Song', html: `<div class="card">${empty('Song not found', '<p>It may have been deleted.</p>', '<a class="btn" href="#/worship">Back to Worship</a>')}</div>` };
+    const edit = can('song:edit'), toKey = (ui.wSongKey && ui.wSongKey[s.id]) || s.key;
+    const used = W.plans().filter((p) => p.items.some((i) => i.songId === s.id));
+    const meta = [s.key && `Key ${s.key}`, s.bpm && `${s.bpm} BPM`, s.meter, s.ccli && `CCLI #${s.ccli}`, s.themes].filter(Boolean);
+    return {
+      title: s.title, sub: s.artist || 'Song',
+      actions: `<button class="btn btn-primary" data-action="w-stand-song" data-id="${esc(s.id)}">${icon('music')}<span class="lbl">Music Stand</span></button>${edit ? `<button class="btn" data-action="w-edit-song" data-id="${esc(s.id)}">${icon('edit')}<span class="lbl">Edit</span></button>` : ''}`,
+      html: `<div class="w-song"><div class="w-song-meta">${meta.map((m) => `<span class="pill">${esc(m)}</span>`).join('')}
+        ${s.key ? `<label class="w-keypick"><span>Show in</span><select class="input" data-w-songkey="${esc(s.id)}">${keyOpts(toKey)}</select></label>` : ''}</div>
+        <div class="w-plan-cols"><section><div class="card card-pad chart">${s.chart.trim() ? CP.render(s.chart, { key: s.key, toKey }) : `<p class="muted">No chord chart yet.${edit ? ' Choose Edit to paste one — chords go in [brackets] before the syllable.' : ''}</p>`}</div>
+          ${s.notes ? `<div class="sec-title">Notes</div><div class="card card-pad"><p style="margin:0;color:var(--text-2)">${esc(s.notes)}</p></div>` : ''}</section>
+        <aside>${s.attachment ? `<div class="sec-title">Attachment</div><div class="card card-pad w-att"><div class="w-att-prev" data-w-att="${esc(s.id)}"></div><div class="hint">${esc(s.attachment.name)} · stored on this device</div></div>` : ''}
+          <div class="sec-title">Used in</div><div class="card nlist">${used.length ? used.slice(-12).reverse().map((p) => `<a class="nrow" href="#/plan?id=${encodeURIComponent(p.id)}">${dayBox(p.date)}<div class="grow"><div class="t">${esc(p.title)}</div><div class="s">Key ${esc((p.items.find((i) => i.songId === s.id) || {}).key || s.key || '—')}</div></div></a>`).join('') : '<div class="nrow"><div class="grow s muted">Not in any service yet.</div></div>'}</div></aside></div></div>`,
+    };
+  };
+
+  /* ================= dialogs ================= */
+  const fieldRow = (label, inner, hint) => `<label class="field"><span>${label}</span>${inner}${hint ? `<small class="hint">${hint}</small>` : ''}</label>`;
+  const go = (hash) => { if (location.hash === hash) NS.App.render(); else location.hash = hash; };
+
+  /** New service / edit details. */
+  function planForm(existing, opts) {
+    const o = opts || {}, p = existing, tpls = W.templates(), last = W.plans().slice(-1)[0];
+    const nextSun = (() => { let d = U.todayISO(); for (let i = 0; i < 7; i++) { if (U.parse(d).getDay() === 0) return d; d = U.addISO(d, 1); } return d; })();
+    const used = new Set(W.plans().map((x) => x.date));
+    let date = o.date || nextSun; while (!p && !o.date && used.has(date)) date = U.addISO(date, 7);
+    const src = o.copyFrom ? W.plan(o.copyFrom) : null;
+    const startSel = src ? `copy:${src.id}` : o.tpl ? `tpl:${o.tpl}` : tpls[0] ? `tpl:${tpls[0].id}` : last ? `copy:${last.id}` : '';
+    UI.openModal({
+      title: p ? 'Service details' : 'New service', size: 'sm',
+      body: `<div class="form-grid w-form">${fieldRow('Title', `<input class="input" name="title" required maxlength="80" value="${esc(p ? p.title : (src && src.title) || 'Sunday Worship')}">`)}
+        <div class="form-row two">${fieldRow('Date', `<input class="input" type="date" name="date" required value="${esc(p ? p.date : date)}">`)}${fieldRow('Starts', `<input class="input" type="time" name="time" required value="${esc(p ? p.time : (src && src.time) || (tpls[0] && tpls[0].time) || '10:00')}">`)}</div>
+        ${p ? '' : fieldRow('Start from', `<select class="input" name="from">${tpls.length ? `<optgroup label="Templates">${tpls.map((t) => F.opt(`tpl:${t.id}`, t.name, startSel)).join('')}</optgroup>` : ''}${W.plans().length ? `<optgroup label="Copy a service">${W.plans().slice(-8).reverse().map((x) => F.opt(`copy:${x.id}`, `${x.title} · ${U.fmtDate(x.date)}`, startSel)).join('')}</optgroup>` : ''}${F.opt('', 'Blank', startSel)}</select>`, 'Templates bring the order and the positions; a copy also brings who leads each item.')}</div>`,
+      footer: `<button type="button" class="btn left" data-m="close">Cancel</button><button type="submit" class="btn btn-primary">${p ? 'Save' : 'Create service'}</button>`,
+      onSubmit: (f, api) => {
+        const d = Object.fromEntries(new FormData(f));
+        if (!d.title.trim() || !d.date || !d.time) { UI.toast('Add a title, date and time'); return; }
+        api.close();
+        if (p) { W.updatePlan(p.id, { title: d.title.trim(), date: d.date, time: d.time }); UI.toast('Service updated'); return; }
+        const [k, id] = String(d.from || '').split(':');
+        const np = W.createPlan({ title: d.title.trim(), date: d.date, time: d.time, templateId: k === 'tpl' ? id : '', copyFromId: k === 'copy' ? id : '' });
+        UI.toast(`${np.title} planned for ${U.fmtDay(np.date)}`);
+        go(`#/plan?id=${np.id}`);
+      },
+    });
+  }
+
+  /** Add or edit an item in the order. */
+  function itemForm(pl, item, type) {
+    const it = item || { type: type || 'other', title: '', minutes: type === 'song' ? 5 : type === 'header' ? 0 : 3, notes: '', personId: '', songId: '', key: '' };
+    const typeOpts = Object.entries(W.ITEM_TYPES).map(([k, t]) => F.opt(k, t.label, it.type)).join('');
+    const songList = (qy, sel) => { const ql = String(qy || '').toLowerCase(); const list = W.songs().filter((s) => !ql || `${s.title} ${s.artist}`.toLowerCase().includes(ql)).sort((a, b) => a.title.localeCompare(b.title)).slice(0, 60);
+      return list.map((s) => `<label class="w-pick w-songpick"><input type="radio" name="songId" value="${esc(s.id)}" ${s.id === sel ? 'checked' : ''} data-key="${esc(s.key)}"><span class="grow"><b>${esc(s.title)}</b><small>${esc(s.artist || '')}${s.key ? ` · ${esc(s.key)}` : ''}</small></span></label>`).join('') || '<p class="hint">No songs match.</p>'; };
+    UI.openModal({
+      title: item ? `Edit ${esc((W.ITEM_TYPES[it.type] || {}).label || 'item').toLowerCase()}` : it.type === 'song' ? 'Add a song' : it.type === 'header' ? 'Add a header' : 'Add to the order',
+      body: `<div class="form-grid w-form">
+        ${it.type === 'header' ? fieldRow('Header', `<input class="input" name="title" required maxlength="60" placeholder="e.g. Worship, The Word, Response" value="${esc(it.title)}">`) : `
+        <div class="form-row two">${fieldRow('Type', `<select class="input" name="type" data-w-type>${typeOpts}</select>`)}${fieldRow('Minutes', `<input class="input" type="number" name="minutes" min="0" max="240" inputmode="numeric" value="${esc(it.minutes)}">`)}</div>
+        <div data-w-songpart ${it.type === 'song' ? '' : 'hidden'}>
+          <label class="field"><span>Song</span><input class="input" type="search" data-w-songq placeholder="Search the song library"></label>
+          <div class="w-songlist" role="radiogroup" aria-label="Song">${songList('', it.songId)}</div>
+          <div class="form-row two">${fieldRow('Key for this service', `<select class="input" name="key">${F.opt('', 'Song’s key', it.key)}${keyOpts(it.key)}</select>`)}<div class="field"><span>&nbsp;</span>${can('song:edit') ? `<button type="button" class="btn btn-sm" data-w-newsong>${icon('plus')}New song</button>` : ''}</div></div>
+        </div>
+        <div data-w-titlepart ${it.type === 'song' ? 'hidden' : ''}>${fieldRow('Title', `<input class="input" name="title" maxlength="80" placeholder="e.g. Welcome & announcements" value="${esc(it.type === 'song' ? '' : it.title)}">`)}</div>
+        ${fieldRow('Led by', `<select class="input" name="personId">${F.peopleOptions(it.personId, 'Nobody in particular')}</select>`)}
+        ${fieldRow('Notes', `<input class="input" name="notes" maxlength="200" placeholder="e.g. Kids dismissed after this · Last chorus a cappella" value="${esc(it.notes)}">`)}`}
+        </div>`,
+      footer: `${item ? `<button type="button" class="btn btn-ghost left danger" data-w-del>${icon('trash')}Remove</button>` : '<button type="button" class="btn left" data-m="close">Cancel</button>'}<button type="submit" class="btn btn-primary">${item ? 'Save' : 'Add'}</button>`,
+      onMount: (f, api) => {
+        const typeSel = f.querySelector('[data-w-type]'), sq = f.querySelector('[data-w-songq]'), list = f.querySelector('.w-songlist');
+        if (typeSel) typeSel.addEventListener('change', () => { const s = typeSel.value === 'song'; f.querySelector('[data-w-songpart]').hidden = !s; f.querySelector('[data-w-titlepart]').hidden = s; });
+        if (sq) sq.addEventListener('input', () => { const sel = (f.querySelector('[name=songId]:checked') || {}).value; list.innerHTML = songList(sq.value, sel); });
+        const nb = f.querySelector('[data-w-newsong]'); if (nb) nb.addEventListener('click', () => songForm(null, (s) => { list.innerHTML = songList('', s.id); }));
+        const del = f.querySelector('[data-w-del]'); if (del) del.addEventListener('click', () => { const snap = S.snapshot(); api.close(); W.removeItem(pl.id, item.id); UI.toast(`Removed ${W.itemTitle(item)}`, () => S.restore(snap)); });
+        if (it.type === 'song' && !item && sq) sq.focus();
+      },
+      onSubmit: (f, api) => {
+        const d = Object.fromEntries(new FormData(f));
+        const ty = it.type === 'header' ? 'header' : d.type;
+        if (ty === 'song' && !d.songId) { UI.toast('Pick a song (or add a new one)'); return; }
+        if (ty !== 'song' && ty === 'header' && !String(d.title || '').trim()) { UI.toast('Give the header a name'); return; }
+        const patch = { type: ty, title: ty === 'song' ? '' : String(d.title || '').trim(), minutes: Number(d.minutes) || 0, notes: String(d.notes || '').trim(), personId: d.personId || '', songId: ty === 'song' ? d.songId : '', key: ty === 'song' ? d.key || (W.song(d.songId) || {}).key || '' : '' };
+        api.close();
+        if (item) W.updateItem(pl.id, item.id, patch); else { W.addItem(pl.id, patch); UI.toast(`Added ${W.itemTitle(patch)}`); }
+      },
+    });
+  }
+
+  /** Pick someone for a spot. */
+  function slotDialog(pl, sl) {
+    const pos = W.position(sl.positionId) || { name: 'Position' }, cur = S.person(sl.personId);
+    const cand = W.candidates(pl, sl), candIds = new Set(cand.map((c) => c.person.id));
+    const row = (p, cf, recent) => `<button type="button" class="nrow w-cand ${p.id === sl.personId ? 'is-cur' : ''}" data-pick="${esc(p.id)}"><span class="n-ico">${UI.avatar(p, 'sm')}</span><span class="grow"><span class="t">${esc(p.name)}${p.id === sl.personId ? ' <span class="pill">Current</span>' : ''}</span><span class="s">${cf.length ? `<span class="txt-warn">${icon('alert')}${esc(cf.map((c) => c.text).join(' · '))}</span>` : `<span class="txt-ok">Free</span>`}${recent != null ? ` · served ${recent}× in 8 weeks` : ''}</span></span></button>`;
+    const others = (qy) => { const ql = qy.toLowerCase(); return S.state.people.filter((p) => !candIds.has(p.id) && (!p.status || p.status === 'active') && (!ql || p.name.toLowerCase().includes(ql))).slice(0, 30).map((p) => row(p, W.conflicts(p.id, pl.date, pl.id, sl.id))).join(''); };
+    UI.openModal({
+      title: `${esc(pos.name)} · ${esc(U.fmtDay(pl.date))}`, size: 'sm',
+      body: `${cur ? `<div class="w-slot-cur">${UI.avatar(cur, 'sm')}<div class="grow"><b>${esc(cur.name)}</b><small>${esc(W.STATUS[sl.status])}${sl.note ? ` · “${esc(sl.note)}”` : ''}</small></div>${statusPill(sl)}</div>` : ''}
+        <div class="pop-h">Plays ${esc(pos.name.toLowerCase())}</div><div class="nlist w-cands">${cand.map((c) => row(c.person, c.conflicts, c.recent)).join('') || `<p class="hint">Nobody is listed for ${esc(pos.name)} yet — pick anyone below, or add people under Schedule → Who plays what.</p>`}</div>
+        <details class="w-others"><summary>Everyone else</summary><input class="input" type="search" data-w-others placeholder="Search people"><div class="nlist w-cands" data-w-otherlist>${others('')}</div></details>`,
+      footer: `<button type="button" class="btn btn-ghost left danger" data-w-rm>${icon('trash')}Remove spot</button>${cur ? `<button type="button" class="btn" data-w-clear>Unassign</button>${sl.status !== 'accepted' ? '<button type="button" class="btn" data-w-ok>Mark confirmed</button>' : ''}` : ''}<button type="button" class="btn btn-primary" data-m="close">Done</button>`,
+      onMount: (f, api) => {
+        f.addEventListener('click', (e) => {
+          const b = e.target.closest('[data-pick]');
+          if (b) { e.preventDefault(); const p = S.person(b.dataset.pick); api.close(); W.assign(pl.id, sl.id, p.id); UI.toast(`${p.name} asked to serve on ${pos.name} — waiting for an answer`); return; }
+          if (e.target.closest('[data-w-clear]')) { api.close(); W.assign(pl.id, sl.id, ''); UI.toast(`${pos.name} is open`); return; }
+          if (e.target.closest('[data-w-ok]')) { api.close(); W.respond(pl.id, sl.id, 'accepted', ''); UI.toast(`${cur.name} marked confirmed`); return; }
+          if (e.target.closest('[data-w-rm]')) { const snap = S.snapshot(); api.close(); W.removeSlot(pl.id, sl.id); UI.toast(`${pos.name} spot removed`, () => S.restore(snap)); }
+        });
+        const oq = f.querySelector('[data-w-others]'); oq.addEventListener('input', () => { f.querySelector('[data-w-otherlist]').innerHTML = others(oq.value); });
+      },
+    });
+  }
+  function addSlotDialog(pl, posId) {
+    if (posId) { const sl = W.addSlot(pl.id, posId); if (sl) slotDialog(W.plan(pl.id), sl); return; }
+    UI.openModal({
+      title: 'Add a position', size: 'sm',
+      body: `<div class="nlist">${W.teams().map((t) => `<div class="pop-h">${esc(t)}</div>${W.positions().filter((p) => (p.team || 'Team') === t).map((p) => `<button type="button" class="nrow" data-pos="${esc(p.id)}"><span class="grow t">${esc(p.name)}</span><span class="s muted">${plural(pl.team.filter((s) => s.positionId === p.id).length, 'spot')}</span></button>`).join('')}`).join('')}</div>`,
+      footer: `<button type="button" class="btn left" data-m="close">Cancel</button>${can('worship:schedule') ? '<button type="button" class="btn" data-w-newpos>New position…</button>' : ''}`,
+      onMount: (f, api) => f.addEventListener('click', (e) => {
+        const b = e.target.closest('[data-pos]'); if (b) { e.preventDefault(); api.close(); addSlotDialog(pl, b.dataset.pos); }
+        if (e.target.closest('[data-w-newpos]')) { api.close(); positionDialog(null); }
+      }),
+    });
+  }
+  /** A position and who can play it. */
+  function positionDialog(pos) {
+    const x = pos || { name: '', team: 'Band' }, ids = new Set(pos ? W.peopleFor(pos.id).map((p) => p.id) : []);
+    const people = S.state.people.filter((p) => !p.status || p.status === 'active').sort((a, b) => a.name.localeCompare(b.name));
+    UI.openModal({
+      title: pos ? esc(pos.name) : 'New position',
+      body: `<div class="form-grid w-form"><div class="form-row two">${fieldRow('Position', `<input class="input" name="name" required maxlength="40" placeholder="e.g. Cello" value="${esc(x.name)}">`)}${fieldRow('Team', `<input class="input" name="team" list="w-teams" maxlength="30" value="${esc(x.team)}"><datalist id="w-teams">${W.teams().map((t) => `<option value="${esc(t)}">`).join('')}</datalist>`)}</div>
+        <div class="field"><span>Who can play it</span><input class="input" type="search" data-w-pq placeholder="Search people"><div class="w-checklist">${people.map((p) => `<label class="w-pick" data-name="${esc(p.name.toLowerCase())}"><input type="checkbox" name="p" value="${esc(p.id)}" ${ids.has(p.id) ? 'checked' : ''}>${UI.avatar(p, 'xs')}<span>${esc(p.name)}</span></label>`).join('')}</div></div></div>`,
+      footer: `${pos ? `<button type="button" class="btn btn-ghost left danger" data-w-del>${icon('trash')}Delete</button>` : '<button type="button" class="btn left" data-m="close">Cancel</button>'}<button type="submit" class="btn btn-primary">Save</button>`,
+      onMount: (f, api) => {
+        const pq = f.querySelector('[data-w-pq]'); pq.addEventListener('input', () => { const v = pq.value.toLowerCase(); f.querySelectorAll('.w-checklist .w-pick').forEach((c) => { c.hidden = !!v && !c.dataset.name.includes(v); }); });
+        const del = f.querySelector('[data-w-del]'); if (del) del.addEventListener('click', async () => { if (!(await UI.confirmDialog({ title: `Delete ${pos.name}?`, message: 'It comes off every service and everyone’s list. Past schedules lose this spot.', okText: 'Delete', danger: true }))) return; const snap = S.snapshot(); api.close(); W.removePosition(pos.id); UI.toast(`${pos.name} deleted`, () => S.restore(snap)); });
+      },
+      onSubmit: (f, api) => {
+        const name = f.elements.name.value.trim(); if (!name) { UI.toast('Name the position'); return; }
+        const team = f.elements.team.value.trim() || 'Band', chosen = new Set([...f.querySelectorAll('[name=p]:checked')].map((c) => c.value));
+        api.close();
+        const snap = S.snapshot();
+        let id = pos && pos.id;
+        if (!id) { W.savePosition({ name, team }); id = W.positions()[W.positions().length - 1].id; } else W.savePosition({ id, name, team });
+        S.state.people.forEach((p) => { const has = p.positions.includes(id); if (chosen.has(p.id) && !has) p.positions.push(id); if (!chosen.has(p.id) && has) p.positions = p.positions.filter((z) => z !== id); });
+        S.save(); UI.toast(`${name}: ${chosen.size} ${chosen.size === 1 ? 'person' : 'people'}`, () => S.restore(snap));
+      },
+    });
+  }
+  function blockoutDialog(personId) {
+    const sched = can('worship:schedule') || can('person:edit');
+    const who = S.person(personId) || me();
+    UI.openModal({
+      title: 'Blockout dates', size: 'sm',
+      body: `<div class="form-grid w-form">${sched ? fieldRow('Who', `<select class="input" name="pid">${F.peopleOptions(who ? who.id : '', '')}</select>`) : `<input type="hidden" name="pid" value="${esc(who ? who.id : '')}">`}
+        <div class="form-row two">${fieldRow('From', `<input class="input" type="date" name="from" required value="${esc(U.todayISO())}">`)}${fieldRow('To', `<input class="input" type="date" name="to" value="">`, 'Leave empty for one day')}</div>
+        ${fieldRow('Reason (optional)', '<input class="input" name="reason" maxlength="80" placeholder="e.g. Family vacation">')}<p class="hint">Schedulers see a warning if they try to put you on a service in these dates.</p></div>`,
+      footer: '<button type="button" class="btn left" data-m="close">Cancel</button><button type="submit" class="btn btn-primary">Block out</button>',
+      onSubmit: (f, api) => {
+        const d = Object.fromEntries(new FormData(f)), p = S.person(d.pid);
+        if (!p || !d.from) { UI.toast('Pick a person and a date'); return; }
+        if (!can('blockout:edit', p)) { UI.toast('You can only add your own blockout dates'); return; }
+        api.close(); W.addBlockout(p.id, d.from, d.to || d.from, d.reason);
+        const hit = W.assignmentsFor(p.id, d.from, d.to || d.from).filter((a) => a.slot.status !== 'declined');
+        UI.toast(hit.length ? `Blocked out — heads up: still on ${plural(hit.length, 'service')} in those dates` : 'Blockout dates saved');
+      },
+    });
+  }
+  function declineDialog(pl, sl) {
+    const pos = W.position(sl.positionId) || {};
+    UI.openModal({
+      title: `Can’t make ${esc(U.fmtDay(pl.date))}?`, size: 'sm',
+      body: `<div class="form-grid w-form">${fieldRow('Let them know why (optional)', '<input class="input" name="note" maxlength="140" placeholder="e.g. Out of town that weekend">')}<label class="w-pick"><input type="checkbox" name="block" checked><span>Also block out ${esc(U.fmtDay(pl.date))} so I’m not scheduled again</span></label></div>`,
+      footer: `<button type="button" class="btn left" data-m="close">Cancel</button><button type="submit" class="btn btn-primary">Decline ${esc(pos.name || '')}</button>`,
+      onSubmit: (f, api) => {
+        const note = f.elements.note.value, block = f.elements.block.checked;
+        api.close();
+        if (block && !W.blockedOn(sl.personId, pl.date)) W.addBlockout(sl.personId, pl.date, pl.date, note || 'Declined');
+        W.respond(pl.id, sl.id, 'declined', note);
+        UI.toast('Declined — the worship leader has been told');
+      },
+    });
+  }
+
+  /** Add or edit a song (chart with live preview, optional PDF / image stored on this device). */
+  function songForm(song, after) {
+    const s = song || { title: '', artist: '', key: 'G', bpm: '', meter: '4/4', ccli: '', themes: '', chart: '', notes: '', attachment: null };
+    let file = null, dropAtt = false;
+    UI.openModal({
+      title: song ? 'Edit song' : 'Add a song', size: 'lg',
+      body: `<div class="w-songform"><div class="form-grid w-form">
+        <div class="form-row two">${fieldRow('Title', `<input class="input" name="title" required maxlength="100" value="${esc(s.title)}">`)}${fieldRow('Artist / author', `<input class="input" name="artist" maxlength="100" value="${esc(s.artist)}">`)}</div>
+        <div class="form-row four">${fieldRow('Key', `<select class="input" name="key">${F.opt('', '—', s.key)}${keyOpts(s.key)}</select>`)}${fieldRow('BPM', `<input class="input" type="number" name="bpm" min="20" max="300" inputmode="numeric" value="${esc(s.bpm)}">`)}${fieldRow('Time', `<input class="input" name="meter" maxlength="6" placeholder="4/4" value="${esc(s.meter)}">`)}${fieldRow('CCLI #', `<input class="input" name="ccli" maxlength="12" inputmode="numeric" value="${esc(s.ccli)}">`)}</div>
+        ${fieldRow('Themes', `<input class="input" name="themes" maxlength="100" placeholder="e.g. grace, communion, Easter" value="${esc(s.themes)}">`)}
+        ${fieldRow('Chord chart', `<textarea class="input mono" name="chart" rows="12" spellcheck="false" placeholder="{title: Song}\n\nVerse 1\n[G]Amazing [C]grace, how [G]sweet the sound">${esc(s.chart)}</textarea>`, 'ChordPro: put chords in [brackets] right before the syllable. Lines like “Verse 1” or “Chorus” become section labels. Paste from SongSelect’s ChordPro download.')}
+        <div class="field"><span>PDF or image chart (optional)</span>${s.attachment && !dropAtt ? `<div class="w-attline" data-w-attline>${icon('link')}<span class="grow">${esc(s.attachment.name)}</span><button type="button" class="btn btn-sm btn-ghost" data-w-dropatt>Remove</button></div>` : ''}<input class="input" type="file" name="file" accept="application/pdf,image/*"><small class="hint">Up to 8 MB. Kept on this device.</small></div>
+        ${fieldRow('Notes', `<input class="input" name="notes" maxlength="200" value="${esc(s.notes)}">`)}</div>
+        <div class="w-preview"><div class="pop-h">Preview</div><div class="chart" data-w-prev>${CP.render(s.chart || '', { key: s.key })}</div></div></div>`,
+      footer: `${song && can('song:edit') ? `<button type="button" class="btn btn-ghost left danger" data-w-del>${icon('trash')}Delete</button>` : '<button type="button" class="btn left" data-m="close">Cancel</button>'}<button type="submit" class="btn btn-primary">${song ? 'Save' : 'Add song'}</button>`,
+      onMount: (f, api) => {
+        const ta = f.elements.chart, prev = f.querySelector('[data-w-prev]'); let t;
+        ta.addEventListener('input', () => { clearTimeout(t); t = setTimeout(() => { prev.innerHTML = CP.render(ta.value, { key: f.elements.key.value }); }, 150); });
+        f.elements.file.addEventListener('change', () => { const x = f.elements.file.files[0]; if (x && x.size > 8 * 1024 * 1024) { UI.toast('That file is over 8 MB'); f.elements.file.value = ''; return; } file = x || null; });
+        const da = f.querySelector('[data-w-dropatt]'); if (da) da.addEventListener('click', () => { dropAtt = true; f.querySelector('[data-w-attline]').remove(); });
+        const del = f.querySelector('[data-w-del]'); if (del) del.addEventListener('click', async () => {
+          const n = W.plans().filter((p) => p.items.some((i) => i.songId === song.id)).length;
+          if (!(await UI.confirmDialog({ title: `Delete ${song.title}?`, message: n ? `It’s in ${plural(n, 'service')}; those spots will show “Song” without a chart.` : 'This removes the song and its chart.', okText: 'Delete', danger: true }))) return;
+          api.close(); W.removeSong(song.id); UI.toast(`${song.title} deleted`); if (/^#\/song/.test(location.hash)) location.hash = '#/worship';
+        });
+      },
+      onSubmit: async (f, api) => {
+        const d = Object.fromEntries(new FormData(f));
+        if (!String(d.title).trim()) { UI.toast('Give the song a title'); return; }
+        const patch = { title: d.title.trim(), artist: d.artist.trim(), key: d.key, bpm: d.bpm, meter: d.meter.trim(), ccli: d.ccli.trim(), themes: d.themes.trim(), chart: d.chart.replace(/\r/g, ''), notes: d.notes.trim() };
+        if (!patch.chart.trim() && !song) { const m = patch.chart.match(/\{key:\s*([^}]+)\}/i); if (m) patch.key = m[1].trim(); }
+        if (song) patch.id = song.id;
+        if (dropAtt) patch.attachment = null;
+        api.close();
+        const saved = W.saveSong(patch);
+        if (dropAtt && NS.FileStore) NS.FileStore.del(`song:${saved.id}`).catch(() => {});
+        if (file && NS.FileStore) {
+          try { await NS.FileStore.put(`song:${saved.id}`, file); saved.attachment = { name: file.name, type: file.type, size: file.size }; S.save(); } catch (e) { UI.toast('Couldn’t store the file on this device'); }
+        }
+        UI.toast(song ? 'Song saved' : `${saved.title} added to the library`);
+        if (after) after(saved); else if (!song) go(`#/song?id=${saved.id}`);
+      },
+    });
+  }
+
+  /* ================= Music Stand ================= */
+  const PREF_KEY = 'churchpm.stand.v1';
+  const loadPrefs = () => { try { return Object.assign({ size: 22, nash: false, lyrics: false, speed: 3 }, JSON.parse(localStorage.getItem(PREF_KEY) || '{}')); } catch (e) { return { size: 22, nash: false, lyrics: false, speed: 3 }; } };
+  const savePrefs = (p) => { try { localStorage.setItem(PREF_KEY, JSON.stringify({ size: p.size, nash: p.nash, lyrics: p.lyrics, speed: p.speed })); } catch (e) { /* ignore */ } };
+  let stand = null;
+  /** list: [{ song, key }] — key is the key to play in. */
+  function openStand(list, start, title) {
+    if (!list.length) { UI.toast('No songs with charts yet'); return; }
+    closeStand();
+    UI.closePopover();
+    const el = document.createElement('div');
+    el.className = 'stand'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true'); el.setAttribute('aria-label', 'Music Stand');
+    document.body.appendChild(el); document.body.classList.add('stand-open');
+    stand = { el, list: list.map((x) => ({ song: x.song, key: x.key || x.song.key, capo: 0 })), i: Math.max(0, Math.min(start || 0, list.length - 1)), title: title || '', prefs: loadPrefs(), scroll: null, showAtt: false, url: null, prevFocus: document.activeElement };
+    paintStand();
+    el.addEventListener('click', onStandClick);
+    el.addEventListener('pointerdown', onStandDown);
+    el.addEventListener('pointerup', onStandUp);
+    document.addEventListener('keydown', onStandKey, true);
+    window.addEventListener('hashchange', closeStand);
+    const c = el.querySelector('[data-st="close"]'); if (c) c.focus();
+  }
+  function closeStand() {
+    if (!stand) return;
+    stopScroll(); if (stand.url) URL.revokeObjectURL(stand.url);
+    document.removeEventListener('keydown', onStandKey, true);
+    window.removeEventListener('hashchange', closeStand);
+    stand.el.remove(); document.body.classList.remove('stand-open');
+    const f = stand.prevFocus; stand = null;
+    if (f && document.contains(f)) f.focus();
+  }
+  function paintStand() {
+    const st = stand, cur = st.list[st.i], s = cur.song, p = st.prefs, next = st.list[st.i + 1];
+    const shapes = cur.capo ? CP.transposeKey(cur.key, -cur.capo) : cur.key;
+    const chart = s.chart && s.chart.trim() ? CP.render(s.chart, { key: s.key, toKey: cur.key, capo: cur.capo, nashville: p.nash, lyricsOnly: p.lyrics }) : `<p class="muted">No chord chart for this song yet.${s.attachment ? ' Tap PDF to see the attachment.' : ''}</p>`;
+    st.el.innerHTML = `<div class="stand-h"><button type="button" class="st-btn" data-st="close" aria-label="Close Music Stand" title="Close (Esc)">${icon('x')}</button>
+        <div class="stand-title"><b>${esc(s.title)}</b><small>${esc([s.artist, `${st.i + 1} of ${st.list.length}`, st.title].filter(Boolean).join(' · '))}</small></div>
+        <div class="stand-keyinfo"><span class="w-key">${esc(cur.key || '—')}</span>${cur.capo ? `<small>Capo ${cur.capo} · play ${esc(shapes)}</small>` : ''}${s.bpm ? `<small>${esc(s.bpm)} BPM${s.meter ? ` · ${esc(s.meter)}` : ''}</small>` : ''}</div></div>
+      <div class="stand-tools" role="toolbar" aria-label="Chart tools">
+        <span class="st-group" aria-label="Key"><button type="button" class="st-btn" data-st="key-" aria-label="Key down a half step" ${cur.key ? '' : 'disabled'}>♭</button><span class="st-lbl">Key ${esc(cur.key || '—')}</span><button type="button" class="st-btn" data-st="key+" aria-label="Key up a half step" ${cur.key ? '' : 'disabled'}>♯</button></span>
+        <span class="st-group"><button type="button" class="st-btn" data-st="capo-" aria-label="Capo down" ${cur.capo ? '' : 'disabled'}>−</button><span class="st-lbl">Capo ${cur.capo || 0}</span><button type="button" class="st-btn" data-st="capo+" aria-label="Capo up" ${cur.capo >= 9 || !cur.key ? 'disabled' : ''}>+</button></span>
+        <span class="st-group"><button type="button" class="st-btn" data-st="size-" aria-label="Smaller text">A−</button><button type="button" class="st-btn" data-st="size+" aria-label="Bigger text">A+</button></span>
+        <button type="button" class="st-btn st-tog" data-st="nash" aria-pressed="${p.nash}" title="Nashville numbers">1-4-5</button>
+        <button type="button" class="st-btn st-tog" data-st="lyrics" aria-pressed="${p.lyrics}" title="Hide chords">Lyrics</button>
+        <span class="st-group"><button type="button" class="st-btn st-tog" data-st="scroll" aria-pressed="${!!st.scroll}" title="Auto-scroll (Space)">${icon(st.scroll ? 'pause' : 'down')}<span>Scroll</span></button><button type="button" class="st-btn" data-st="speed-" aria-label="Slower">−</button><span class="st-lbl">${p.speed}</span><button type="button" class="st-btn" data-st="speed+" aria-label="Faster">+</button></span>
+        ${s.attachment ? `<button type="button" class="st-btn st-tog" data-st="att" aria-pressed="${st.showAtt}">${icon('link')}<span>PDF</span></button>` : ''}
+      </div>
+      <div class="stand-body" data-st-body tabindex="-1" style="font-size:${p.size}px">${st.showAtt ? '<div class="stand-att" data-st-att><p class="muted">Loading…</p></div>' : `<div class="chart stand-chart">${chart}</div>`}
+        ${next ? `<div class="stand-next">Next: <b>${esc(next.song.title)}</b> · ${esc(next.key || '')}</div>` : '<div class="stand-next">End of set</div>'}</div>
+      <div class="stand-f"><button type="button" class="st-btn st-nav" data-st="prev" ${st.i ? '' : 'disabled'} aria-label="Previous song">${icon('left')}<span class="hide-sm">${st.i ? esc(st.list[st.i - 1].song.title) : ''}</span></button>
+        <div class="stand-dots">${st.list.map((x, i) => `<button type="button" class="st-dot ${i === st.i ? 'on' : ''}" data-st="go" data-i="${i}" aria-label="${esc(x.song.title)}" ${i === st.i ? 'aria-current="true"' : ''}></button>`).join('')}</div>
+        <button type="button" class="st-btn st-nav" data-st="next" ${next ? '' : 'disabled'} aria-label="Next song"><span class="hide-sm">${next ? esc(next.song.title) : ''}</span>${icon('right')}</button></div>`;
+    if (st.showAtt) loadAtt();
+  }
+  function loadAtt() {
+    const st = stand, s = st.list[st.i].song, box = st.el.querySelector('[data-st-att]');
+    if (!NS.FileStore || !box) return;
+    NS.FileStore.get(`song:${s.id}`).then((b) => {
+      if (!stand || stand !== st || !box.isConnected) return;
+      if (!b) { box.innerHTML = '<p class="muted">The file isn’t on this device (attachments are kept per device).</p>'; return; }
+      if (st.url) URL.revokeObjectURL(st.url);
+      st.url = URL.createObjectURL(b);
+      box.innerHTML = /pdf/.test(b.type || s.attachment.type) ? `<iframe src="${st.url}" title="${esc(s.attachment.name)}"></iframe>` : `<img src="${st.url}" alt="${esc(s.attachment.name)}">`;
+    }).catch(() => { box.innerHTML = '<p class="muted">Couldn’t open the file.</p>'; });
+  }
+  function goSong(i) {
+    if (!stand || i < 0 || i >= stand.list.length || i === stand.i) return;
+    stopScroll(); stand.i = i; stand.showAtt = false; paintStand();
+    const b = stand.el.querySelector('[data-st-body]'); if (b) { b.scrollTop = 0; }
+  }
+  function stopScroll() { if (stand && stand.scroll) { cancelAnimationFrame(stand.scroll.raf); stand.scroll = null; } }
+  function toggleScroll() {
+    if (!stand) return;
+    if (stand.scroll) { stopScroll(); paintTools(); return; }
+    if (!stand.el.querySelector('[data-st-body]')) return;
+    const sc = { raf: 0, last: 0, acc: 0 }; stand.scroll = sc;
+    const step = (t) => {
+      if (!stand || stand.scroll !== sc) return;
+      const body = stand.el.querySelector('[data-st-body]'); if (!body) return; // repaints replace the element
+      if (sc.last) { sc.acc += ((t - sc.last) / 1000) * stand.prefs.speed * 9; const px = Math.floor(sc.acc); if (px) { body.scrollTop += px; sc.acc -= px; } }
+      sc.last = t;
+      if (body.scrollTop + body.clientHeight >= body.scrollHeight - 1) { stopScroll(); paintTools(); return; }
+      sc.raf = requestAnimationFrame(step);
+    };
+    sc.raf = requestAnimationFrame(step); paintTools();
+  }
+  /** Repaint without losing the scroll position. */
+  function paintTools() { if (!stand) return; const b = stand.el.querySelector('[data-st-body]'), top = b ? b.scrollTop : 0; paintStand(); const nb = stand.el.querySelector('[data-st-body]'); if (nb) nb.scrollTop = top; }
+  function standCmd(k, el) {
+    const st = stand; if (!st) return;
+    const cur = st.list[st.i], p = st.prefs;
+    switch (k) {
+      case 'close': closeStand(); return;
+      case 'prev': goSong(st.i - 1); return;
+      case 'next': goSong(st.i + 1); return;
+      case 'go': goSong(Number(el.dataset.i)); return;
+      case 'key+': case 'key-': if (cur.key) cur.key = CP.transposeKey(cur.key, k === 'key+' ? 1 : -1); break;
+      case 'capo+': cur.capo = Math.min(9, cur.capo + 1); break;
+      case 'capo-': cur.capo = Math.max(0, cur.capo - 1); break;
+      case 'size+': p.size = Math.min(44, p.size + 2); break;
+      case 'size-': p.size = Math.max(12, p.size - 2); break;
+      case 'nash': p.nash = !p.nash; break;
+      case 'lyrics': p.lyrics = !p.lyrics; break;
+      case 'speed+': p.speed = Math.min(10, p.speed + 1); break;
+      case 'speed-': p.speed = Math.max(1, p.speed - 1); break;
+      case 'scroll': toggleScroll(); return;
+      case 'att': st.showAtt = !st.showAtt; stopScroll(); break;
+      default: return;
+    }
+    savePrefs(p); paintTools();
+    const again = st.el.querySelector(`[data-st="${k}"]`); if (again && !again.disabled) again.focus();
+  }
+  function onStandClick(e) { const b = e.target.closest('[data-st]'); if (b) { e.preventDefault(); standCmd(b.dataset.st, b); } }
+  let down = null;
+  function onStandDown(e) { down = e.target.closest('[data-st-body]') && !e.target.closest('a, button, iframe') ? { x: e.clientX, y: e.clientY, t: Date.now() } : null; }
+  function onStandUp(e) {
+    if (!down || !stand) return;
+    const dx = e.clientX - down.x, dy = e.clientY - down.y, dt = Date.now() - down.t; down = null;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5 && dt < 800) { goSong(stand.i + (dx < 0 ? 1 : -1)); return; }
+    if (Math.abs(dx) < 10 && Math.abs(dy) < 10 && dt < 400) { const w = window.innerWidth; if (e.clientX > w * 0.75) goSong(stand.i + 1); else if (e.clientX < w * 0.25) goSong(stand.i - 1); }
+  }
+  function onStandKey(e) {
+    if (!stand) return;
+    if (document.querySelector('.modal')) return;
+    const k = e.key, typing = e.target.matches && e.target.matches('input, textarea, select');
+    const map = { Escape: 'close', ArrowRight: 'next', PageDown: 'next', ArrowLeft: 'prev', PageUp: 'prev', '+': 'size+', '=': 'size+', '-': 'size-' };
+    if (typing && k !== 'Escape') return;
+    if (k === ' ') { e.preventDefault(); e.stopPropagation(); toggleScroll(); return; }
+    if (map[k]) { e.preventDefault(); e.stopPropagation(); standCmd(map[k]); return; }
+    if (k === 'Tab') { const f = [...stand.el.querySelectorAll('button:not([disabled])')]; if (!f.length) return; const i = f.indexOf(document.activeElement); if (e.shiftKey && i <= 0) { e.preventDefault(); f[f.length - 1].focus(); } else if (!e.shiftKey && (i === f.length - 1 || i < 0)) { e.preventDefault(); f[0].focus(); } }
+  }
+
+  /* ================= print & share ================= */
+  function runSheetHTML(pl) {
+    const tl = W.timeline(pl), P = (id) => (S.person(id) || {}).name || '';
+    return `<div class="sheet"><h1>${esc(pl.title)}</h1><p class="sheet-sub">${esc(longDate(pl.date))} · ${esc(U.fmtTime(pl.time))}–${esc(U.fmtTime(tl.end))} · ${esc(S.churchName())}</p>
+      <table class="sheet-t"><thead><tr><th>Time</th><th>Item</th><th>Min</th><th>Who</th></tr></thead><tbody>${tl.rows.map(({ item, start }) => (item.type === 'header' ? `<tr class="sheet-h"><td colspan="4">${esc(W.itemTitle(item))}</td></tr>` : `<tr><td>${esc(U.fmtTime(start))}</td><td><b>${esc(W.itemTitle(item))}</b>${item.type === 'song' && item.key ? ` <span class="sheet-key">${esc(item.key)}</span>` : ''}${item.notes ? `<br><small>${esc(item.notes)}</small>` : ''}</td><td>${item.minutes || ''}</td><td>${esc(P(item.personId))}</td></tr>`)).join('')}</tbody></table>
+      <p class="sheet-total">Total ${esc(W.fmtLen(tl.total))}</p>${pl.notes ? `<p><b>Notes:</b> ${esc(pl.notes)}</p>` : ''}
+      ${pl.team.some((s) => s.personId) ? `<h2>Team</h2><ul class="sheet-team">${pl.team.filter((s) => s.personId).map((s) => `<li><b>${esc((W.position(s.positionId) || {}).name || '')}</b> ${esc(P(s.personId))}${s.status === 'accepted' ? '' : ` <i>(${esc(W.STATUS[s.status].toLowerCase())})</i>`}</li>`).join('')}</ul>` : ''}</div>`;
+  }
+  function printPlan(pl) {
+    let root = document.getElementById('print-root');
+    if (!root) { root = document.createElement('div'); root.id = 'print-root'; document.body.appendChild(root); }
+    root.innerHTML = runSheetHTML(pl);
+    document.body.classList.add('printing-sheet');
+    const done = () => { document.body.classList.remove('printing-sheet'); root.innerHTML = ''; window.removeEventListener('afterprint', done); };
+    window.addEventListener('afterprint', done);
+    setTimeout(() => { try { window.print(); } catch (e) { /* ignore */ } setTimeout(done, 1500); }, 30);
+  }
+  function sharePlan(pl) {
+    const text = W.runSheetText(pl);
+    const fallback = () => UI.openModal({ title: 'Run sheet', body: `<p class="hint">Copy this and paste it into a text, email or group chat.</p><textarea class="input mono w-share" rows="16" readonly>${esc(text)}</textarea>`, footer: '<button type="button" class="btn btn-primary" data-m="close">Done</button>', onMount: (f) => { const t = f.querySelector('textarea'); t.focus(); t.select(); } });
+    if (navigator.share) { navigator.share({ title: `${pl.title} · ${U.fmtDay(pl.date)}`, text }).catch((e) => { if (e && e.name !== 'AbortError') fallback(); }); return; }
+    if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(text).then(() => UI.toast('Run sheet copied — paste it into a text, email or chat'), fallback); return; }
+    fallback();
+  }
+
+  /* ================= drag to reorder ================= */
+  function wireOrder() {
+    const list = document.querySelector('.so-list'); if (!list || list.dataset.wired) return;
+    list.dataset.wired = '1';
+    const planId = list.dataset.plan;
+    const refocus = (itemId) => setTimeout(() => { const h = document.querySelector(`.so-row[data-id="${CSS.escape(itemId)}"] .so-handle`); if (h) h.focus(); }, 0);
+    list.addEventListener('keydown', (e) => {
+      const h = e.target.closest('.so-handle'); if (!h || (e.key !== 'ArrowUp' && e.key !== 'ArrowDown')) return;
+      e.preventDefault();
+      const row = h.closest('.so-row'), i = Number(row.dataset.i), to = i + (e.key === 'ArrowUp' ? -1 : 1);
+      if (to < 0 || to >= list.querySelectorAll('.so-row').length) return;
+      W.moveItem(planId, i, to); refocus(row.dataset.id);
+    });
+    let drag = null;
+    list.addEventListener('pointerdown', (e) => {
+      const h = e.target.closest('.so-handle'); if (!h || e.button > 0) return;
+      e.preventDefault();
+      const row = h.closest('.so-row');
+      drag = { row, from: Number(row.dataset.i), id: e.pointerId, y: e.clientY, moved: false };
+      try { h.setPointerCapture(e.pointerId); } catch (x) { /* ignore */ }
+      row.classList.add('dragging'); list.classList.add('is-dragging');
+    });
+    list.addEventListener('pointermove', (e) => {
+      if (!drag || e.pointerId !== drag.id) return;
+      e.preventDefault();
+      const rows = [...list.querySelectorAll('.so-row')].filter((r) => r !== drag.row);
+      const after = rows.find((r) => { const b = r.getBoundingClientRect(); return e.clientY < b.top + b.height / 2; });
+      if (Math.abs(e.clientY - drag.y) > 4) drag.moved = true;
+      if (after) { if (drag.row.nextElementSibling !== after) list.insertBefore(drag.row, after); } else if (list.lastElementChild !== drag.row) list.appendChild(drag.row);
+    });
+    const end = (e) => {
+      if (!drag || e.pointerId !== drag.id) return;
+      const d = drag; drag = null;
+      d.row.classList.remove('dragging'); list.classList.remove('is-dragging');
+      const to = [...list.querySelectorAll('.so-row')].indexOf(d.row);
+      if (to >= 0 && to !== d.from) { const snap = S.snapshot(); W.moveItem(planId, d.from, to); UI.toast('Order updated', () => S.restore(snap)); } else NS.App.render();
+    };
+    list.addEventListener('pointerup', end); list.addEventListener('pointercancel', end);
+  }
+
+  /* ================= actions & hooks for the app shell ================= */
+  const planOf = (el) => W.plan(el.dataset.plan);
+  const fromPlan = (pl) => W.setList(pl).map((x) => ({ song: x.song, key: x.key }));
+  function autofill(pl) {
+    const snap = S.snapshot(), used = new Set(pl.team.filter((s) => s.personId && s.status !== 'declined').map((s) => s.personId));
+    let n = 0;
+    pl.team.forEach((sl) => {
+      if (sl.personId) return;
+      const c = W.candidates(pl, sl).find((x) => !x.conflicts.length && !used.has(x.person.id));
+      if (c) { W.assign(pl.id, sl.id, c.person.id, true); used.add(c.person.id); n += 1; }
+    });
+    if (!n) { UI.toast('No free people for the open spots — check Who plays what'); return; }
+    S.save();
+    const left = pl.team.filter((s) => !s.personId).length;
+    UI.toast(`Filled ${plural(n, 'spot')}${left ? ` · ${left} still open` : ''} — they’ve been asked`, () => S.restore(snap));
+  }
+  function planMenu(el, pl) {
+    const pop = UI.openPopover(el, `<div class="w-menu">
+      <button type="button" data-pm="edit">${icon('edit')}Service details</button>
+      <button type="button" data-pm="tpl">${icon('copy')}Save as template</button>
+      <button type="button" data-pm="again">${icon('repeat')}Plan another like this</button>
+      <button type="button" data-pm="del" class="danger">${icon('trash')}Delete service</button></div>`);
+    pop.addEventListener('click', async (e) => {
+      const b = e.target.closest('[data-pm]'); if (!b) return;
+      UI.closePopover();
+      const k = b.dataset.pm;
+      if (k === 'edit') planForm(pl);
+      if (k === 'again') planForm(null, { copyFrom: pl.id, date: U.addISO(pl.date, 7) });
+      if (k === 'tpl') UI.openModal({ title: 'Save as template', size: 'sm', body: `<label class="field"><span>Template name</span><input class="input" name="name" maxlength="60" value="${esc(pl.title)}"></label><p class="hint">Saves the order of service and the positions (not who’s scheduled).</p>`, footer: '<button type="button" class="btn left" data-m="close">Cancel</button><button type="submit" class="btn btn-primary">Save template</button>', onSubmit: (f, api) => { api.close(); const t = W.saveAsTemplate(pl.id, f.elements.name.value); UI.toast(`Template “${t.name}” saved`); } });
+      if (k === 'del') {
+        if (!(await UI.confirmDialog({ title: `Delete ${pl.title}?`, message: `The order of service and team for ${esc(U.fmtDay(pl.date))} will be removed.`, okText: 'Delete', danger: true }))) return;
+        const snap = S.snapshot(); W.deletePlan(pl.id); location.hash = '#/worship'; UI.toast('Service deleted', () => S.restore(snap));
+      }
+    });
+  }
+  const actions = {
+    'w-new-plan': (el) => planForm(null, { tpl: el.dataset.tpl, date: el.dataset.date }),
+    'w-del-template': async (el) => { const t = W.templates().find((x) => x.id === el.dataset.id); if (!t) return; const snap = S.snapshot(); S.state.planTemplates = S.state.planTemplates.filter((x) => x.id !== t.id); S.save(); UI.toast(`Template “${t.name}” deleted`, () => S.restore(snap)); },
+    'w-slot': (el) => { const pl = planOf(el), sl = W.slot(pl, el.dataset.slot); if (sl) slotDialog(pl, sl); },
+    'w-add-slot': (el) => { const pl = planOf(el); if (pl) addSlotDialog(pl, el.dataset.pos); },
+    'w-autofill': (el) => { const pl = planOf(el); if (pl) autofill(pl); },
+    'w-position': (el) => positionDialog(W.position(el.dataset.id)),
+    'w-new-position': () => positionDialog(null),
+    'w-blockout': (el) => blockoutDialog(el.dataset.id),
+    'w-del-blockout': (el) => { const b = S.state.blockouts.find((x) => x.id === el.dataset.id); if (!b) return; const snap = S.snapshot(); W.removeBlockout(b.id); UI.toast('Blockout removed', () => S.restore(snap)); },
+    'w-respond': (el) => {
+      const pl = planOf(el), sl = W.slot(pl, el.dataset.slot); if (!sl) return;
+      if (el.dataset.val === 'declined') { declineDialog(pl, sl); return; }
+      W.respond(pl.id, sl.id, 'accepted', ''); UI.toast(`Thanks! You’re on ${(W.position(sl.positionId) || {}).name || 'the team'} ${U.relDay(pl.date).toLowerCase()}`);
+    },
+    'w-stand': (el) => { const pl = planOf(el); if (pl) openStand(fromPlan(pl), Number(el.dataset.i) || 0, `${pl.title} · ${U.fmtDate(pl.date)}`); },
+    'w-stand-song': (el) => { const s = W.song(el.dataset.id); const ui = NS.App.ui; if (s) openStand([{ song: s, key: (ui.wSongKey && ui.wSongKey[s.id]) || s.key }], 0, ''); },
+    'w-print': (el) => { const pl = planOf(el); if (pl) printPlan(pl); },
+    'w-share': (el) => { const pl = planOf(el); if (pl) sharePlan(pl); },
+    'w-plan-menu': (el) => { const pl = planOf(el); if (pl) planMenu(el, pl); },
+    'w-item': (el) => { const pl = planOf(el); if (!pl) return; const it = el.dataset.id ? pl.items.find((x) => x.id === el.dataset.id) : null; itemForm(pl, it, el.dataset.type); },
+    'w-song-open': (el) => go(`#/song?id=${el.dataset.id}`),
+    'w-new-song': () => songForm(null),
+    'w-edit-song': (el) => songForm(W.song(el.dataset.id)),
+  };
+  const GUARD = {
+    'w-new-plan': () => can('plan:create'),
+    'w-del-template': () => can('plan:create'),
+    'w-slot': (el) => can('plan:edit', planOf(el)),
+    'w-add-slot': (el) => can('plan:edit', planOf(el)),
+    'w-autofill': (el) => can('plan:edit', planOf(el)),
+    'w-position': () => can('worship:schedule'),
+    'w-new-position': () => can('worship:schedule'),
+    'w-blockout': (el) => can('blockout:edit', S.person(el.dataset.id) || me()),
+    'w-del-blockout': (el) => { const b = S.state.blockouts.find((x) => x.id === el.dataset.id); return !!b && can('blockout:edit', S.person(b.personId)); },
+    'w-respond': (el) => { const sl = W.slot(planOf(el), el.dataset.slot); return !!sl && can('plan:respond', sl); },
+    'w-plan-menu': (el) => can('plan:edit', planOf(el)),
+    'w-item': (el) => can('plan:edit', planOf(el)),
+    'w-new-song': () => can('song:edit'),
+    'w-edit-song': () => can('song:edit'),
+  };
+  const allowed = (el) => S.feature('worship') && can('worship:view') && (GUARD[el.dataset.action] ? GUARD[el.dataset.action](el) : true);
+
+  function bind(set) {
+    const view = document.getElementById('view'); let t;
+    view.addEventListener('input', (e) => {
+      const k = e.target.dataset.wFilter;
+      if (k === 'wSongQ') { clearTimeout(t); const v = e.target.value; t = setTimeout(() => set({ wSongQ: v, wSongN: 0 }), 150); }
+    });
+    view.addEventListener('change', (e) => {
+      const x = e.target, d = x.dataset;
+      if (d.wFilter === 'wWho') return set({ wWho: x.value });
+      if (d.wSongkey) { const ui = NS.App.ui; return set({ wSongKey: Object.assign({}, ui.wSongKey || {}, { [d.wSongkey]: x.value }) }); }
+      if (d.wMin) { const pl = W.plan(d.plan); if (!pl || !can('plan:edit', pl)) return; W.updateItem(pl.id, d.wMin, { minutes: Math.max(0, Math.min(240, Number(x.value) || 0)) }); return; }
+      if (d.wNotes) { const pl = W.plan(d.wNotes); if (!pl || !can('plan:edit', pl)) return; pl.notes = x.value.trim(); S.save(); UI.toast('Notes saved'); }
+    });
+  }
+  function afterRender(id) {
+    if (id === 'plan') wireOrder();
+    if (id === 'song') {
+      const box = document.querySelector('[data-w-att]'); if (!box || !NS.FileStore) return;
+      const s = W.song(box.dataset.wAtt);
+      NS.FileStore.get(`song:${s.id}`).then((b) => {
+        if (!box.isConnected) return;
+        if (!b) { box.innerHTML = '<p class="muted">Not on this device.</p>'; return; }
+        const url = URL.createObjectURL(b);
+        box.innerHTML = /pdf/.test(b.type || '') ? `<a class="btn btn-sm" href="${url}" target="_blank" rel="noopener">${icon('link')}Open PDF</a>` : `<img src="${url}" alt="${esc(s.attachment.name)}">`;
+      }).catch(() => {});
+    }
+  }
+
+  /* ---- bell, search, calendar, home ---- */
+  function bellItems(who, attention) {
+    if (!S.feature('worship') || !who) return;
+    const today = U.todayISO(), soon = U.addISO(today, 3);
+    W.assignmentsFor(who.id, today).forEach(({ plan: pl, slot: sl, position: pos }) => {
+      const nm = (pos || {}).name || 'the team';
+      if (sl.status === 'pending') attention.push({ key: `wreq:${sl.id}:${who.id}`, ico: 'music', tone: 'warn', text: `Can you serve on <b>${esc(nm)}</b> ${esc(U.relDay(pl.date).toLowerCase())}?`, sub: `${pl.title} · ${U.fmtDay(pl.date)} · ${U.fmtTime(pl.time)} — accept or decline`, href: `#/plan?id=${pl.id}`, at: `${today}T00:03` });
+      else if (sl.status === 'accepted' && pl.date <= soon) attention.push({ key: `wrem:${sl.id}:${pl.date}`, ico: 'calendar', tone: '', text: `Reminder: you’re on <b>${esc(nm)}</b> ${esc(U.relDay(pl.date).toLowerCase())}`, sub: `${pl.title} · ${U.fmtTime(pl.time)}${W.setList(pl).length ? ' · charts in Music Stand' : ''}`, href: `#/plan?id=${pl.id}`, at: `${today}T00:04` });
+    });
+    if (can('worship:schedule')) {
+      W.upcoming(today).filter((pl) => pl.date <= U.addISO(today, 14) && can('plan:edit', pl)).forEach((pl) => {
+        const open = pl.team.filter((s) => !s.personId || s.status === 'declined').length;
+        if (open) attention.push({ key: `wopen:${pl.id}:${open}`, ico: 'people', tone: 'warn', text: `${plural(open, 'spot')} to fill for <b>${esc(pl.title)}</b> ${esc(U.relDay(pl.date).toLowerCase())}`, sub: 'Open or declined positions', href: `#/plan?id=${pl.id}`, at: `${today}T00:05` });
+      });
+    }
+  }
+  function activityItem(x, base) {
+    if (!S.feature('worship') || (x.kind !== 'scheduled' && x.kind !== 'responded')) return null;
+    const pl = W.plan(x.planId); if (!pl) return null;
+    if (x.kind === 'scheduled') return Object.assign(base, { ico: 'music', text: `<b>${esc(first(S.person(x.by)) || 'Someone')}</b> scheduled you: ${esc(x.title || pl.title)} · ${esc(U.fmtDay(pl.date))}`, href: `#/plan?id=${pl.id}` });
+    const who = S.person(x.who), ok = x.status === 'accepted';
+    return Object.assign(base, { ico: ok ? 'check' : 'x', tone: ok ? 'good' : 'bad', text: `<b>${esc(first(who) || 'Someone')}</b> ${ok ? 'accepted' : 'declined'} ${esc(x.title || pl.title)} · ${esc(U.fmtDay(pl.date))}`, href: `#/plan?id=${pl.id}` });
+  }
+  function searchEntries(add) {
+    if (!S.feature('worship') || !can('worship:view')) return;
+    W.songs().forEach((s) => add('song', s.title, `${s.artist} ${s.ccli} ${s.themes || ''} ${s.chart.slice(0, 400)}`, [s.artist, s.key && `Key ${s.key}`].filter(Boolean).join(' · '), { href: `#/song?id=${s.id}` }, 'music'));
+    W.plans().slice(-60).forEach((p) => add('service', `${p.title} · ${U.fmtDate(p.date)}`, U.fmtDay(p.date), `${U.relDay(p.date)} · ${U.fmtTime(p.time)}`, { href: `#/plan?id=${p.id}` }, 'list'));
+  }
+  function eventLink(ev, date) {
+    if (!S.feature('worship') || !can('worship:view') || !ev) return '';
+    const pl = W.planFor(ev.id, date) || (ev.type === 'service' ? W.plansOn(date)[0] : null);
+    if (pl) { const tl = W.timeline(pl), set = W.setList(pl); return `<a class="w-evlink" href="#/plan?id=${encodeURIComponent(pl.id)}">${icon('music')}<span class="grow"><b>Service plan</b><small>${plural(tl.rows.filter((r) => r.item.type !== 'header').length, 'item')} · ${set.length ? esc(set.map((x) => x.song.title).join(', ')) : 'no songs yet'}</small></span>${icon('right')}</a>`; }
+    if (ev.type === 'service' && can('plan:create')) return `<button type="button" class="w-evlink" data-action="w-new-plan" data-date="${esc(date)}">${icon('plus')}<span class="grow"><b>Plan this service</b><small>Order of service, songs and team</small></span></button>`;
+    return '';
+  }
+  /** Small "You're serving" card for Home / My week. */
+  function upcomingFor(who) {
+    if (!S.feature('worship') || !who) return '';
+    const a = W.assignmentsFor(who.id, U.todayISO(), U.addISO(U.todayISO(), 21)).filter((x) => x.slot.status !== 'declined');
+    if (!a.length) return '';
+    return `<div class="sec-title">You’re serving <a class="linkish" href="#/worship?tab=mine">My schedule</a></div><div class="card nlist w-serving">${a.slice(0, 4).map((x) => `<a class="nrow" href="#/plan?id=${encodeURIComponent(x.plan.id)}">${dayBox(x.plan.date)}<div class="grow"><div class="t">${esc((x.position || {}).name || '')} · ${esc(x.plan.title)}</div><div class="s">${esc(U.relDay(x.plan.date))} · ${esc(U.fmtTime(x.plan.time))}</div></div>${x.slot.status === 'pending' ? '<span class="pill warn">Answer</span>' : '<span class="pill ok">Confirmed</span>'}</a>`).join('')}</div>`;
+  }
+
+  NS.WorshipUI = { actions, allowed, bind, afterRender, bellItems, activityItem, searchEntries, eventLink, upcomingFor, openStand, closeStand, get stand() { return stand; }, runSheetHTML, planForm, songForm };
+})(window.ChurchPM);
+
+</script>
+  <script>
 /* Church PM — meeting audio storage (IndexedDB). Audio blobs are too big for localStorage,
  * so they live here, keyed by meeting id. Everything else stays in localStorage.
  * All methods return Promises and fail soft (resolve null/false) when IndexedDB is unavailable. */
 (function (NS) {
   'use strict';
-  const DB = 'churchpm-audio', STORE = 'clips';
+  /** A tiny key → blob store in its own IndexedDB database. */
+  function blobStore(DB, STORE) {
   let dbp = null;
   function open() {
     if (dbp) return dbp;
@@ -6141,12 +7798,16 @@ window.ChurchPM = window.ChurchPM || {};
       } catch (e) { resolve(null); }
     }));
   }
-  NS.AudioStore = {
+  return {
     put: (key, blob) => tx('readwrite', (st) => st.put(blob, key)),
     get: (key) => tx('readonly', (st) => st.get(key)).then((b) => b || null),
     del: (key) => tx('readwrite', (st) => st.delete(key)),
     clear: () => tx('readwrite', (st) => st.clear()),
   };
+  }
+  NS.AudioStore = blobStore('churchpm-audio', 'clips');
+  /** Other files kept on this device: song chart PDFs and images (key `song:<id>`). */
+  NS.FileStore = blobStore('churchpm-files', 'files');
 })(window.ChurchPM);
 
 </script>
@@ -6854,7 +8515,7 @@ window.ChurchPM = window.ChurchPM || {};
     ['calendar', 'calendar', 'Calendar & events', orgCopy(type, 'eventsFeature')],
     ['workload', 'workload', 'Workload & capacity', 'Hours planned vs. each person’s week, with overload warnings.'],
     ['projects', 'folder', 'Projects', 'Group related tasks with their own members and progress.'],
-  ];
+  ].concat(type === 'church' ? [['worship', 'music', 'Worship planning', 'Service orders, band & tech scheduling, a song library with chord charts and Music Stand.']] : []);
   const DAY = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
   /* ---- shared controls. mode 'wz' = wizard draft, 'cfg' = live config in Settings ---- */
@@ -7012,7 +8673,7 @@ window.ChurchPM = window.ChurchPM || {};
     const pc = S.presetConfig(type), oldO = NS.ORG_TYPES[old] || NS.ORG_TYPES.church;
     c.orgType = type; c.labels = pc.labels; c.roles = pc.roles;
     Object.keys(c.staffTypes).forEach((k) => { c.staffTypes[k].label = pc.staffTypes[k].label; c.staffTypes[k].defaultHours = pc.staffTypes[k].defaultHours; });
-    c.features.verse = pc.features.verse;
+    c.features.verse = pc.features.verse; c.features.worship = pc.features.worship;
     if (!/^data:/.test(c.branding.logo)) c.branding.logo = pc.branding.logo;
     if (String(c.branding.accent).toLowerCase() === oldO.accent) c.branding.accent = pc.branding.accent;
     if (!draft.hasPeople || S.isEmpty()) draft.ministries = groupsFor(type);
@@ -7210,6 +8871,7 @@ window.ChurchPM = window.ChurchPM || {};
       const n = S.overdue().filter((o) => o.task.assigneeId !== me.id && can('task:edit', o.task)).length;
       if (n) attention.push({ key: `team-over:${today}:${n}`, ico: 'tasks', tone: 'bad', text: `${n} team task${n === 1 ? ' is' : 's are'} overdue`, sub: 'See them on Tasks → Overdue', href: '#/tasks?range=overdue', at: `${today}T00:02` });
     }
+    if (NS.WorshipUI) NS.WorshipUI.bellItems(me, attention);
     const acts = S.activityFor(me.id).slice(-40).reverse();
     acts.forEach((x) => {
       const by = S.person(x.by), t = x.taskId ? S.get('tasks', x.taskId) : null;
@@ -7224,6 +8886,8 @@ window.ChurchPM = window.ChurchPM || {};
       } else if (x.kind === 'joined') {
         const p = S.person(x.personId); if (!p) return;
         updates.push(Object.assign(base, { ico: 'people', tone: 'good', text: `<b>${esc(p.name)}</b> accepted your invite and joined ${esc(S.churchName())}`, a: 'open-profile', id: p.id }));
+      } else if (NS.WorshipUI) {
+        const w = NS.WorshipUI.activityItem(x, base); if (w) updates.push(w);
       }
     });
     attention.sort((a, b) => String(b.at).localeCompare(String(a.at)));
@@ -7343,7 +9007,7 @@ window.ChurchPM = window.ChurchPM || {};
   const isMac = typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent || '');
   const shortcut = isMac ? '⌘K' : 'Ctrl+K';
   const PER_GROUP = 6;
-  const GROUPS = [['page', 'Pages'], ['task', 'Tasks'], ['person', 'People'], ['event', 'Calendar'], ['meeting', 'Meetings'], ['project', 'Projects']];
+  const GROUPS = [['page', 'Pages'], ['task', 'Tasks'], ['person', 'People'], ['event', 'Calendar'], ['meeting', 'Meetings'], ['project', 'Projects'], ['service', 'Services'], ['song', 'Songs']];
   const norm = (s) => String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   let modal = null;
 
@@ -7386,6 +9050,7 @@ window.ChurchPM = window.ChurchPM || {};
     if (S.feature('projects')) {
       (me ? S.projectsFor(me) : S.state.projects).forEach((p) => add('project', p.name, p.description || '', `${p.status === 'active' ? 'Active' : p.status || ''} project`, { href: `#/project?id=${encodeURIComponent(p.id)}` }, 'folder'));
     }
+    if (NS.WorshipUI) NS.WorshipUI.searchEntries(add);
     return out;
   }
 
@@ -7551,6 +9216,7 @@ window.ChurchPM = window.ChurchPM || {};
     { id: 'tasks', label: 'Tasks', icon: 'tasks', show: () => lead() },
     { id: 'projects', label: 'Projects', icon: 'folder', show: () => Session.can('project:create') || S.projectsFor(Session.me()).length > 0 },
     { id: 'calendar', label: 'Calendar', icon: 'calendar', show: () => Session.can('calendar:view') },
+    { id: 'worship', label: 'Worship', icon: 'music', show: () => Session.can('worship:view') },
     { id: 'meetings', label: 'Meetings', icon: 'mic', show: () => Session.can('meetings') },
     { id: 'team', label: 'Team', icon: 'people', show: () => ['person:create', 'invite', 'see_workload', 'assign_others'].some((a) => Session.can(a)) },
   ];
@@ -7559,15 +9225,17 @@ window.ChurchPM = window.ChurchPM || {};
     meeting: { ok: () => Session.can('meetings'), nav: () => 'meetings' },
     settings: { ok: () => Session.can('settings'), nav: () => '' },
     project: { ok: () => true, nav: () => 'projects' },
+    plan: { ok: () => Session.can('worship:view'), nav: () => 'worship' },
+    song: { ok: () => Session.can('worship:view'), nav: () => 'worship' },
     talk: { ok: () => Session.can('talk'), nav: () => (lead() ? 'home' : 'my') },
   };
   // Old addresses that now live elsewhere (People + Workload were merged into Team).
   const ALIASES = { workload: 'team', people: 'team' };
   // Routes that belong to an optional feature (Settings → Features); hidden when it's off.
-  const ROUTE_FEATURE = { calendar: 'calendar', meetings: 'meetings', meeting: 'meetings', talk: 'talk', projects: 'projects', project: 'projects' };
+  const ROUTE_FEATURE = { calendar: 'calendar', meetings: 'meetings', meeting: 'meetings', talk: 'talk', projects: 'projects', project: 'projects', worship: 'worship', plan: 'worship', song: 'worship' };
   const enabled = (id) => !ROUTE_FEATURE[id] || S.feature(ROUTE_FEATURE[id]);
   const routesFor = () => NAV.filter((r) => enabled(r.id) && r.show());
-  const defaults = { calScope: '', taskRange: 'week', taskLayout: 'list', taskStatus: '', taskPrio: '', ministry: '', person: '', search: '', personType: '', calMode: 'month', calDate: '', workWeek: '', wlSort: 'load', calShowTasks: true, calShowEvents: true, expanded: {}, showFilters: false, verseOffset: 0, teamTab: 'people', projFilter: 'active' };
+  const defaults = { calScope: '', taskRange: 'week', taskLayout: 'list', taskStatus: '', taskPrio: '', ministry: '', person: '', search: '', personType: '', calMode: 'month', calDate: '', workWeek: '', wlSort: 'load', calShowTasks: true, calShowEvents: true, expanded: {}, showFilters: false, verseOffset: 0, teamTab: 'people', projFilter: 'active', worshipTab: '', wSongQ: '', wSongSort: 'title', wWho: '', wSongKey: {}, wSchedOff: 0 };
   let ui = Object.assign({}, defaults);
   try { Object.assign(ui, JSON.parse(localStorage.getItem(UI_KEY) || '{}')); } catch (e) { /* ignore */ }
   ui.calDate = ''; ui.workWeek = ''; ui.verseOffset = 0; ui.homeAll = ''; // always open on the current week
@@ -7630,6 +9298,7 @@ window.ChurchPM = window.ChurchPM || {};
     renderShell();
     if (focusId) { const el = document.getElementById(focusId); if (el) { el.focus(); if (sel && el.setSelectionRange) try { el.setSelectionRange(sel[0], sel[1]); } catch (e) { /* ignore */ } } }
     if (id === 'tasks' && ui.taskLayout === 'board') wireBoard();
+    NS.WorshipUI.afterRender(id);
     NS.Meetings.hydrate();
     if (NS.Tips && NS.Tips.active) setTimeout(() => NS.Tips.refresh(), 0);
     NS.Notify.refresh();
@@ -7733,6 +9402,7 @@ window.ChurchPM = window.ChurchPM || {};
   SETTINGS_ACTIONS.forEach((a) => { GUARD[a] = () => can('settings'); });
   function allowed(el) {
     const a = el.dataset.action;
+    if (NS.WorshipUI.actions[a]) return NS.WorshipUI.allowed(el);
     if (NS.Meetings.actions[a]) {
       if (NS.Meetings.TALK_ACTIONS.has(a)) return a === 'talk-new' ? can('talk') : NS.Meetings.canAct(el);
       return can('meetings');
@@ -7741,6 +9411,7 @@ window.ChurchPM = window.ChurchPM || {};
   }
   const actions = {
     ...NS.Meetings.actions,
+    ...NS.WorshipUI.actions,
     'view-as': () => F.viewAsPicker(),
     search: () => NS.Search.open(),
     'notif-menu': (el) => NS.Notify.openPanel(el),
@@ -7901,7 +9572,7 @@ window.ChurchPM = window.ChurchPM || {};
       if (e.key === 'Escape' && UI.closePopover()) return;
       if (e.key === 'Escape' && UI.closeTopModal()) return;
       const el = e.target;
-      if ((e.key === 'Enter' || e.key === ' ') && el.matches && el.matches('.row[data-action], .mcard[data-action], .item[data-action], .kcard[data-action], .day[data-action], .person-cell[data-action], label[for=import-file]')) { e.preventDefault(); el.click(); }
+      if ((e.key === 'Enter' || e.key === ' ') && el.matches && el.matches('.row[data-action], .mcard[data-action], .item[data-action], .kcard[data-action], .day[data-action], .person-cell[data-action], .nrow[data-action], .so-main[data-action], label[for=import-file]')) { e.preventDefault(); el.click(); }
       if (e.key === 'Enter' && !e.shiftKey && el.id === 'rec-note') { e.preventDefault(); const b = document.querySelector('[data-action=rec-add-note]'); if (b) b.click(); return; }
       if (e.target.matches && e.target.matches('input, textarea, select')) return;
       if (!document.querySelector('.modal')) {
@@ -7970,6 +9641,7 @@ window.ChurchPM = window.ChurchPM || {};
         reader.readAsText(t.files[0]);
       }
     });
+    NS.WorshipUI.bind(set);
     window.addEventListener('hashchange', () => { UI.closeAllModals(); render(); window.scrollTo(0, 0); });
   }
 
