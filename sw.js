@@ -1,5 +1,5 @@
 /* Planner service worker — offline start + fast loads. Version changes on every build. */
-const CACHE = 'planner-9df4c36b3f';
+const CACHE = 'planner-1e70ba4745';
 const CORE = ['./', 'index.html', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/icon-maskable-512.png', 'icons/apple-touch-icon.png'];
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(CORE)).then(() => self.skipWaiting()));
